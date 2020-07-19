@@ -2,6 +2,9 @@ package net.aerulion.nucleus;
 
 import net.aerulion.nucleus.api.chat.ChatUtils;
 import net.aerulion.nucleus.api.console.ConsoleUtils;
+import net.aerulion.nucleus.util.FileManager;
+import net.aerulion.nucleus.util.HikariDataSourceManager;
+import net.aerulion.nucleus.util.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,16 +16,21 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
 
     @Override
     public void onEnable() {
+        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_ENABLING.get());
         plugin = this;
-        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_ENABLING);
         getCommand("nucleus").setExecutor(this);
-        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_PLUGIN_ENABLED);
+        if (!FileManager.setDefaultMySQLConfig())
+            ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_ERROR_DEFAULT_MYSQL_CONFIG.get());
+        FileManager.loadMySQLConfig();
+        HikariDataSourceManager.connectToDatabase();
+        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_PLUGIN_ENABLED.get());
     }
 
     @Override
     public void onDisable() {
-        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_DISABLING);
-        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_PLUGIN_DISABLED);
+        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_DISABLING.get());
+        HikariDataSourceManager.hikariDataSource.close();
+        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_PLUGIN_DISABLED.get());
     }
 
     @Override

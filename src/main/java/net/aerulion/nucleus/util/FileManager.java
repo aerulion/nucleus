@@ -1,0 +1,36 @@
+package net.aerulion.nucleus.util;
+
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.io.File;
+import java.io.IOException;
+
+public class FileManager {
+    public static boolean setDefaultMySQLConfig() {
+        try {
+            File file = new File("plugins/Nucleus", "mysql_config.yml");
+            FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
+            fileConfiguration.options().copyDefaults(true);
+            fileConfiguration.addDefault("HOST", "localhost");
+            fileConfiguration.addDefault("PORT", "3306");
+            fileConfiguration.addDefault("DATABASE", "minecraft");
+            fileConfiguration.addDefault("USER", "minecraft");
+            fileConfiguration.addDefault("PASSWORD", "pwd");
+            fileConfiguration.save(file);
+            return true;
+        } catch (IOException exception) {
+            return false;
+        }
+    }
+
+    public static void loadMySQLConfig() {
+        File file = new File("plugins/Nucleus", "mysql_config.yml");
+        FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
+        HikariDataSourceManager.serverName = fileConfiguration.getString("HOST");
+        HikariDataSourceManager.port = fileConfiguration.getString("PORT");
+        HikariDataSourceManager.databaseName = fileConfiguration.getString("DATABASE");
+        HikariDataSourceManager.user = fileConfiguration.getString("USER");
+        HikariDataSourceManager.password = fileConfiguration.getString("PASSWORD");
+    }
+}

@@ -1,6 +1,6 @@
 name: Nucleus
 main: net.aerulion.nucleus.Main
-version: 1.1
+version: 1.2
 author: aerulion
 api-version: 1.15
 commands:
