@@ -9,8 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 
 public class ItemUtils {
-    public static ItemStack buildItemStack(Material material, String displayName, List<String> loreList, boolean enchanted) {
-        ItemStack itemStack = new ItemStack(material);
+    public static ItemStack buildItemStack(ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(displayName);
         itemMeta.setLore(loreList);
@@ -20,5 +19,9 @@ public class ItemUtils {
         }
         itemStack.setItemMeta(itemMeta);
         return itemStack;
+    }
+
+    public static ItemStack buildItemStack(Material material, String displayName, List<String> loreList, boolean enchanted) {
+        return buildItemStack(new ItemStack(material), displayName, loreList, enchanted);
     }
 }
