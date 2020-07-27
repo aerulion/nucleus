@@ -28,6 +28,7 @@ public class HikariDataSourceManager {
         hikariDataSource.addDataSourceProperty("user", user);
         hikariDataSource.addDataSourceProperty("password", password);
         hikariDataSource.addDataSourceProperty("useSSL", false);
+        hikariDataSource.addDataSourceProperty("useAffectedRows", true);
         hikariDataSource.addDataSourceProperty("cachePrepStmts", true);
         hikariDataSource.addDataSourceProperty("prepStmtCacheSize", "250");
         hikariDataSource.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
