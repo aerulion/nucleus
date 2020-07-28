@@ -23,16 +23,24 @@ public class SkullUtils {
     }
 
     public static ItemStack getSkull(String skinURL) {
-        return getSkull(skinURL, 1);
+        return getSkull(skinURL, UUID.randomUUID(), 1);
     }
 
     public static ItemStack getSkull(String skinURL, int amount) {
+        return getSkull(skinURL, UUID.randomUUID(), amount);
+    }
+
+    public static ItemStack getSkull(String skinURL, UUID uuid) {
+        return getSkull(skinURL, uuid, 1);
+    }
+
+    public static ItemStack getSkull(String skinURL, UUID uuid, int amount) {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD, amount);
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
         try {
             Field profileField = skullMetaClass.getDeclaredField("profile");
             profileField.setAccessible(true);
-            profileField.set(meta, getProfile(skinURL));
+            profileField.set(meta, getProfile(skinURL, uuid));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -40,8 +48,8 @@ public class SkullUtils {
         return skull;
     }
 
-    private static GameProfile getProfile(String skinURL) {
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+    private static GameProfile getProfile(String skinURL, UUID uuid) {
+        GameProfile profile = new GameProfile(uuid, null);
         String base64encoded = DatatypeConverter.printBase64Binary(("{textures:{SKIN:{url:\"" + skinURL + "\"}}}").getBytes());
         Property property = new Property("textures", base64encoded);
         profile.getProperties().put("textures", property);
