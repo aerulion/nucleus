@@ -32,6 +32,7 @@ public class StringUtils {
         centerSpaces.put(3, " ");
         centerSpaces.put(2, " ");
         centerSpaces.put(1, " ");
+        centerSpaces.put(0, "");
     }
 
     private static String getSpaces(int width) {
@@ -42,14 +43,14 @@ public class StringUtils {
         return centerSpaces.get(l) + getSpaces(width - l);
     }
 
-    public static String generateCenteredString(String message, CenterPixel centerPixel) {
+    public static int getPixelLength(String string) {
         final String validColorCodes = "0123456789aAbBcCdDeEfFkKlLmMnNoOrR";
         final String formattingCodes = "kKmMnNoO";
-        int messagePxLength = 0;
+        int stringPixelLength = 0;
         boolean colorCode = false;
         boolean isBold = false;
 
-        for (char c : message.toCharArray()) {
+        for (char c : string.toCharArray()) {
             if (c == '§') {
                 colorCode = true;
             } else if (colorCode && (validColorCodes.indexOf(c) != -1)) {
@@ -61,14 +62,21 @@ public class StringUtils {
             } else {
                 colorCode = false;
                 FontInfo fontInfo = FontInfo.getFontInfo(c);
-                messagePxLength += fontInfo.getLength(isBold);
-                messagePxLength++;
+                stringPixelLength += fontInfo.getLength(isBold);
+                stringPixelLength++;
             }
         }
+        return stringPixelLength;
+    }
 
-        int halvedMessageSize = messagePxLength / 2;
-        int toCompensate = centerPixel.getCenterPx() - halvedMessageSize;
-        return getSpaces(toCompensate) + message;
+    public static String generateCenteredString(String string, int centerPixel) {
+        int halvedMessageSize = (int) Math.round(getPixelLength(string) / 2D);
+        int toCompensate = centerPixel - halvedMessageSize;
+        return getSpaces(toCompensate) + string;
+    }
+
+    public static String generateCenteredString(String string, CenterPixel centerPixel) {
+        return generateCenteredString(string, centerPixel.getCenterPx());
     }
 
     public static String generateFullWidthLine(CenterPixel centerPixel) {
