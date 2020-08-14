@@ -4,8 +4,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -48,5 +52,22 @@ public class Base64Utils {
         for (String string : stringList)
             output.add(decodeItemStack(string));
         return output;
+    }
+
+    public static String encodeBufferedImage(BufferedImage bufferedImage, final String formatName) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, formatName, Base64.getEncoder().wrap(byteArrayOutputStream));
+        return byteArrayOutputStream.toString(StandardCharsets.ISO_8859_1.name());
+    }
+
+    public static BufferedImage decodeBufferedImage(String image) throws IOException {
+        BufferedImage bufferedImage;
+        bufferedImage = ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(image)));
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+        int[] pixels = bufferedImage.getRGB(0, 0, width, height, null, 0, width);
+        BufferedImage copy = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        copy.setRGB(0, 0, width, height, pixels, 0, width);
+        return copy;
     }
 }
