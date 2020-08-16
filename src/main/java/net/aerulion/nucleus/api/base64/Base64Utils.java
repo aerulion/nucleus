@@ -63,11 +63,6 @@ public class Base64Utils {
     public static BufferedImage decodeBufferedImage(String image) throws IOException {
         BufferedImage bufferedImage;
         bufferedImage = ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(image)));
-        int width = bufferedImage.getWidth();
-        int height = bufferedImage.getHeight();
-        int[] pixels = bufferedImage.getRGB(0, 0, width, height, null, 0, width);
-        BufferedImage copy = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        copy.setRGB(0, 0, width, height, pixels, 0, width);
-        return copy;
+        return bufferedImage;
     }
 }
