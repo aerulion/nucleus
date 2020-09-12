@@ -27,7 +27,7 @@ public class ItemUtils {
         return buildItemStack(new ItemStack(material), displayName, loreList, enchanted);
     }
 
-    public static ItemStack buildGuiButton(Material material, String displayName, List<String> loreList, boolean enchanted, int padding) {
+    public static ItemStack buildGuiButton(ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted, int padding) {
         int pixelLength = StringUtils.getPixelLength(displayName);
         for (String string : loreList) {
             int length = StringUtils.getPixelLength(string);
@@ -44,6 +44,10 @@ public class ItemUtils {
                 formattedLore.add(StringUtils.generateCenteredString(string, (int) Math.round(pixelLength / 2D)) + org.apache.commons.lang.StringUtils.repeat("§r ", padding));
             }
         }
-        return buildItemStack(material, displayName, formattedLore, enchanted);
+        return buildItemStack(itemStack, displayName, formattedLore, enchanted);
+    }
+
+    public static ItemStack buildGuiButton(Material material, String displayName, List<String> loreList, boolean enchanted, int padding) {
+        return buildGuiButton(new ItemStack(material), displayName, loreList, enchanted, padding);
     }
 }

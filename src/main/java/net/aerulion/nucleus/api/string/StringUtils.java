@@ -44,12 +44,12 @@ public class StringUtils {
     }
 
     public static int getPixelLength(String string) {
-        final String validColorCodes = "0123456789aAbBcCdDeEfFkKlLmMnNoOrR";
+        final String validColorCodes = "0123456789aAbBcCdDeEfFkKlLmMnNoOrRxX";
         final String formattingCodes = "kKmMnNoO";
         int stringPixelLength = 0;
         boolean colorCode = false;
         boolean isBold = false;
-
+        string = string.replaceAll("§[xX]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]", "§x");
         for (char c : string.toCharArray()) {
             if (c == '§') {
                 colorCode = true;

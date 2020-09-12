@@ -1,8 +1,8 @@
 name: Nucleus
 main: net.aerulion.nucleus.Main
-version: 1.5
+version: '1.6'
 author: aerulion
-api-version: 1.16
+api-version: '1.16'
 commands:
   nucleus:
     description: Core command.

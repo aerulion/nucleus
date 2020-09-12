@@ -6,7 +6,7 @@
 
     <groupId>net.aerulion</groupId>
     <artifactId>nucleus</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
