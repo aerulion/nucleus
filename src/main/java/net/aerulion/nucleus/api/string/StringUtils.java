@@ -2,12 +2,12 @@ package net.aerulion.nucleus.api.string;
 
 import org.apache.commons.lang.WordUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TreeMap;
+import java.text.DecimalFormat;
+import java.util.*;
 
 public class StringUtils {
+
+    private final static DecimalFormat decimalFormat = (DecimalFormat) (DecimalFormat.getInstance(Locale.GERMAN));
 
     private final static TreeMap<Integer, String> romanNumbers = new TreeMap<>();
     private final static TreeMap<Integer, String> centerSpaces = new TreeMap<>();
@@ -100,5 +100,21 @@ public class StringUtils {
             return romanNumbers.get(number);
         }
         return romanNumbers.get(l) + getRomanNumber(number - l);
+    }
+
+    public static String formatNumber(int number) {
+        return decimalFormat.format(number);
+    }
+
+    public static String formatNumber(long number) {
+        return decimalFormat.format(number);
+    }
+
+    public static String formatNumber(float number) {
+        return decimalFormat.format(number);
+    }
+
+    public static String formatNumber(double number) {
+        return decimalFormat.format(number);
     }
 }
