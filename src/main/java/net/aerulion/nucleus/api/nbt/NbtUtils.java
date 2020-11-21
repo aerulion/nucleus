@@ -1,13 +1,13 @@
 package net.aerulion.nucleus.api.nbt;
 
 
-import net.minecraft.server.v1_16_R2.NBTTagCompound;
-import org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack;
+import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 public class NbtUtils {
     public static ItemStack setNBTString(ItemStack item, String key, String value) {
-        net.minecraft.server.v1_16_R2.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if (localNBTTagCompound == null)
             localNBTTagCompound = new NBTTagCompound();
@@ -17,7 +17,7 @@ public class NbtUtils {
     }
 
     public static String getNBTString(ItemStack item, String key) {
-        net.minecraft.server.v1_16_R2.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if ((localNBTTagCompound != null) && (localNBTTagCompound.hasKey(key)))
             return localNBTTagCompound.getString(key);
@@ -25,7 +25,7 @@ public class NbtUtils {
     }
 
     public static ItemStack setNBTInt(ItemStack item, String key, int value) {
-        net.minecraft.server.v1_16_R2.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if (localNBTTagCompound == null)
             localNBTTagCompound = new NBTTagCompound();
@@ -35,7 +35,7 @@ public class NbtUtils {
     }
 
     public static int getNBTInt(ItemStack item, String key) {
-        net.minecraft.server.v1_16_R2.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if ((localNBTTagCompound != null) && (localNBTTagCompound.hasKey(key)))
             return localNBTTagCompound.getInt(key);
@@ -43,7 +43,7 @@ public class NbtUtils {
     }
 
     public static ItemStack setNBTBoolean(ItemStack item, String key, boolean value) {
-        net.minecraft.server.v1_16_R2.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound NBTTagCompound = nmsItemStack.getTag();
         if (NBTTagCompound == null)
             NBTTagCompound = new NBTTagCompound();
@@ -53,7 +53,7 @@ public class NbtUtils {
     }
 
     public static boolean getNBTBoolean(ItemStack item, String key) {
-        net.minecraft.server.v1_16_R2.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(item);
         NBTTagCompound NBTTagCompound = nmsItemStack.getTag();
         return ((NBTTagCompound != null) && (NBTTagCompound.hasKey(key))) && NBTTagCompound.getBoolean(key);
     }
