@@ -37,9 +37,8 @@ public class StringUtils {
 
     private static String getSpaces(int width) {
         int l = centerSpaces.floorKey(width);
-        if (width == l) {
+        if (width == l)
             return centerSpaces.get(width);
-        }
         return centerSpaces.get(l) + getSpaces(width - l);
     }
 
@@ -72,6 +71,8 @@ public class StringUtils {
     public static String generateCenteredString(String string, int centerPixel) {
         int halvedMessageSize = (int) Math.round(getPixelLength(string) / 2D);
         int toCompensate = centerPixel - halvedMessageSize;
+        if (toCompensate < 5)
+            return string;
         return getSpaces(toCompensate) + string;
     }
 

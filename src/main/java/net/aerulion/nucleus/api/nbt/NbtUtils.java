@@ -1,6 +1,5 @@
 package net.aerulion.nucleus.api.nbt;
 
-
 import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;

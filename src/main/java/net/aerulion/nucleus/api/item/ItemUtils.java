@@ -13,11 +13,13 @@ import java.util.List;
 public class ItemUtils {
     public static ItemStack buildItemStack(ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted) {
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(displayName);
-        itemMeta.setLore(loreList);
-        if (enchanted) {
-            itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        if (itemMeta != null) {
+            itemMeta.setDisplayName(displayName);
+            itemMeta.setLore(loreList);
+            if (enchanted) {
+                itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
         }
         itemStack.setItemMeta(itemMeta);
         return itemStack;
