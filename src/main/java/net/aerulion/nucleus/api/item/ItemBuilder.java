@@ -87,18 +87,15 @@ public final class ItemBuilder {
     }
 
     public ItemBuilder withDisplayName(@Nullable Component name) {
-        withMetaValue(itemMeta -> itemMeta.displayName(name));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.displayName(name));
     }
 
     public ItemBuilder withLocalizedName(@Nullable String name) {
-        withMetaValue(itemMeta -> itemMeta.setLocalizedName(name));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.setLocalizedName(name));
     }
 
     public ItemBuilder withLore(@Nullable List<Component> lore) {
-        withMetaValue(itemMeta -> itemMeta.lore(lore));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.lore(lore));
     }
 
     public ItemBuilder withLore(Component... lore) {
@@ -106,43 +103,36 @@ public final class ItemBuilder {
     }
 
     public ItemBuilder withCustomModelData(@Nullable Integer data) {
-        withMetaValue(itemMeta -> itemMeta.setCustomModelData(data));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.setCustomModelData(data));
     }
 
     public ItemBuilder withItemFlags(@NotNull ItemFlag... itemFlags) {
-        withMetaValue(itemMeta -> itemMeta.addItemFlags(itemFlags));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.addItemFlags(itemFlags));
     }
 
     public ItemBuilder withUnbreakable(boolean unbreakable) {
-        withMetaValue(itemMeta -> itemMeta.setUnbreakable(unbreakable));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.setUnbreakable(unbreakable));
     }
 
     public ItemBuilder withAttributeModifier(@NotNull Attribute attribute, @NotNull AttributeModifier modifier) {
-        withMetaValue(itemMeta -> itemMeta.addAttributeModifier(attribute, modifier));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.addAttributeModifier(attribute, modifier));
     }
 
     public ItemBuilder withDurability(int damage) {
-        withMetaValue(itemMeta -> {
+        return withMetaValue(itemMeta -> {
             if (itemMeta instanceof Damageable)
                 ((Damageable) itemMeta).setDamage(damage);
         });
-        return this;
     }
 
     public ItemBuilder withDyeColor(Color color) {
-        withMetaValue(itemMeta -> {
+        return withMetaValue(itemMeta -> {
             if (itemMeta instanceof LeatherArmorMeta)
                 ((LeatherArmorMeta) itemMeta).setColor(org.bukkit.Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()));
         });
-        return this;
     }
 
     public ItemBuilder withNBTData(Consumer<@NotNull PersistentDataContainer> dataConsumer) {
-        withMetaValue(itemMeta -> dataConsumer.accept(itemMeta.getPersistentDataContainer()));
-        return this;
+        return withMetaValue(itemMeta -> dataConsumer.accept(itemMeta.getPersistentDataContainer()));
     }
 }

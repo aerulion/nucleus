@@ -121,8 +121,7 @@ public final class GuiButtonBuilder {
      * @return The GuiButtonBuilder instance
      */
     public GuiButtonBuilder withDisplayName(@Nullable Component name) {
-        withMetaValue(itemMeta -> itemMeta.displayName(name));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.displayName(name));
     }
 
     /**
@@ -133,8 +132,7 @@ public final class GuiButtonBuilder {
      * @return The GuiButtonBuilder instance
      */
     public GuiButtonBuilder withLore(@Nullable List<Component> lore) {
-        withMetaValue(itemMeta -> itemMeta.lore(lore));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.lore(lore));
     }
 
     /**
@@ -155,8 +153,7 @@ public final class GuiButtonBuilder {
      * @return The GuiButtonBuilder instance
      */
     public GuiButtonBuilder withCustomModelData(@Nullable Integer data) {
-        withMetaValue(itemMeta -> itemMeta.setCustomModelData(data));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.setCustomModelData(data));
     }
 
     /**
@@ -190,13 +187,10 @@ public final class GuiButtonBuilder {
      * @return The GuiButtonBuilder instance
      */
     public GuiButtonBuilder withGlow() {
-        withMetaValue(itemMeta -> itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true));
-        withMetaValue(itemMeta -> itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true)).withMetaValue(itemMeta -> itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS));
     }
 
     public GuiButtonBuilder withHideAttributes() {
-        withMetaValue(itemMeta -> itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES));
-        return this;
+        return withMetaValue(itemMeta -> itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES));
     }
 }
