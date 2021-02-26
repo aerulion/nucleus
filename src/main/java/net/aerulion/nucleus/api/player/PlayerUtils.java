@@ -1,16 +1,29 @@
 package net.aerulion.nucleus.api.player;
 
+import lombok.experimental.UtilityClass;
 import net.aerulion.nucleus.exeptions.NotEnoughItemsException;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PlayerUtils {
+/**
+ * A utility class for player related stuff
+ */
+@UtilityClass
+public final class PlayerUtils {
 
-    public static boolean giveItemOrDrop(Player player, ItemStack itemStack) {
+    /**
+     * Tries to add the given items to the players inventory, otherwise drops them on the ground
+     *
+     * @param player    The receiving player
+     * @param itemStack The ItemStack to be given
+     * @return true if items has been dropped
+     */
+    public static boolean giveItemOrDrop(@NotNull Player player, @NotNull ItemStack itemStack) {
         HashMap<Integer, ItemStack> remainingItems = player.getInventory().addItem(itemStack);
         if (!remainingItems.isEmpty()) {
             for (ItemStack drop : remainingItems.values())
@@ -20,26 +33,34 @@ public class PlayerUtils {
         return false;
     }
 
-    public static void takeItems(final Player PLAYER, final ItemStack ITEM, final int AMOUNT) throws NotEnoughItemsException {
+    /**
+     * Tries to withdraw the specified item and amount from the players inventory
+     *
+     * @param player    The specified player
+     * @param itemStack The item to be withdrawn
+     * @param amount    The amount to be withdrawn
+     * @throws NotEnoughItemsException if the player doesn't have enough item in his inventory
+     */
+    public static void takeItems(Player player, ItemStack itemStack, int amount) throws NotEnoughItemsException {
         List<ItemStack> items = new ArrayList<>();
         int itemAmount = 0;
-        for (ItemStack itemStack : PLAYER.getInventory()) {
-            if (itemStack != null) {
-                if (ITEM.isSimilar(itemStack)) {
-                    items.add(itemStack);
-                    itemAmount += itemStack.getAmount();
-                    if (itemAmount >= AMOUNT)
+        for (ItemStack stack : player.getInventory()) {
+            if (stack != null) {
+                if (itemStack.isSimilar(stack)) {
+                    items.add(stack);
+                    itemAmount += stack.getAmount();
+                    if (itemAmount >= amount)
                         break;
                 }
             }
         }
-        if (itemAmount >= AMOUNT) {
+        if (itemAmount >= amount) {
             itemAmount = 0;
-            for (ItemStack itemStack : items) {
-                if (itemAmount < AMOUNT) {
-                    int amount = itemAmount + itemStack.getAmount() <= AMOUNT ? itemStack.getAmount() : (AMOUNT - itemAmount);
-                    itemStack.setAmount(itemStack.getAmount() - amount);
-                    itemAmount += amount;
+            for (ItemStack stack : items) {
+                if (itemAmount < amount) {
+                    int amount2 = itemAmount + stack.getAmount() <= amount ? stack.getAmount() : (amount - itemAmount);
+                    stack.setAmount(stack.getAmount() - amount2);
+                    itemAmount += amount2;
                 }
             }
         } else

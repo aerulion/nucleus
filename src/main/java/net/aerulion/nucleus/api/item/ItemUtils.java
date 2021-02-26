@@ -10,7 +10,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * These methods are deprecated and will be removed in an future release.
+ */
 public class ItemUtils {
+    @Deprecated
     public static ItemStack buildItemStack(ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta != null) {
@@ -25,10 +29,12 @@ public class ItemUtils {
         return itemStack;
     }
 
+    @Deprecated
     public static ItemStack buildItemStack(Material material, String displayName, List<String> loreList, boolean enchanted) {
         return buildItemStack(new ItemStack(material), displayName, loreList, enchanted);
     }
 
+    @Deprecated
     public static ItemStack buildGuiButton(ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted, int padding) {
         int pixelLength = StringUtils.getPixelLength(displayName);
         for (String string : loreList) {
@@ -49,6 +55,7 @@ public class ItemUtils {
         return buildItemStack(itemStack, displayName, formattedLore, enchanted);
     }
 
+    @Deprecated
     public static ItemStack buildGuiButton(Material material, String displayName, List<String> loreList, boolean enchanted, int padding) {
         return buildGuiButton(new ItemStack(material), displayName, loreList, enchanted, padding);
     }

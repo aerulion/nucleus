@@ -1,9 +1,20 @@
 package net.aerulion.nucleus.api.experience;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 
-public class ExperienceUtils {
+/**
+ * A utility class for handling experience
+ */
+@UtilityClass
+public final class ExperienceUtils {
 
+    /**
+     * Gets the total experience needed to reach the specified level
+     *
+     * @param level The level to reach
+     * @return The amount of experience points needed to reach the specified level
+     */
     public static int getTotalExperience(int level) {
         int xp = 0;
         if (level >= 0 && level <= 15)
@@ -15,10 +26,22 @@ public class ExperienceUtils {
         return xp;
     }
 
+    /**
+     * Gets the total experience of an player
+     *
+     * @param player The player to check
+     * @return The total amount of experience points of the given player
+     */
     public static int getTotalExperience(Player player) {
         return Math.round(player.getExp() * player.getExpToLevel()) + getTotalExperience(player.getLevel());
     }
 
+    /**
+     * Calculates the level equivalent of the given amount of experience points
+     *
+     * @param amount The amount of experience points
+     * @return The reachable level with the given amount of experience points
+     */
     public static int getLevelEquivalent(int amount) {
         float a = 0;
         float b = 0;
@@ -38,6 +61,12 @@ public class ExperienceUtils {
         return (int) Math.floor((-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a));
     }
 
+    /**
+     * Sets the total experience of an player
+     *
+     * @param player The specified player
+     * @param amount The amount of experience points
+     */
     public static void setTotalExperience(Player player, int amount) {
         int level = getLevelEquivalent(amount);
         int xp = amount - getTotalExperience(level);

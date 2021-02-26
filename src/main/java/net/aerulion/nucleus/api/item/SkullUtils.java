@@ -8,19 +8,12 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.xml.bind.DatatypeConverter;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Base64;
 import java.util.UUID;
 
 public class SkullUtils {
-    private static Class<?> skullMetaClass;
-
-    static {
-        String version = org.bukkit.Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        try {
-            skullMetaClass = Class.forName("org.bukkit.craftbukkit." + version + ".inventory.CraftMetaSkull");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static ItemStack getSkull(String skinURL) {
         return getSkull(skinURL, UUID.randomUUID(), 1);
@@ -35,24 +28,21 @@ public class SkullUtils {
     }
 
     public static ItemStack getSkull(String skinURL, UUID uuid, int amount) {
-        ItemStack skull = new ItemStack(Material.PLAYER_HEAD, amount);
-        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+        ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
+        if (skinURL.isEmpty()) return itemStack;
+        SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+        if (skullMeta == null) return itemStack;
+        GameProfile profile = new GameProfile(uuid, null);
+        profile.getProperties().put("textures", new Property("textures", Base64.getEncoder().encodeToString(("{textures:{SKIN:{url:\"" + skinURL + "\"}}}").getBytes())));
         try {
-            Field profileField = skullMetaClass.getDeclaredField("profile");
-            profileField.setAccessible(true);
-            profileField.set(meta, getProfile(skinURL, uuid));
-        } catch (Exception ex) {
+            Method method = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
+            method.setAccessible(true);
+            method.invoke(skullMeta, profile);
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
             ex.printStackTrace();
         }
-        skull.setItemMeta(meta);
-        return skull;
-    }
-
-    private static GameProfile getProfile(String skinURL, UUID uuid) {
-        GameProfile profile = new GameProfile(uuid, null);
-        String base64encoded = DatatypeConverter.printBase64Binary(("{textures:{SKIN:{url:\"" + skinURL + "\"}}}").getBytes());
-        Property property = new Property("textures", base64encoded);
-        profile.getProperties().put("textures", property);
-        return profile;
+        itemStack.setItemMeta(skullMeta);
+        itemStack.setAmount(amount);
+        return itemStack;
     }
 }

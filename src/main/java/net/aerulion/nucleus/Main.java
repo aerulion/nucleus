@@ -5,6 +5,9 @@ import net.aerulion.nucleus.api.console.ConsoleUtils;
 import net.aerulion.nucleus.util.FileManager;
 import net.aerulion.nucleus.util.HikariDataSourceManager;
 import net.aerulion.nucleus.util.Messages;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,12 +37,12 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-        ChatUtils.sendChatDividingLine(commandSender, "§7");
+        ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
         commandSender.sendMessage("");
-        ChatUtils.sendCenteredChatMessage(commandSender, "§b§lNucleus§7 v" + getDescription().getVersion());
-        ChatUtils.sendCenteredChatMessage(commandSender, "§7by aerulion");
+        ChatUtils.sendCenteredChatMessage(commandSender, Component.text("Nucleus").color(NamedTextColor.AQUA).decorate(TextDecoration.BOLD).append(Component.text(" v" + getDescription().getVersion()).color(NamedTextColor.GRAY)));
+        ChatUtils.sendCenteredChatMessage(commandSender, Component.text("by aerulion").color(NamedTextColor.GRAY));
         commandSender.sendMessage("");
-        ChatUtils.sendChatDividingLine(commandSender, "§7");
+        ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
         return true;
     }
 }
