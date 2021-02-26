@@ -2,6 +2,7 @@ package net.aerulion.nucleus.util;
 
 import com.zaxxer.hikari.HikariDataSource;
 import net.aerulion.nucleus.api.console.ConsoleUtils;
+import net.kyori.adventure.text.TextReplacementConfig;
 
 public class HikariDataSourceManager {
 
@@ -32,6 +33,6 @@ public class HikariDataSourceManager {
         hikariDataSource.addDataSourceProperty("cachePrepStmts", true);
         hikariDataSource.addDataSourceProperty("prepStmtCacheSize", "250");
         hikariDataSource.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_CONNECTION_POOL_INITIALIZED.get() + (System.currentTimeMillis() - start) + "ms");
+        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_CONNECTION_POOL_INITIALIZED.get().replaceText(TextReplacementConfig.builder().replacement(String.valueOf(System.currentTimeMillis() - start)).match("%timestamp%").build()));
     }
 }
