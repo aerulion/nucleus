@@ -15,6 +15,21 @@ import java.util.HashMap;
 public final class NbtUtils {
 
     /**
+     * Removes the NBT tag associated with the given key
+     *
+     * @param itemStack The original ItemStack
+     * @param key       The key of the NBT tag
+     * @return The ItemStack with the NBT tag removed
+     */
+    public static ItemStack removeTag(@NotNull ItemStack itemStack, @NotNull String key) {
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        NBTTagCompound localNBTTagCompound = nmsItemStack.getOrCreateTag();
+        localNBTTagCompound.remove(key);
+        nmsItemStack.setTag(localNBTTagCompound);
+        return CraftItemStack.asBukkitCopy(nmsItemStack);
+    }
+
+    /**
      * Adds an NBT tag to the given ItemStack
      *
      * @param itemStack The original ItemStack
