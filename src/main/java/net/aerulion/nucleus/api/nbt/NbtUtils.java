@@ -155,4 +155,25 @@ public final class NbtUtils {
         }
         return null;
     }
+
+    /**
+     * Copys the nbt compound associated with the key from one ItemStack to another
+     *
+     * @param from the ItemStack to copy from
+     * @param to   the ItemStack to copy to
+     * @param key  the specified key
+     * @return the 'to' ItemStack with the new tag applied, if it existed
+     */
+    public static @NotNull ItemStack copyNBTTag(@NotNull ItemStack from, @NotNull ItemStack to, @NotNull String key) {
+        net.minecraft.server.v1_16_R3.ItemStack nmsFrom = CraftItemStack.asNMSCopy(from);
+        net.minecraft.server.v1_16_R3.ItemStack nmsTo = CraftItemStack.asNMSCopy(to);
+        NBTTagCompound fromTagCompound = nmsFrom.getTag();
+        NBTTagCompound toTagCompound = nmsTo.getOrCreateTag();
+        if (fromTagCompound != null && fromTagCompound.hasKey(key)) {
+            toTagCompound.set(key, fromTagCompound.get(key));
+            nmsTo.setTag(toTagCompound);
+            return CraftItemStack.asBukkitCopy(nmsTo);
+        }
+        return to;
+    }
 }
