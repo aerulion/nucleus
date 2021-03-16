@@ -42,6 +42,16 @@ public final class ColorUtils {
                 return !chatColor.isFormat();
             }
         }
+        return isValidHEXColor(color);
+    }
+
+    /**
+     * Checks whether the given string is an valid hex color code
+     *
+     * @param color The string to be checked
+     * @return true if valid, false if invalid
+     */
+    public static boolean isValidHEXColor(@NotNull String color) {
         return color.length() == 7 && color.matches("^#([A-Fa-f0-9]{6})$");
     }
 }
