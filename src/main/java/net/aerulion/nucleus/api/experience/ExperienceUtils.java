@@ -18,11 +18,11 @@ public final class ExperienceUtils {
     public static int getTotalExperience(int level) {
         int xp = 0;
         if (level >= 0 && level <= 15)
-            xp = Math.toIntExact(Math.round(Math.pow(level, 2) + 6 * level));
+            xp = (int) Math.ceil(Math.pow(level, 2D) + 6 * level);
         else if (level > 15 && level <= 30)
-            xp = Math.toIntExact(Math.round((2.5 * Math.pow(level, 2) - 40.5 * level + 360)));
+            xp = (int) Math.ceil((2.5 * Math.pow(level, 2D) - 40.5 * level + 360));
         else if (level > 30)
-            xp = Math.toIntExact(Math.round(((4.5 * Math.pow(level, 2) - 162.5 * level + 2220))));
+            xp = (int) Math.ceil(((4.5 * Math.pow(level, 2D) - 162.5 * level + 2220)));
         return xp;
     }
 
@@ -33,7 +33,7 @@ public final class ExperienceUtils {
      * @return The total amount of experience points of the given player
      */
     public static int getTotalExperience(Player player) {
-        return Math.round(player.getExp() * player.getExpToLevel()) + getTotalExperience(player.getLevel());
+        return (int) (Math.ceil(player.getExp() * player.getExpToLevel()) + getTotalExperience(player.getLevel()));
     }
 
     /**
