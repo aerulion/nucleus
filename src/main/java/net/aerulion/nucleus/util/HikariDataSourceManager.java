@@ -22,10 +22,7 @@ public class HikariDataSourceManager {
         hikariDataSource.setConnectionTimeout(5000L);
         hikariDataSource.setValidationTimeout(2000L);
         hikariDataSource.setPoolName("NucleusConnectionPool");
-        hikariDataSource.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
-        hikariDataSource.addDataSourceProperty("serverName", serverName);
-        hikariDataSource.addDataSourceProperty("port", port);
-        hikariDataSource.addDataSourceProperty("databaseName", databaseName);
+        hikariDataSource.setJdbcUrl("jdbc:mysql://" + serverName + ":" + port + "/" + databaseName);
         hikariDataSource.addDataSourceProperty("user", user);
         hikariDataSource.addDataSourceProperty("password", password);
         hikariDataSource.addDataSourceProperty("useSSL", false);
