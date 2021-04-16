@@ -1,10 +1,11 @@
 package net.aerulion.nucleus;
 
 import net.aerulion.nucleus.api.chat.ChatUtils;
-import net.aerulion.nucleus.api.console.ConsoleUtils;
+import net.aerulion.nucleus.api.color.Color;
 import net.aerulion.nucleus.util.FileManager;
 import net.aerulion.nucleus.util.HikariDataSourceManager;
-import net.aerulion.nucleus.util.Messages;
+import net.aerulion.nucleus.util.Message;
+import net.aerulion.nucleus.util.messaging.MessagingManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -13,34 +14,43 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
     public static Main plugin;
+    public static MessagingManager messagingManager;
 
     @Override
     public void onEnable() {
-        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_ENABLING.get());
         plugin = this;
+        messagingManager = new MessagingManager();
+        Message.ENABLING_PLUGIN.console();
         PluginCommand pluginCommand = getCommand("nucleus");
         if (pluginCommand != null)
             pluginCommand.setExecutor(this);
         if (!FileManager.setDefaultMySQLConfig())
-            ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_ERROR_DEFAULT_MYSQL_CONFIG.get());
+            Message.ERROR_DEFAULT_MYSQL_CONFIG.console();
         FileManager.loadMySQLConfig();
         HikariDataSourceManager.connectToDatabase();
-        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_PLUGIN_ENABLED.get());
+        Message.PLUGIN_ENABLED.console();
     }
 
     @Override
     public void onDisable() {
-        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_DISABLING.get());
+        Message.DISABLING_PLUGIN.console();
         HikariDataSourceManager.hikariDataSource.close();
-        ConsoleUtils.sendColoredConsoleMessage(Messages.CONSOLE_PLUGIN_DISABLED.get());
+        Message.PLUGIN_DISABLED.console();
     }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
         ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
         commandSender.sendMessage("");
-        ChatUtils.sendCenteredChatMessage(commandSender, Component.text("Nucleus").color(NamedTextColor.AQUA).decorate(TextDecoration.BOLD).append(Component.text(" v" + getDescription().getVersion()).color(NamedTextColor.GRAY)));
-        ChatUtils.sendCenteredChatMessage(commandSender, Component.text("by aerulion").color(NamedTextColor.GRAY));
+        ChatUtils.sendCenteredChatMessage(commandSender,
+                Component.text("\uD83D\uDD25 ")
+                        .color(Color.NUCLEUS_PRIMARY)
+                        .append(Component.text("Nucleus")
+                                .decorate(TextDecoration.BOLD))
+                        .append(Component.text(" v" + getDescription().getVersion())
+                                .color(Color.TEXT)
+                                .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+        ChatUtils.sendCenteredChatMessage(commandSender, Component.text("by aerulion").color(Color.TEXT));
         commandSender.sendMessage("");
         ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
         return true;

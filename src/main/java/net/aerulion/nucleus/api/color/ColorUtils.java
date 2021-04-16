@@ -4,7 +4,6 @@ import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -24,7 +23,7 @@ public final class ColorUtils {
             if (color.length() == 2)
                 return Objects.requireNonNull(org.bukkit.ChatColor.getByChar(color.substring(1))).asBungee();
             if (color.length() == 7)
-                return ChatColor.of(Color.decode(color));
+                return ChatColor.of(java.awt.Color.decode(color));
         }
         return ChatColor.RESET;
     }
