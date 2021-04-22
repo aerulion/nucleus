@@ -15,7 +15,7 @@ import java.util.List;
 public class MessagingManager extends BukkitRunnable {
 
     private final List<BossBarMessage> bossBarMessages = new ArrayList<>();
-    private final HashMap<NamespacedKey, KeyedBossBarMessage> keyedBossBarMessages = new HashMap<>();
+    private final HashMap<Audience, HashMap<NamespacedKey, KeyedBossBarMessage>> keyedBossBarMessages = new HashMap<>();
 
     public MessagingManager() {
         this.runTaskTimer(Main.plugin, 20L, 20L);
@@ -24,11 +24,13 @@ public class MessagingManager extends BukkitRunnable {
     private void bossBarMessage(BossBarMessage bossBarMessage) {
         if (bossBarMessage instanceof KeyedBossBarMessage) {
             KeyedBossBarMessage keyedBossBarMessage = (KeyedBossBarMessage) bossBarMessage;
-            if (keyedBossBarMessages.containsKey(keyedBossBarMessage.getKey()))
-                keyedBossBarMessages.get(keyedBossBarMessage.getKey()).reset(keyedBossBarMessage.getMessage());
+            HashMap<NamespacedKey, KeyedBossBarMessage> audienceMap = keyedBossBarMessages.getOrDefault(keyedBossBarMessage.getRecipient(), new HashMap<>());
+            if (audienceMap.containsKey(keyedBossBarMessage.getKey()))
+                audienceMap.get(keyedBossBarMessage.getKey()).reset(keyedBossBarMessage.getMessage());
             else {
-                keyedBossBarMessages.put(keyedBossBarMessage.getKey(), keyedBossBarMessage);
+                audienceMap.put(keyedBossBarMessage.getKey(), keyedBossBarMessage);
                 keyedBossBarMessage.show();
+                keyedBossBarMessages.put(keyedBossBarMessage.getRecipient(), audienceMap);
             }
         } else {
             bossBarMessages.add(bossBarMessage);
@@ -55,8 +57,8 @@ public class MessagingManager extends BukkitRunnable {
     @Override
     public void run() {
         bossBarMessages.removeIf(BossBarMessage::isInvalid);
-        keyedBossBarMessages.values().removeIf(KeyedBossBarMessage::isInvalid);
+        keyedBossBarMessages.values().forEach(audienceMap -> audienceMap.values().removeIf(KeyedBossBarMessage::isInvalid));
         bossBarMessages.forEach(BossBarMessage::tickDown);
-        keyedBossBarMessages.values().forEach(KeyedBossBarMessage::tickDown);
+        keyedBossBarMessages.values().forEach(audienceMap -> audienceMap.values().forEach(KeyedBossBarMessage::tickDown));
     }
 }
