@@ -3,6 +3,7 @@ package net.aerulion.nucleus;
 import net.aerulion.nucleus.api.chat.ChatUtils;
 import net.aerulion.nucleus.api.color.Color;
 import net.aerulion.nucleus.util.FileManager;
+import net.aerulion.nucleus.util.GuiHandler;
 import net.aerulion.nucleus.util.HikariDataSourceManager;
 import net.aerulion.nucleus.util.Message;
 import net.aerulion.nucleus.util.messaging.MessagingManager;
@@ -15,11 +16,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
     public static Main plugin;
     public static MessagingManager messagingManager;
+    public static GuiHandler guiHandler;
 
     @Override
     public void onEnable() {
         plugin = this;
         messagingManager = new MessagingManager();
+        guiHandler = new GuiHandler();
         Message.ENABLING_PLUGIN.console();
         PluginCommand pluginCommand = getCommand("nucleus");
         if (pluginCommand != null)
@@ -28,6 +31,7 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
             Message.ERROR_DEFAULT_MYSQL_CONFIG.console();
         FileManager.loadMySQLConfig();
         HikariDataSourceManager.connectToDatabase();
+        getServer().getPluginManager().registerEvents(guiHandler, this);
         Message.PLUGIN_ENABLED.console();
     }
 
