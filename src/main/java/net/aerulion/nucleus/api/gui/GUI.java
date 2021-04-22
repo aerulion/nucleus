@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public abstract class GUI implements InventoryHolder {
 
-    protected Player player;
+    protected final Player player;
     protected final Inventory inventory;
     protected final ItemStack spacer = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).withDisplayName(Component.empty()).build();
 
