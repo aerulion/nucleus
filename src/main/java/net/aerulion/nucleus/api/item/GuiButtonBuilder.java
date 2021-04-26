@@ -98,6 +98,7 @@ public final class GuiButtonBuilder {
                     formattedLore.add(ComponentUtils.generateCenteredComponent(Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).append(component), (int) Math.round(pixelLength / 2D)).append(Component.text(org.apache.commons.lang.StringUtils.repeat("§r ", padding))));
             }
             itemMeta.lore(formattedLore);
+            itemMeta.addItemFlags(ItemFlag.values());
             itemStack.setItemMeta(itemMeta);
         }
         return itemStack;
@@ -187,7 +188,7 @@ public final class GuiButtonBuilder {
      * @return The GuiButtonBuilder instance
      */
     public GuiButtonBuilder withGlow() {
-        return withMetaValue(itemMeta -> itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true)).withMetaValue(itemMeta -> itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS));
+        return withMetaValue(itemMeta -> itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true));
     }
 
     public GuiButtonBuilder withHideAttributes() {
