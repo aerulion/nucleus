@@ -2,8 +2,10 @@ package net.aerulion.nucleus.api.component;
 
 import lombok.experimental.UtilityClass;
 import net.aerulion.nucleus.api.string.CenterPixel;
+import net.aerulion.nucleus.api.string.FontInfo;
 import net.aerulion.nucleus.api.string.StringUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 /**
@@ -36,5 +38,23 @@ public final class ComponentUtils {
      */
     public static Component generateCenteredComponent(Component component, CenterPixel centerPixel) {
         return generateCenteredComponent(component, centerPixel.getCenterPx());
+    }
+
+    /**
+     * Generate a progress bar component using the pipe '|' char
+     *
+     * @param pixelWidth      the desired pixel width of the generated progress bar
+     * @param progress        the percentage that should be filled
+     * @param fillColor       the color for the filled part of the progress bar
+     * @param backgroundColor the color for the non-filled part of the progress bar
+     * @return the generated progress bar component
+     */
+    public static Component generateProgressBar(int pixelWidth, float progress, TextColor fillColor, TextColor backgroundColor) {
+        int width = pixelWidth / FontInfo.getFontInfo('|').getLength(false);
+        int filledAmount = Math.round(width * progress);
+        return Component.text(org.apache.commons.lang.StringUtils.repeat("|", filledAmount))
+                .color(fillColor)
+                .append(Component.text(org.apache.commons.lang.StringUtils.repeat("|", width - filledAmount))
+                        .color(backgroundColor));
     }
 }
