@@ -29,12 +29,12 @@ public final class ChatUtils {
     }
 
     @Deprecated
-    public static void sendChatDividingLine(Player player, String chatColor) {
+    public static void sendChatDividingLine(@NotNull Player player, String chatColor) {
         player.sendMessage(chatColor + StringUtils.generateFullWidthLine(CenterPixel.CHAT));
     }
 
     @Deprecated
-    public static void sendChatDividingLine(CommandSender commandSender, String chatColor) {
+    public static void sendChatDividingLine(@NotNull CommandSender commandSender, String chatColor) {
         commandSender.sendMessage(chatColor + StringUtils.generateFullWidthLine(CenterPixel.CHAT));
     }
 

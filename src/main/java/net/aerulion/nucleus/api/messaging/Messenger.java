@@ -4,6 +4,7 @@ import net.aerulion.nucleus.Main;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
+import org.jetbrains.annotations.NotNull;
 
 public class Messenger {
 
@@ -39,7 +40,7 @@ public class Messenger {
         Main.messagingManager.chat(recipient, message, MessageLevel.INFO, placeholders);
     }
 
-    public static Component format(String message, MessageLevel messageLevel, Placeholder... placeholders) {
+    public static @NotNull Component format(String message, MessageLevel messageLevel, Placeholder... placeholders) {
         return Main.messagingManager.format(message, messageLevel, placeholders);
     }
 }

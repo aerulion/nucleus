@@ -41,7 +41,7 @@ public final class PlayerUtils {
      * @param amount    The amount to be withdrawn
      * @throws NotEnoughItemsException if the player doesn't have enough item in his inventory
      */
-    public static void takeItems(Player player, ItemStack itemStack, int amount) throws NotEnoughItemsException {
+    public static void takeItems(@NotNull Player player, @NotNull ItemStack itemStack, int amount) throws NotEnoughItemsException {
         List<ItemStack> items = new ArrayList<>();
         int itemAmount = 0;
         for (ItemStack stack : player.getInventory()) {

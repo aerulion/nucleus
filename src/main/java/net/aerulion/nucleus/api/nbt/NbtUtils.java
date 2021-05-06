@@ -5,6 +5,7 @@ import net.minecraft.server.v1_16_R3.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 
@@ -21,7 +22,7 @@ public final class NbtUtils {
      * @param key       The key of the NBT tag
      * @return The ItemStack with the NBT tag removed
      */
-    public static ItemStack removeTag(@NotNull ItemStack itemStack, @NotNull String key) {
+    public static @NotNull ItemStack removeTag(@NotNull ItemStack itemStack, @NotNull String key) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getOrCreateTag();
         localNBTTagCompound.remove(key);
@@ -37,7 +38,7 @@ public final class NbtUtils {
      * @param value     The value of the NBT tag
      * @return The ItemStack with the NBT tag applied
      */
-    public static ItemStack setNBTString(@NotNull ItemStack itemStack, @NotNull String key, @NotNull String value) {
+    public static @NotNull ItemStack setNBTString(@NotNull ItemStack itemStack, @NotNull String key, @NotNull String value) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getOrCreateTag();
         localNBTTagCompound.setString(key, value);
@@ -68,7 +69,7 @@ public final class NbtUtils {
      * @param value     The value of the NBT tag
      * @return The ItemStack with the NBT tag applied
      */
-    public static ItemStack setNBTInt(@NotNull ItemStack itemStack, @NotNull String key, @NotNull int value) {
+    public static @NotNull ItemStack setNBTInt(@NotNull ItemStack itemStack, @NotNull String key, @NotNull int value) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getOrCreateTag();
         localNBTTagCompound.setInt(key, value);
@@ -99,7 +100,7 @@ public final class NbtUtils {
      * @param value     The value of the NBT tag
      * @return The ItemStack with the NBT tag applied
      */
-    public static ItemStack setNBTBoolean(@NotNull ItemStack itemStack, @NotNull String key, @NotNull boolean value) {
+    public static @NotNull ItemStack setNBTBoolean(@NotNull ItemStack itemStack, @NotNull String key, @NotNull boolean value) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound NBTTagCompound = nmsItemStack.getOrCreateTag();
         NBTTagCompound.setBoolean(key, value);
@@ -128,7 +129,7 @@ public final class NbtUtils {
      * @param values    A Map representing key and value of the new compound
      * @return The ItemStack with the NBT compound applied
      */
-    public static ItemStack setNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key, @NotNull HashMap<String, Integer> values) {
+    public static @NotNull ItemStack setNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key, @NotNull HashMap<String, Integer> values) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound nbtTagCompound = nmsItemStack.getOrCreateTag();
         NBTTagCompound nbtTagCompound2 = new NBTTagCompound();
@@ -145,7 +146,7 @@ public final class NbtUtils {
      * @param key       The specified key
      * @return A Map containing the key value pairs or null, if the compound key doesn't exist
      */
-    public static HashMap<String, Integer> getNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key) {
+    public static @Nullable HashMap<String, Integer> getNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound nbtTagCompound = nmsItemStack.getTag();
         if (nbtTagCompound != null && nbtTagCompound.hasKey(key)) {

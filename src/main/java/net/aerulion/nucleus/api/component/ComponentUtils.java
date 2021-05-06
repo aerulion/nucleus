@@ -7,6 +7,7 @@ import net.aerulion.nucleus.api.string.StringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A utility class for component functions
@@ -21,7 +22,7 @@ public final class ComponentUtils {
      * @param centerPixel The center pixel
      * @return The centered string
      */
-    public static Component generateCenteredComponent(Component component, int centerPixel) {
+    public static @NotNull Component generateCenteredComponent(@NotNull Component component, int centerPixel) {
         int halvedMessageSize = (int) Math.round(StringUtils.getPixelLength(LegacyComponentSerializer.legacySection().serialize(component)) / 2D);
         int toCompensate = centerPixel - halvedMessageSize;
         if (toCompensate < 5)
@@ -36,7 +37,7 @@ public final class ComponentUtils {
      * @param centerPixel The center pixel
      * @return The centered string
      */
-    public static Component generateCenteredComponent(Component component, CenterPixel centerPixel) {
+    public static @NotNull Component generateCenteredComponent(@NotNull Component component, @NotNull CenterPixel centerPixel) {
         return generateCenteredComponent(component, centerPixel.getCenterPx());
     }
 
@@ -49,7 +50,7 @@ public final class ComponentUtils {
      * @param backgroundColor the color for the non-filled part of the progress bar
      * @return the generated progress bar component
      */
-    public static Component generateProgressBar(int pixelWidth, float progress, TextColor fillColor, TextColor backgroundColor) {
+    public static @NotNull Component generateProgressBar(int pixelWidth, float progress, TextColor fillColor, TextColor backgroundColor) {
         int width = pixelWidth / FontInfo.getFontInfo('|').getLength(false);
         int filledAmount = Math.round(width * progress);
         return Component.text(org.apache.commons.lang.StringUtils.repeat("|", filledAmount))

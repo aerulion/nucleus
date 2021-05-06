@@ -18,7 +18,7 @@ public final class CommandUtils {
      * @param filter      An string used as a filter
      * @return The filtered list
      */
-    public static ArrayList<String> filterForTabCompleter(@NotNull ArrayList<String> commandList, @NotNull String filter) {
+    public static @NotNull ArrayList<String> filterForTabCompleter(@NotNull ArrayList<String> commandList, @NotNull String filter) {
         commandList.removeIf(value -> !value.toLowerCase().startsWith(filter.toLowerCase()));
         return commandList;
     }

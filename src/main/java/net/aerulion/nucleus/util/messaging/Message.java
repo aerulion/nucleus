@@ -8,10 +8,11 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 class Message {
-    private final Component message;
+    private final @NotNull Component message;
     private final MessageLevel messageLevel;
     private final Audience recipient;
 
@@ -21,7 +22,7 @@ class Message {
         this.recipient = recipient;
     }
 
-    private Component formatString(String message, Placeholder... placeholders) {
+    private @NotNull Component formatString(String message, Placeholder @NotNull ... placeholders) {
         for (Placeholder placeholder : placeholders)
             message = message.replaceAll(placeholder.getPlaceholder(), placeholder.getReplacement());
         Component component = Component.text("[")

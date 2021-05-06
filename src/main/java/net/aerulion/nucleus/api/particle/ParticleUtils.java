@@ -21,7 +21,7 @@ public final class ParticleUtils {
      * @param steps  The amount of locations
      * @return an ArrayList of Locations
      */
-    public static ArrayList<Location> getCircle(@NotNull Location center, @NotNull double radius, @NotNull int steps) {
+    public static @NotNull ArrayList<Location> getCircle(@NotNull Location center, @NotNull double radius, @NotNull int steps) {
         World world = center.getWorld();
         double increment = (2 * Math.PI) / steps;
         ArrayList<Location> locations = new ArrayList<>();
@@ -42,7 +42,7 @@ public final class ParticleUtils {
      * @param steps  The amount of locations
      * @return an ArrayList of Locations
      */
-    public static ArrayList<Location> getCircleReverse(@NotNull Location center, @NotNull double radius, @NotNull int steps) {
+    public static @NotNull ArrayList<Location> getCircleReverse(@NotNull Location center, @NotNull double radius, @NotNull int steps) {
         World world = center.getWorld();
         double increment = (2 * Math.PI) / steps;
         ArrayList<Location> locations = new ArrayList<>();

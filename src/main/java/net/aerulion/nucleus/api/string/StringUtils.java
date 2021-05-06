@@ -2,6 +2,7 @@ package net.aerulion.nucleus.api.string;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang.WordUtils;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
@@ -105,7 +106,7 @@ public final class StringUtils {
      * @return The centered string
      */
     @Deprecated
-    public static String generateCenteredString(String string, CenterPixel centerPixel) {
+    public static String generateCenteredString(String string, @NotNull CenterPixel centerPixel) {
         return generateCenteredString(string, centerPixel.getCenterPx());
     }
 
@@ -115,7 +116,7 @@ public final class StringUtils {
      * @param centerPixel The center pixel
      * @return The fullwidth line
      */
-    public static String generateFullWidthLine(CenterPixel centerPixel) {
+    public static @NotNull String generateFullWidthLine(@NotNull CenterPixel centerPixel) {
         return generateLine(centerPixel.getSpaceWidth());
     }
 
@@ -125,7 +126,7 @@ public final class StringUtils {
      * @param length The desired length
      * @return The generated line
      */
-    public static String generateLine(int length) {
+    public static @NotNull String generateLine(int length) {
         return "§m" + org.apache.commons.lang.StringUtils.repeat(" ", length);
     }
 
@@ -136,7 +137,7 @@ public final class StringUtils {
      * @param width The maximum width
      * @return The wrapped string as an list
      */
-    public static List<String> wrapString(String input, int width) {
+    public static @NotNull List<String> wrapString(String input, int width) {
         List<String> wrappedString = new ArrayList<>();
         String wrapped = WordUtils.wrap(input, width, "\n", true);
         Collections.addAll(wrappedString, wrapped.split("\n"));
@@ -163,7 +164,7 @@ public final class StringUtils {
      * @param number The number to be formatted
      * @return The formatted string
      */
-    public static String formatNumber(int number) {
+    public static @NotNull String formatNumber(int number) {
         return decimalFormat.format(number);
     }
 
@@ -173,7 +174,7 @@ public final class StringUtils {
      * @param number The number to be formatted
      * @return The formatted string
      */
-    public static String formatNumber(long number) {
+    public static @NotNull String formatNumber(long number) {
         return decimalFormat.format(number);
     }
 

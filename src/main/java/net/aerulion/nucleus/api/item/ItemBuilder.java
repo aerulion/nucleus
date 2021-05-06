@@ -29,7 +29,7 @@ public final class ItemBuilder {
 
     private final ItemStack itemStack;
 
-    private ItemBuilder(Material material, int amount) {
+    private ItemBuilder(@NotNull Material material, int amount) {
         itemStack = new ItemStack(material, amount);
     }
 
@@ -37,19 +37,19 @@ public final class ItemBuilder {
         this.itemStack = itemStack;
     }
 
-    public static ItemBuilder of(Material material) {
+    public static @NotNull ItemBuilder of(@NotNull Material material) {
         return new ItemBuilder(material, 1);
     }
 
-    public static ItemBuilder of(Material material, int amount) {
+    public static @NotNull ItemBuilder of(@NotNull Material material, int amount) {
         return new ItemBuilder(material, amount);
     }
 
-    public static ItemBuilder of(ItemStack itemStack) {
+    public static @NotNull ItemBuilder of(ItemStack itemStack) {
         return new ItemBuilder(itemStack);
     }
 
-    public ItemBuilder withMetaValue(Consumer<@NotNull ItemMeta> itemMetaConsumer) {
+    public @NotNull ItemBuilder withMetaValue(@NotNull Consumer<@NotNull ItemMeta> itemMetaConsumer) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta != null)
             itemMetaConsumer.accept(itemMeta);
@@ -61,78 +61,78 @@ public final class ItemBuilder {
         return itemStack;
     }
 
-    public ItemBuilder withEnchantments(@NotNull Map<Enchantment, Integer> enchantments) {
+    public @NotNull ItemBuilder withEnchantments(@NotNull Map<Enchantment, Integer> enchantments) {
         itemStack.addEnchantments(enchantments);
         return this;
     }
 
-    public ItemBuilder withEnchantment(@NotNull Enchantment enchantment, int level) {
+    public @NotNull ItemBuilder withEnchantment(@NotNull Enchantment enchantment, int level) {
         itemStack.addEnchantment(enchantment, level);
         return this;
     }
 
-    public ItemBuilder withUnsafeEnchantments(@NotNull Map<Enchantment, Integer> enchantments) {
+    public @NotNull ItemBuilder withUnsafeEnchantments(@NotNull Map<Enchantment, Integer> enchantments) {
         itemStack.addUnsafeEnchantments(enchantments);
         return this;
     }
 
-    public ItemBuilder withUnsafeEnchantment(@NotNull Enchantment enchantment, int level) {
+    public @NotNull ItemBuilder withUnsafeEnchantment(@NotNull Enchantment enchantment, int level) {
         itemStack.addUnsafeEnchantment(enchantment, level);
         return this;
     }
 
-    public ItemBuilder ofAmount(int amount) {
+    public @NotNull ItemBuilder ofAmount(int amount) {
         itemStack.setAmount(amount);
         return this;
     }
 
-    public ItemBuilder withDisplayName(@Nullable Component name) {
+    public @NotNull ItemBuilder withDisplayName(@Nullable Component name) {
         return withMetaValue(itemMeta -> itemMeta.displayName(name));
     }
 
-    public ItemBuilder withLocalizedName(@Nullable String name) {
+    public @NotNull ItemBuilder withLocalizedName(@Nullable String name) {
         return withMetaValue(itemMeta -> itemMeta.setLocalizedName(name));
     }
 
-    public ItemBuilder withLore(@Nullable List<Component> lore) {
+    public @NotNull ItemBuilder withLore(@Nullable List<Component> lore) {
         return withMetaValue(itemMeta -> itemMeta.lore(lore));
     }
 
-    public ItemBuilder withLore(Component... lore) {
+    public @NotNull ItemBuilder withLore(Component... lore) {
         return withLore(Arrays.asList(lore));
     }
 
-    public ItemBuilder withCustomModelData(@Nullable Integer data) {
+    public @NotNull ItemBuilder withCustomModelData(@Nullable Integer data) {
         return withMetaValue(itemMeta -> itemMeta.setCustomModelData(data));
     }
 
-    public ItemBuilder withItemFlags(@NotNull ItemFlag... itemFlags) {
+    public @NotNull ItemBuilder withItemFlags(@NotNull ItemFlag... itemFlags) {
         return withMetaValue(itemMeta -> itemMeta.addItemFlags(itemFlags));
     }
 
-    public ItemBuilder withUnbreakable(boolean unbreakable) {
+    public @NotNull ItemBuilder withUnbreakable(boolean unbreakable) {
         return withMetaValue(itemMeta -> itemMeta.setUnbreakable(unbreakable));
     }
 
-    public ItemBuilder withAttributeModifier(@NotNull Attribute attribute, @NotNull AttributeModifier modifier) {
+    public @NotNull ItemBuilder withAttributeModifier(@NotNull Attribute attribute, @NotNull AttributeModifier modifier) {
         return withMetaValue(itemMeta -> itemMeta.addAttributeModifier(attribute, modifier));
     }
 
-    public ItemBuilder withDurability(int damage) {
+    public @NotNull ItemBuilder withDurability(int damage) {
         return withMetaValue(itemMeta -> {
             if (itemMeta instanceof Damageable)
                 ((Damageable) itemMeta).setDamage(damage);
         });
     }
 
-    public ItemBuilder withDyeColor(Color color) {
+    public @NotNull ItemBuilder withDyeColor(@NotNull Color color) {
         return withMetaValue(itemMeta -> {
             if (itemMeta instanceof LeatherArmorMeta)
                 ((LeatherArmorMeta) itemMeta).setColor(org.bukkit.Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()));
         });
     }
 
-    public ItemBuilder withNBTData(Consumer<@NotNull PersistentDataContainer> dataConsumer) {
+    public @NotNull ItemBuilder withNBTData(@NotNull Consumer<@NotNull PersistentDataContainer> dataConsumer) {
         return withMetaValue(itemMeta -> dataConsumer.accept(itemMeta.getPersistentDataContainer()));
     }
 }

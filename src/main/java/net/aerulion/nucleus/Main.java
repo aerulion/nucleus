@@ -12,6 +12,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.*;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
     public static Main plugin;
@@ -43,7 +44,7 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender commandSender, Command command, String label, String[] args) {
         ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
         commandSender.sendMessage("");
         ChatUtils.sendCenteredChatMessage(commandSender,

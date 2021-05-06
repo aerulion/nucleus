@@ -7,6 +7,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class MessagingManager extends BukkitRunnable {
         new ChatMessage(message, messageLevel, recipient, placeholders).send();
     }
 
-    public Component format(String message, MessageLevel messageLevel, Placeholder... placeholders) {
+    public @NotNull Component format(String message, MessageLevel messageLevel, Placeholder... placeholders) {
         return new Message(message, messageLevel, null, placeholders).getMessage();
     }
 

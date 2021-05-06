@@ -2,6 +2,7 @@ package net.aerulion.nucleus.api.experience;
 
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A utility class for handling experience
@@ -43,7 +44,7 @@ public final class ExperienceUtils {
      * @param player The player to check
      * @return The total amount of experience points of the given player
      */
-    public static int getTotalExperience(Player player) {
+    public static int getTotalExperience(@NotNull Player player) {
         return (int) (Math.floor(player.getExp() * player.getExpToLevel()) + getTotalExperienceFloored(player.getLevel()));
     }
 
@@ -78,7 +79,7 @@ public final class ExperienceUtils {
      * @param player The specified player
      * @param amount The amount of experience points
      */
-    public static void setTotalExperience(Player player, int amount) {
+    public static void setTotalExperience(@NotNull Player player, int amount) {
         int level = getLevelEquivalent(amount);
         int xp = amount - getTotalExperience(level);
         player.setLevel(level);

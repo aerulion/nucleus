@@ -2,10 +2,11 @@ package net.aerulion.nucleus.api.messaging;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 @AllArgsConstructor
 public class Placeholder {
-    private final String placeholder;
-    private final String replacement;
+    private final @NotNull String placeholder;
+    private final @NotNull String replacement;
 }

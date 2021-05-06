@@ -42,7 +42,7 @@ public final class GuiButtonBuilder {
      * @param itemStack The ItemStack used as a base
      * @return The GuiButtonBuilder instance
      */
-    public static GuiButtonBuilder of(ItemStack itemStack) {
+    public static @NotNull GuiButtonBuilder of(ItemStack itemStack) {
         return new GuiButtonBuilder(itemStack);
     }
 
@@ -52,7 +52,7 @@ public final class GuiButtonBuilder {
      * @param material The Material used as a base
      * @return The GuiButtonBuilder instance
      */
-    public static GuiButtonBuilder of(Material material) {
+    public static @NotNull GuiButtonBuilder of(@NotNull Material material) {
         return new GuiButtonBuilder(new ItemStack(material));
     }
 
@@ -62,7 +62,7 @@ public final class GuiButtonBuilder {
      * @param itemMetaConsumer The Consumer used
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withMetaValue(Consumer<@NotNull ItemMeta> itemMetaConsumer) {
+    public @NotNull GuiButtonBuilder withMetaValue(@NotNull Consumer<@NotNull ItemMeta> itemMetaConsumer) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta != null)
             itemMetaConsumer.accept(itemMeta);
@@ -110,7 +110,7 @@ public final class GuiButtonBuilder {
      * @param amount The new amount
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder ofAmount(int amount) {
+    public @NotNull GuiButtonBuilder ofAmount(int amount) {
         itemStack.setAmount(amount);
         return this;
     }
@@ -121,7 +121,7 @@ public final class GuiButtonBuilder {
      * @param name The new name
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withDisplayName(@Nullable Component name) {
+    public @NotNull GuiButtonBuilder withDisplayName(@Nullable Component name) {
         return withMetaValue(itemMeta -> itemMeta.displayName(name));
     }
 
@@ -132,7 +132,7 @@ public final class GuiButtonBuilder {
      * @param lore The new lore
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withLore(@Nullable List<Component> lore) {
+    public @NotNull GuiButtonBuilder withLore(@Nullable List<Component> lore) {
         return withMetaValue(itemMeta -> itemMeta.lore(lore));
     }
 
@@ -143,7 +143,7 @@ public final class GuiButtonBuilder {
      * @param lore The new lore
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withLore(Component... lore) {
+    public @NotNull GuiButtonBuilder withLore(Component... lore) {
         return withLore(Arrays.asList(lore));
     }
 
@@ -153,7 +153,7 @@ public final class GuiButtonBuilder {
      * @param data The new CustomModelData
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withCustomModelData(@Nullable Integer data) {
+    public @NotNull GuiButtonBuilder withCustomModelData(@Nullable Integer data) {
         return withMetaValue(itemMeta -> itemMeta.setCustomModelData(data));
     }
 
@@ -165,7 +165,7 @@ public final class GuiButtonBuilder {
      * @param padding The new padding value
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withPadding(int padding) {
+    public @NotNull GuiButtonBuilder withPadding(int padding) {
         this.padding = padding;
         return this;
     }
@@ -177,7 +177,7 @@ public final class GuiButtonBuilder {
      * @param bool The new centered value
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withCentered(boolean bool) {
+    public @NotNull GuiButtonBuilder withCentered(boolean bool) {
         this.centered = bool;
         return this;
     }
@@ -187,11 +187,11 @@ public final class GuiButtonBuilder {
      *
      * @return The GuiButtonBuilder instance
      */
-    public GuiButtonBuilder withGlow() {
+    public @NotNull GuiButtonBuilder withGlow() {
         return withMetaValue(itemMeta -> itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true));
     }
 
-    public GuiButtonBuilder withHideAttributes() {
+    public @NotNull GuiButtonBuilder withHideAttributes() {
         return withMetaValue(itemMeta -> itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES));
     }
 }

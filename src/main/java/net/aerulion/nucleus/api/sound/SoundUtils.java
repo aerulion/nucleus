@@ -5,25 +5,26 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class SoundUtils {
 
-    public static void playSound(Player player, Location location, SoundType soundType) {
+    public static void playSound(@NotNull Player player, @NotNull Location location, @NotNull SoundType soundType) {
         player.playSound(location, soundType.getSound(), soundType.getVolume(), soundType.getPitch());
     }
 
-    public static void playSound(Player player, SoundType soundType) {
+    public static void playSound(@NotNull Player player, @NotNull SoundType soundType) {
         playSound(player, player.getLocation(), soundType);
     }
 
-    public static void playSound(CommandSender commandSender, SoundType soundType) {
+    public static void playSound(CommandSender commandSender, @NotNull SoundType soundType) {
         if (commandSender instanceof Player)
             playSound((Player) commandSender, soundType);
     }
 
-    public static void playSoundToAllPlayers(SoundType soundType) {
+    public static void playSoundToAllPlayers(@NotNull SoundType soundType) {
         for (Player player : Bukkit.getOnlinePlayers())
             playSound(player, soundType);
     }

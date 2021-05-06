@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * An abstract class for creating custom chest guis
@@ -21,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 public abstract class GUI implements InventoryHolder {
 
     protected final Player player;
-    protected final Inventory inventory;
+    protected final @NotNull Inventory inventory;
     protected final ItemStack spacer = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).withDisplayName(Component.empty()).build();
 
     /**
@@ -39,7 +40,7 @@ public abstract class GUI implements InventoryHolder {
      *
      * @return the title component
      */
-    public abstract Component getTitle();
+    public abstract @NotNull Component getTitle();
 
     /**
      * The number of available slots
@@ -100,7 +101,7 @@ public abstract class GUI implements InventoryHolder {
      * @return the gui inventory
      */
     @Override
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return inventory;
     }
 }

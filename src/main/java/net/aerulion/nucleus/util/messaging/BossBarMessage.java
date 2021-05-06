@@ -6,11 +6,12 @@ import net.aerulion.nucleus.api.messaging.Placeholder;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 class BossBarMessage extends Message {
 
-    private final BossBar bossBar;
+    private final @NotNull BossBar bossBar;
     private final int seconds;
     private int remainingSeconds;
 
@@ -43,7 +44,7 @@ class BossBarMessage extends Message {
         return remainingSeconds <= 0;
     }
 
-    public void reset(Component component) {
+    public void reset(@NotNull Component component) {
         reset();
         getBossBar().name(component);
     }

@@ -6,6 +6,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class ItemUtils {
     @Deprecated
-    public static ItemStack buildItemStack(ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted) {
+    public static @NotNull ItemStack buildItemStack(@NotNull ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta != null) {
             itemMeta.setDisplayName(displayName);
@@ -30,12 +31,12 @@ public class ItemUtils {
     }
 
     @Deprecated
-    public static ItemStack buildItemStack(Material material, String displayName, List<String> loreList, boolean enchanted) {
+    public static @NotNull ItemStack buildItemStack(@NotNull Material material, String displayName, List<String> loreList, boolean enchanted) {
         return buildItemStack(new ItemStack(material), displayName, loreList, enchanted);
     }
 
     @Deprecated
-    public static ItemStack buildGuiButton(ItemStack itemStack, String displayName, List<String> loreList, boolean enchanted, int padding) {
+    public static @NotNull ItemStack buildGuiButton(@NotNull ItemStack itemStack, String displayName, @NotNull List<String> loreList, boolean enchanted, int padding) {
         int pixelLength = StringUtils.getPixelLength(displayName);
         for (String string : loreList) {
             int length = StringUtils.getPixelLength(string);
@@ -56,7 +57,7 @@ public class ItemUtils {
     }
 
     @Deprecated
-    public static ItemStack buildGuiButton(Material material, String displayName, List<String> loreList, boolean enchanted, int padding) {
+    public static @NotNull ItemStack buildGuiButton(@NotNull Material material, String displayName, @NotNull List<String> loreList, boolean enchanted, int padding) {
         return buildGuiButton(new ItemStack(material), displayName, loreList, enchanted, padding);
     }
 }

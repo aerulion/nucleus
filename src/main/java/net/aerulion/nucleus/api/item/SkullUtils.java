@@ -5,6 +5,7 @@ import com.mojang.authlib.properties.Property;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,19 +14,19 @@ import java.util.UUID;
 
 public class SkullUtils {
 
-    public static ItemStack getSkull(String skinURL) {
+    public static @NotNull ItemStack getSkull(@NotNull String skinURL) {
         return getSkull(skinURL, UUID.randomUUID(), 1);
     }
 
-    public static ItemStack getSkull(String skinURL, int amount) {
+    public static @NotNull ItemStack getSkull(@NotNull String skinURL, int amount) {
         return getSkull(skinURL, UUID.randomUUID(), amount);
     }
 
-    public static ItemStack getSkull(String skinURL, UUID uuid) {
+    public static @NotNull ItemStack getSkull(@NotNull String skinURL, UUID uuid) {
         return getSkull(skinURL, uuid, 1);
     }
 
-    public static ItemStack getSkull(String skinURL, UUID uuid, int amount) {
+    public static @NotNull ItemStack getSkull(@NotNull String skinURL, UUID uuid, int amount) {
         ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
         if (skinURL.isEmpty()) return itemStack;
         SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
@@ -36,7 +37,7 @@ public class SkullUtils {
             Method method = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
             method.setAccessible(true);
             method.invoke(skullMeta, profile);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (@NotNull IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
             ex.printStackTrace();
         }
         itemStack.setItemMeta(skullMeta);

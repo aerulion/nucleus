@@ -2,15 +2,16 @@ package net.aerulion.nucleus.util;
 
 import com.zaxxer.hikari.HikariDataSource;
 import net.aerulion.nucleus.api.messaging.Placeholder;
+import org.jetbrains.annotations.Nullable;
 
 public class HikariDataSourceManager {
 
     public static HikariDataSource hikariDataSource;
-    public static String serverName;
-    public static String port;
-    public static String databaseName;
-    public static String user;
-    public static String password;
+    public static @Nullable String serverName;
+    public static @Nullable String port;
+    public static @Nullable String databaseName;
+    public static @Nullable String user;
+    public static @Nullable String password;
 
     public static void connectToDatabase() {
         final long start = System.currentTimeMillis();

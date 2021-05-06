@@ -1,5 +1,7 @@
 package net.aerulion.nucleus.api.string;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum FontInfo {
     AMPERSAND('&', 5),
     ASTERISK('*', 5),
@@ -122,7 +124,7 @@ public enum FontInfo {
         return bold ? this.length + 1 : this.length;
     }
 
-    public static FontInfo getFontInfo(char c) {
+    public static @NotNull FontInfo getFontInfo(char c) {
         for (FontInfo dFI : FontInfo.values()) {
             if (dFI.getCharacter() == c)
                 return dFI;

@@ -4,6 +4,8 @@ import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -27,7 +29,7 @@ public final class Base64Utils {
      * @param itemStack The ItemStack to be encoded
      * @return The encoded string
      */
-    public static String encodeItemStack(ItemStack itemStack) {
+    public static @Nullable String encodeItemStack(ItemStack itemStack) {
         String encodedItemStack = null;
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -46,7 +48,7 @@ public final class Base64Utils {
      * @param encodedString The string to be decoded
      * @return The decoded ItemStack
      */
-    public static ItemStack decodeItemStack(String encodedString) {
+    public static @Nullable ItemStack decodeItemStack(String encodedString) {
         ItemStack itemStack = null;
         try {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(Base64.getDecoder().decode(encodedString));
@@ -64,7 +66,7 @@ public final class Base64Utils {
      * @param itemStackList The list to be encoded
      * @return The encoded list
      */
-    public static List<String> encodeItemStackList(List<ItemStack> itemStackList) {
+    public static @NotNull List<String> encodeItemStackList(@NotNull List<ItemStack> itemStackList) {
         List<String> output = new ArrayList<>();
         for (ItemStack itemstack : itemStackList)
             output.add(encodeItemStack(itemstack));
@@ -77,7 +79,7 @@ public final class Base64Utils {
      * @param stringList The list to be decoded
      * @return The decoded list
      */
-    public static List<ItemStack> decodeItemStackList(List<String> stringList) {
+    public static @NotNull List<ItemStack> decodeItemStackList(@NotNull List<String> stringList) {
         List<ItemStack> output = new ArrayList<>();
         for (String string : stringList)
             output.add(decodeItemStack(string));
@@ -92,7 +94,7 @@ public final class Base64Utils {
      * @return The encoded image as an Base64 string
      * @throws IOException if an error occurs during writing or when not able to create required ImageOutputStream
      */
-    public static String encodeBufferedImage(BufferedImage bufferedImage, final String formatName) throws IOException {
+    public static String encodeBufferedImage(@NotNull BufferedImage bufferedImage, final @NotNull String formatName) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, formatName, Base64.getEncoder().wrap(byteArrayOutputStream));
         return byteArrayOutputStream.toString(StandardCharsets.ISO_8859_1.name());
