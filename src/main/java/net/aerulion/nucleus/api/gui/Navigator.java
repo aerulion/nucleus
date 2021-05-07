@@ -71,6 +71,7 @@ public class Navigator {
     public void popAllAndPush(@NotNull Player player, @NotNull GUI gui) {
         List<GUI> guis = new ArrayList<>();
         guis.add(gui);
+        gui.init();
         gui.open();
         GUIS.put(player, guis);
     }
@@ -84,6 +85,7 @@ public class Navigator {
     public void push(@NotNull Player player, @NotNull GUI gui) {
         List<GUI> guis = GUIS.getOrDefault(player, new ArrayList<>());
         guis.add(gui);
+        gui.init();
         gui.open();
         GUIS.put(player, guis);
     }
@@ -99,6 +101,7 @@ public class Navigator {
         if (!guis.isEmpty())
             guis.remove(guis.size() - 1);
         guis.add(gui);
+        gui.init();
         gui.open();
         GUIS.put(player, guis);
     }

@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 public abstract class GUI implements InventoryHolder {
 
     protected final Player player;
-    protected final @NotNull Inventory inventory;
+    protected Inventory inventory;
     protected final ItemStack spacer = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).withDisplayName(Component.empty()).build();
 
     /**
@@ -31,7 +31,6 @@ public abstract class GUI implements InventoryHolder {
      * @param player the specified player
      */
     public GUI(Player player) {
-        this.inventory = Bukkit.createInventory(this, getSlots(), ComponentUtils.generateCenteredComponent(getTitle(), CenterPixel.INVENTORY_TITLE));
         this.player = player;
     }
 
@@ -67,6 +66,13 @@ public abstract class GUI implements InventoryHolder {
      * @param event the redirected InventoryCloseEvent
      */
     public abstract void handleClose(InventoryCloseEvent event);
+
+    /**
+     * Initializes this inventory
+     */
+    public void init() {
+        this.inventory = Bukkit.createInventory(this, getSlots(), ComponentUtils.generateCenteredComponent(getTitle(), CenterPixel.INVENTORY_TITLE));
+    }
 
     /**
      * Updates the contents and opens the gui to the player
