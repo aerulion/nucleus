@@ -35,6 +35,7 @@ class Message {
                         .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
         boolean isAccent = message.startsWith("**");
         for (String s : message.split("\\*\\*")) {
+            if (s.equals("")) continue;
             component = component.append(
                     Component.text(s)
                             .color(isAccent ? messageLevel.getAccentColor() : messageLevel.getTextColor())
