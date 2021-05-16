@@ -33,7 +33,6 @@ public final class StringUtils {
         romanNumbers.put(4, "IV");
         romanNumbers.put(1, "I");
 
-        //centerSpaces.put(5, "§l §r");
         centerSpaces.put(4, " ");
         centerSpaces.put(3, " ");
         centerSpaces.put(2, " ");
@@ -49,12 +48,6 @@ public final class StringUtils {
         return centerSpaces.get(l) + getSpaces(width - l);
     }
 
-    /**
-     * Gets the pixel length of an given String
-     *
-     * @param string String to check
-     * @return The pixel length of the String
-     */
     @Deprecated
     public static int getPixelLength(@Nullable String string) {
         if (string == null)
@@ -84,13 +77,6 @@ public final class StringUtils {
         return stringPixelLength;
     }
 
-    /**
-     * Generates an centered string given a certain center pixel
-     *
-     * @param string      The string to be centered
-     * @param centerPixel The center pixel
-     * @return The centered string
-     */
     @Deprecated
     public static String generateCenteredString(String string, int centerPixel) {
         int halvedMessageSize = (int) Math.round(getPixelLength(string) / 2D);
@@ -100,35 +86,16 @@ public final class StringUtils {
         return getSpaces(toCompensate) + string;
     }
 
-    /**
-     * Generates an centered string given a certain center pixel
-     *
-     * @param string      The string to be centered
-     * @param centerPixel The center pixel
-     * @return The centered string
-     */
     @Deprecated
     public static String generateCenteredString(String string, @NotNull CenterPixel centerPixel) {
         return generateCenteredString(string, centerPixel.getCenterPx());
     }
 
-    /**
-     * Generates a fullwidth line given a certain center pixel
-     *
-     * @param centerPixel The center pixel
-     * @return The fullwidth line
-     */
     @Deprecated
     public static @NotNull String generateFullWidthLine(@NotNull CenterPixel centerPixel) {
         return generateLine(centerPixel.getSpaceWidth());
     }
 
-    /**
-     * Generates a line of an given length
-     *
-     * @param length The desired length
-     * @return The generated line
-     */
     @Deprecated
     public static @NotNull String generateLine(int length) {
         return "§m" + org.apache.commons.lang.StringUtils.repeat(" ", length);
@@ -156,9 +123,8 @@ public final class StringUtils {
      */
     public static String getRomanNumber(int number) {
         int l = romanNumbers.floorKey(number);
-        if (number == l) {
+        if (number == l)
             return romanNumbers.get(number);
-        }
         return romanNumbers.get(l) + getRomanNumber(number - l);
     }
 

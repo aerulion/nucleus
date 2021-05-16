@@ -2,6 +2,8 @@ package net.aerulion.nucleus.api.string;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+
 public enum FontInfo {
     AMPERSAND('&', 5),
     ASTERISK('*', 5),
@@ -13,12 +15,15 @@ public enum FontInfo {
     DOLLAR_SIGN('$', 5),
     DOUBLE_QUOTE('"', 3),
     EQUALS_SIGN('=', 5),
+    ESZETT('ß', 5),
+    EURO_SIGN('€', 6),
     EXCLAMATION_POINT('!', 1),
     LEFT_ARROW('<', 4),
     LEFT_BRACKET('[', 3),
     LEFT_CURL_BRACE('{', 4),
     LEFT_PARENTHESIS('(', 4),
     LETTER_A('A', 5),
+    LETTER_AE('Ä', 5),
     LETTER_B('B', 5),
     LETTER_C('C', 5),
     LETTER_D('D', 5),
@@ -33,18 +38,21 @@ public enum FontInfo {
     LETTER_M('M', 5),
     LETTER_N('N', 5),
     LETTER_O('O', 5),
+    LETTER_OE('Ö', 5),
     LETTER_P('P', 5),
     LETTER_Q('Q', 5),
     LETTER_R('R', 5),
     LETTER_S('S', 5),
     LETTER_T('T', 5),
     LETTER_U('U', 5),
+    LETTER_UE('Ü', 5),
     LETTER_V('V', 5),
     LETTER_W('W', 5),
     LETTER_X('X', 5),
     LETTER_Y('Y', 5),
     LETTER_Z('Z', 5),
     LETTER_a('a', 5),
+    LETTER_ae('ä', 5),
     LETTER_b('b', 5),
     LETTER_c('c', 5),
     LETTER_d('d', 5),
@@ -59,12 +67,14 @@ public enum FontInfo {
     LETTER_m('m', 5),
     LETTER_n('n', 5),
     LETTER_o('o', 5),
+    LETTER_oe('ö', 5),
     LETTER_p('p', 5),
     LETTER_q('q', 5),
     LETTER_r('r', 5),
     LETTER_s('s', 5),
     LETTER_t('t', 4),
     LETTER_u('u', 5),
+    LETTER_ue('ü', 5),
     LETTER_v('v', 5),
     LETTER_w('w', 5),
     LETTER_x('x', 5),
@@ -125,10 +135,8 @@ public enum FontInfo {
     }
 
     public static @NotNull FontInfo getFontInfo(char c) {
-        for (FontInfo dFI : FontInfo.values()) {
-            if (dFI.getCharacter() == c)
-                return dFI;
-        }
-        return FontInfo.DEFAULT;
+        return Arrays.stream(values())
+                .filter(fontInfo -> fontInfo.getCharacter() == c).findFirst()
+                .orElse(FontInfo.DEFAULT);
     }
 }

@@ -67,7 +67,7 @@ public final class ComponentUtils {
      * @param pixelWidth the desired width
      * @return the generated component
      */
-    public static Component generateSpace(int pixelWidth) {
+    public static @NotNull Component generateSpace(int pixelWidth) {
         if (pixelWidth < 3) return Component.empty();
         if (pixelWidth < 5) return Component.space();
         if (pixelWidth == 5)
@@ -115,25 +115,31 @@ public final class ComponentUtils {
      * @param centerPixel The center pixel
      * @return The centered string
      */
-    public static @NotNull Component generateCenteredComponent(@NotNull Component component, @NotNull CenterPixel centerPixel) {
+    public static @NotNull Component generateCenteredComponent(@NotNull Component component,
+                                                               @NotNull CenterPixel centerPixel) {
         return generateCenteredComponent(component, centerPixel.getCenterPx());
     }
 
     /**
-     * Generate a progress bar component using the pipe '|' char
+     * Generate a progress bar component using a given char
      *
      * @param pixelWidth      the desired pixel width of the generated progress bar
+     * @param character       the character that should be used to display the progress bar
      * @param progress        the percentage that should be filled
      * @param fillColor       the color for the filled part of the progress bar
      * @param backgroundColor the color for the non-filled part of the progress bar
      * @return the generated progress bar component
      */
-    public static @NotNull Component generateProgressBar(int pixelWidth, float progress, TextColor fillColor, TextColor backgroundColor) {
-        int width = pixelWidth / FontInfo.getFontInfo('|').getLength(false);
+    public static @NotNull Component generateProgressBar(int pixelWidth,
+                                                         char character,
+                                                         float progress,
+                                                         TextColor fillColor,
+                                                         TextColor backgroundColor) {
+        int width = pixelWidth / FontInfo.getFontInfo(character).getLength(false);
         int filledAmount = Math.round(width * progress);
-        return Component.text(StringUtils.repeat("|", filledAmount))
+        return Component.text(StringUtils.repeat(Character.toString(character), filledAmount))
                 .color(fillColor)
-                .append(Component.text(StringUtils.repeat("|", width - filledAmount))
+                .append(Component.text(StringUtils.repeat(Character.toString(character), width - filledAmount))
                         .color(backgroundColor));
     }
 

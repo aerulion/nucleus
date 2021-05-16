@@ -49,7 +49,7 @@ public final class ChatUtils {
      * @param player  The receiver of the message
      * @param message The message to be sent
      */
-    public static void sendCenteredChatMessage(@NotNull Player player, @Nullable Component message) {
+    public static void sendCenteredChatMessage(@NotNull Player player, @NotNull Component message) {
         player.sendMessage(ComponentUtils.generateCenteredComponent(message, CenterPixel.CHAT));
     }
 
@@ -59,7 +59,7 @@ public final class ChatUtils {
      * @param commandSender The receiver of the message
      * @param message       The message to be sent
      */
-    public static void sendCenteredChatMessage(@NotNull CommandSender commandSender, @Nullable Component message) {
+    public static void sendCenteredChatMessage(@NotNull CommandSender commandSender, @NotNull Component message) {
         commandSender.sendMessage(ComponentUtils.generateCenteredComponent(message, CenterPixel.CHAT));
     }
 
@@ -69,7 +69,7 @@ public final class ChatUtils {
      * @param player    The receiver of the message
      * @param textColor The color of the line
      */
-    public static void sendChatDividingLine(@NotNull Player player, @Nullable TextColor textColor) {
+    public static void sendChatDividingLine(@NotNull Player player, @NotNull TextColor textColor) {
         player.sendMessage(ComponentUtils.generateFullWidthLine(CenterPixel.CHAT).color(textColor));
     }
 
@@ -79,7 +79,7 @@ public final class ChatUtils {
      * @param commandSender The receiver of the message
      * @param textColor     The color of the line
      */
-    public static void sendChatDividingLine(@NotNull CommandSender commandSender, @Nullable TextColor textColor) {
+    public static void sendChatDividingLine(@NotNull CommandSender commandSender, @NotNull TextColor textColor) {
         commandSender.sendMessage(ComponentUtils.generateFullWidthLine(CenterPixel.CHAT).color(textColor));
     }
 }
