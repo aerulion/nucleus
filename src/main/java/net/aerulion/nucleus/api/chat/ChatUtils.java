@@ -70,7 +70,7 @@ public final class ChatUtils {
      * @param textColor The color of the line
      */
     public static void sendChatDividingLine(@NotNull Player player, @Nullable TextColor textColor) {
-        player.sendMessage(Component.text(StringUtils.generateFullWidthLine(CenterPixel.CHAT)).color(textColor));
+        player.sendMessage(ComponentUtils.generateFullWidthLine(CenterPixel.CHAT).color(textColor));
     }
 
     /**
@@ -80,6 +80,6 @@ public final class ChatUtils {
      * @param textColor     The color of the line
      */
     public static void sendChatDividingLine(@NotNull CommandSender commandSender, @Nullable TextColor textColor) {
-        commandSender.sendMessage(Component.text(StringUtils.generateFullWidthLine(CenterPixel.CHAT)).color(textColor));
+        commandSender.sendMessage(ComponentUtils.generateFullWidthLine(CenterPixel.CHAT).color(textColor));
     }
 }

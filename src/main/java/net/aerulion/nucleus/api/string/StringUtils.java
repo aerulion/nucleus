@@ -33,7 +33,7 @@ public final class StringUtils {
         romanNumbers.put(4, "IV");
         romanNumbers.put(1, "I");
 
-        centerSpaces.put(5, "§l §r");
+        //centerSpaces.put(5, "§l §r");
         centerSpaces.put(4, " ");
         centerSpaces.put(3, " ");
         centerSpaces.put(2, " ");
@@ -41,6 +41,7 @@ public final class StringUtils {
         centerSpaces.put(0, "");
     }
 
+    @Deprecated
     public static String getSpaces(int width) {
         int l = centerSpaces.floorKey(width);
         if (width == l)
@@ -54,6 +55,7 @@ public final class StringUtils {
      * @param string String to check
      * @return The pixel length of the String
      */
+    @Deprecated
     public static int getPixelLength(@Nullable String string) {
         if (string == null)
             return 0;
@@ -116,6 +118,7 @@ public final class StringUtils {
      * @param centerPixel The center pixel
      * @return The fullwidth line
      */
+    @Deprecated
     public static @NotNull String generateFullWidthLine(@NotNull CenterPixel centerPixel) {
         return generateLine(centerPixel.getSpaceWidth());
     }
@@ -126,6 +129,7 @@ public final class StringUtils {
      * @param length The desired length
      * @return The generated line
      */
+    @Deprecated
     public static @NotNull String generateLine(int length) {
         return "§m" + org.apache.commons.lang.StringUtils.repeat(" ", length);
     }

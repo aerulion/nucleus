@@ -1,12 +1,10 @@
 package net.aerulion.nucleus.api.item;
 
 import net.aerulion.nucleus.api.component.ComponentUtils;
-import net.aerulion.nucleus.api.string.StringUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -80,22 +78,30 @@ public final class GuiButtonBuilder {
         if (itemMeta != null) {
             Component displayName = itemStack.getItemMeta().displayName();
             if (displayName == null) return itemStack;
-            int pixelLength = StringUtils.getPixelLength(LegacyComponentSerializer.legacySection().serialize(displayName));
+            int pixelLength = ComponentUtils.getPixelLength(displayName);
             List<Component> lore = itemMeta.lore();
             if (lore == null) return itemStack;
             for (Component component : lore) {
-                int length = StringUtils.getPixelLength(LegacyComponentSerializer.legacySection().serialize(component));
+                int length = ComponentUtils.getPixelLength(component);
                 if (length > pixelLength)
                     pixelLength = length;
             }
-            pixelLength += padding * 10;
-            itemMeta.displayName(ComponentUtils.generateCenteredComponent(Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).append(displayName), (int) Math.round(pixelLength / 2D)).append(Component.text(org.apache.commons.lang.StringUtils.repeat("§r ", padding))));
+            Component padding = Component.text(StringUtils.repeat(" ", this.padding))
+                    .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE)
+                    .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+            itemMeta.displayName(padding.append(
+                    ComponentUtils.generateCenteredComponent(
+                            Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
+                                    .append(displayName), (int) Math.round(pixelLength / 2D)).append(padding)));
             List<Component> formattedLore = new ArrayList<>();
             for (Component component : lore) {
-                if (PlainComponentSerializer.plain().serialize(component).contains("%divider"))
-                    formattedLore.add(component.replaceText(TextReplacementConfig.builder().replacement(StringUtils.generateLine((int) Math.ceil((double) pixelLength / 4D))).match("%divider").build()));
+                if (PlainComponentSerializer.plain().serialize(component).equals("%divider"))
+                    formattedLore.add(ComponentUtils.generateLine(pixelLength + this.padding * 8).color(component.color()));
                 else
-                    formattedLore.add(ComponentUtils.generateCenteredComponent(Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).append(component), (int) Math.round(pixelLength / 2D)).append(Component.text(org.apache.commons.lang.StringUtils.repeat("§r ", padding))));
+                    formattedLore.add(padding.append(
+                            ComponentUtils.generateCenteredComponent(Component.empty()
+                                    .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
+                                    .append(component), (int) Math.round(pixelLength / 2D))).append(padding));
             }
             itemMeta.lore(formattedLore);
             itemMeta.addItemFlags(ItemFlag.values());

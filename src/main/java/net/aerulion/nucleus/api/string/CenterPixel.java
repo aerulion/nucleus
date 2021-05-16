@@ -1,9 +1,9 @@
 package net.aerulion.nucleus.api.string;
 
 public enum CenterPixel {
-    CHAT(154, 80),
+    CHAT(160, 80),
     MOTD(134, 68),
-    INVENTORY_TITLE(80, 80);
+    INVENTORY_TITLE(80, 40);
 
     private final int centerPixel;
     private final int spaceWidth;
