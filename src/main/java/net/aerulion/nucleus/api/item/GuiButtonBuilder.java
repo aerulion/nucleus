@@ -99,9 +99,7 @@ public final class GuiButtonBuilder {
                     formattedLore.add(ComponentUtils.generateLine(pixelLength + this.padding * 8).color(component.color()));
                 else
                     formattedLore.add(padding.append(
-                            ComponentUtils.generateCenteredComponent(Component.empty()
-                                    .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
-                                    .append(component), (int) Math.round(pixelLength / 2D))).append(padding));
+                            ComponentUtils.generateCenteredComponent(component, (int) Math.round(pixelLength / 2D))).append(padding));
             }
             itemMeta.lore(formattedLore);
             itemMeta.addItemFlags(ItemFlag.values());

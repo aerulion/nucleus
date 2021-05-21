@@ -27,8 +27,10 @@ public final class ComponentUtils {
     public static @NotNull Component generateCenteredComponent(@NotNull Component component, int centerPixel) {
         int halvedMessageSize = (int) Math.round(getPixelLength(component) / 2D);
         int toCompensate = centerPixel - halvedMessageSize;
-        if (toCompensate < 5)
+        if (toCompensate < 4)
             return component;
+        if (component.decoration(TextDecoration.BOLD).equals(TextDecoration.State.NOT_SET))
+            component = component.decoration(TextDecoration.BOLD, TextDecoration.State.FALSE);
         return generateSpace(toCompensate).append(component);
     }
 
@@ -63,6 +65,7 @@ public final class ComponentUtils {
 
     /**
      * Generates an component of spaces of the given pixel width
+     * May end BOLD!
      *
      * @param pixelWidth the desired width
      * @return the generated component
@@ -71,9 +74,7 @@ public final class ComponentUtils {
         if (pixelWidth < 3) return Component.empty();
         if (pixelWidth < 5) return Component.space();
         if (pixelWidth == 5)
-            return Component.space().decorate(TextDecoration.BOLD)
-                    .append(Component.empty().decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
-        Component component = Component.empty();
+            return Component.space().decorate(TextDecoration.BOLD);
         int boldSpaces = Math.floorDiv(pixelWidth, 5);
         int spaces = 0;
         pixelWidth -= boldSpaces * 5;
@@ -97,14 +98,18 @@ public final class ComponentUtils {
                 spaces += 4;
             }
         }
+        Component component = Component.empty();
         if (boldSpaces > 0)
-            component = component.append(Component.text(StringUtils.repeat(" ", boldSpaces))
-                    .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE));
-        if (spaces > 0)
-            component = component.append(Component.text(StringUtils.repeat(" ", spaces))
-                    .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
-        component = component.append(Component.empty()
-                .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
+            component = Component.text(StringUtils.repeat(" ", boldSpaces))
+                    .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE);
+        if (spaces > 0) {
+            Component spacesComponent = Component.text(StringUtils.repeat(" ", spaces))
+                    .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE);
+            if (boldSpaces == 0)
+                component = spacesComponent;
+            else
+                component = component.append(spacesComponent);
+        }
         return component;
     }
 
