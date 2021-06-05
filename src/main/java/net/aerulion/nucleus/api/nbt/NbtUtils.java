@@ -1,19 +1,174 @@
 package net.aerulion.nucleus.api.nbt;
 
 import lombok.experimental.UtilityClass;
-import net.minecraft.server.v1_16_R3.NBTTagCompound;
+import net.aerulion.nucleus.api.nbt.tag.*;
+import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A utility class for NBT related stuff
  */
 @UtilityClass
 public final class NbtUtils {
+
+    /**
+     * Gets the current nbt tags of an ItemStack
+     *
+     * @param itemStack the item
+     * @return List of NbtTags
+     */
+    public static @NotNull List<NbtTag> getTags(@NotNull ItemStack itemStack) {
+        return getTagsFromCompound(CraftItemStack.asNMSCopy(itemStack).getTag());
+    }
+
+    /**
+     * Sets the nbt tags of an ItemStack
+     *
+     * @param itemStack the item
+     * @param nbtTags   the list of nbt tags
+     * @return the modified item
+     */
+    public static @NotNull ItemStack setTags(@NotNull ItemStack itemStack, @NotNull List<NbtTag> nbtTags) {
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack.clone());
+        nmsItemStack.setTag(createNBTTagCompound(nbtTags));
+        return CraftItemStack.asBukkitCopy(nmsItemStack);
+    }
+
+    private static NBTTagCompound createNBTTagCompound(List<NbtTag> nbtTags) {
+        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+        for (NbtTag nbtTag : nbtTags) {
+            if (nbtTag instanceof ByteNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), NBTTagByte.a(((ByteNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof ShortNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), NBTTagShort.a(((ShortNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof IntNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), NBTTagInt.a(((IntNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof LongNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), NBTTagLong.a(((LongNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof FloatNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), NBTTagFloat.a(((FloatNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof DoubleNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), NBTTagDouble.a(((DoubleNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof ByteArrayNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), new NBTTagByteArray(((ByteArrayNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof StringNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), NBTTagString.a(((StringNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof NbtList)
+                nbtTagCompound.set(nbtTag.getKey(), createNBTTagList(((NbtList) nbtTag).getContent()));
+            else if (nbtTag instanceof NbtCompound)
+                nbtTagCompound.set(nbtTag.getKey(), createNBTTagCompound(((NbtCompound) nbtTag).getChildren()));
+            else if (nbtTag instanceof IntArrayNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), new NBTTagIntArray(((IntArrayNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof LongArrayNbtTag)
+                nbtTagCompound.set(nbtTag.getKey(), new NBTTagLongArray(((LongArrayNbtTag) nbtTag).getValue()));
+        }
+        return nbtTagCompound;
+    }
+
+    private static NBTTagList createNBTTagList(List<NbtTag> nbtTags) {
+        NBTTagList nbtTagList = new NBTTagList();
+        for (NbtTag nbtTag : nbtTags) {
+            if (nbtTag instanceof ByteNbtTag)
+                nbtTagList.add(NBTTagByte.a(((ByteNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof ShortNbtTag)
+                nbtTagList.add(NBTTagShort.a(((ShortNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof IntNbtTag)
+                nbtTagList.add(NBTTagInt.a(((IntNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof LongNbtTag)
+                nbtTagList.add(NBTTagLong.a(((LongNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof FloatNbtTag)
+                nbtTagList.add(NBTTagFloat.a(((FloatNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof DoubleNbtTag)
+                nbtTagList.add(NBTTagDouble.a(((DoubleNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof ByteArrayNbtTag)
+                nbtTagList.add(new NBTTagByteArray(((ByteArrayNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof StringNbtTag)
+                nbtTagList.add(NBTTagString.a(((StringNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof NbtList)
+                nbtTagList.add(createNBTTagList(((NbtList) nbtTag).getContent()));
+            else if (nbtTag instanceof NbtCompound)
+                nbtTagList.add(createNBTTagCompound(((NbtCompound) nbtTag).getChildren()));
+            else if (nbtTag instanceof IntArrayNbtTag)
+                nbtTagList.add(new NBTTagIntArray(((IntArrayNbtTag) nbtTag).getValue()));
+            else if (nbtTag instanceof LongArrayNbtTag)
+                nbtTagList.add(new NBTTagLongArray(((LongArrayNbtTag) nbtTag).getValue()));
+        }
+        return nbtTagList;
+    }
+
+    private static @NotNull List<NbtTag> getTagsFromCompound(@Nullable NBTTagCompound nbtTagCompound) {
+        List<NbtTag> nbtTagList = new ArrayList<>();
+        if (nbtTagCompound == null) return nbtTagList;
+        for (String key : nbtTagCompound.getKeys()) {
+            NBTBase nbtBase = nbtTagCompound.get(key);
+            if (nbtBase == null) continue;
+            if (nbtBase.getTypeId() == 1)
+                nbtTagList.add(new ByteNbtTag(key, ((NBTNumber) nbtBase).asByte()));
+            else if (nbtBase.getTypeId() == 2)
+                nbtTagList.add(new ShortNbtTag(key, ((NBTNumber) nbtBase).asShort()));
+            else if (nbtBase.getTypeId() == 3)
+                nbtTagList.add(new IntNbtTag(key, ((NBTNumber) nbtBase).asInt()));
+            else if (nbtBase.getTypeId() == 4)
+                nbtTagList.add(new LongNbtTag(key, ((NBTNumber) nbtBase).asLong()));
+            else if (nbtBase.getTypeId() == 5)
+                nbtTagList.add(new FloatNbtTag(key, ((NBTNumber) nbtBase).asFloat()));
+            else if (nbtBase.getTypeId() == 6)
+                nbtTagList.add(new DoubleNbtTag(key, ((NBTNumber) nbtBase).asDouble()));
+            else if (nbtBase.getTypeId() == 7)
+                nbtTagList.add(new ByteArrayNbtTag(key, ((NBTTagByteArray) nbtBase).getBytes()));
+            else if (nbtBase.getTypeId() == 8)
+                nbtTagList.add(new StringNbtTag(key, nbtBase.asString()));
+            else if (nbtBase.getTypeId() == 9)
+                nbtTagList.add(new NbtList(key, getTagsFromList((NBTTagList) nbtBase)));
+            else if (nbtBase.getTypeId() == 10)
+                nbtTagList.add(new NbtCompound(key, getTagsFromCompound((NBTTagCompound) nbtBase)));
+            else if (nbtBase.getTypeId() == 11)
+                nbtTagList.add(new IntArrayNbtTag(key, ((NBTTagIntArray) nbtBase).getInts()));
+            else if (nbtBase.getTypeId() == 12)
+                nbtTagList.add(new LongArrayNbtTag(key, ((NBTTagLongArray) nbtBase).getLongs()));
+        }
+        return nbtTagList;
+    }
+
+    private static @NotNull List<NbtTag> getTagsFromList(@Nullable NBTTagList nbtTagList) {
+        List<NbtTag> nbtTags = new ArrayList<>();
+        if (nbtTagList == null) return nbtTags;
+        for (NBTBase nbtBase : nbtTagList) {
+            if (nbtBase == null) continue;
+            if (nbtBase.getTypeId() == 1)
+                nbtTags.add(new ByteNbtTag(null, ((NBTNumber) nbtBase).asByte()));
+            else if (nbtBase.getTypeId() == 2)
+                nbtTags.add(new ShortNbtTag(null, ((NBTNumber) nbtBase).asShort()));
+            else if (nbtBase.getTypeId() == 3)
+                nbtTags.add(new IntNbtTag(null, ((NBTNumber) nbtBase).asInt()));
+            else if (nbtBase.getTypeId() == 4)
+                nbtTags.add(new LongNbtTag(null, ((NBTNumber) nbtBase).asLong()));
+            else if (nbtBase.getTypeId() == 5)
+                nbtTags.add(new FloatNbtTag(null, ((NBTNumber) nbtBase).asFloat()));
+            else if (nbtBase.getTypeId() == 6)
+                nbtTags.add(new DoubleNbtTag(null, ((NBTNumber) nbtBase).asDouble()));
+            else if (nbtBase.getTypeId() == 7)
+                nbtTags.add(new ByteArrayNbtTag(null, ((NBTTagByteArray) nbtBase).getBytes()));
+            else if (nbtBase.getTypeId() == 8)
+                nbtTags.add(new StringNbtTag(null, nbtBase.asString()));
+            else if (nbtBase.getTypeId() == 9)
+                nbtTags.add(new NbtList(null, getTagsFromList((NBTTagList) nbtBase)));
+            else if (nbtBase.getTypeId() == 10)
+                nbtTags.add(new NbtCompound(null, getTagsFromCompound((NBTTagCompound) nbtBase)));
+            else if (nbtBase.getTypeId() == 11)
+                nbtTags.add(new IntArrayNbtTag(null, ((NBTTagIntArray) nbtBase).getInts()));
+            else if (nbtBase.getTypeId() == 12)
+                nbtTags.add(new LongArrayNbtTag(null, ((NBTTagLongArray) nbtBase).getLongs()));
+        }
+        return nbtTags;
+    }
 
     /**
      * Removes the NBT tag associated with the given key
