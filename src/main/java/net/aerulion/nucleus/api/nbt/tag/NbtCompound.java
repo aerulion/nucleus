@@ -19,7 +19,25 @@ public class NbtCompound extends NbtTag {
     }
 
     public NbtCompound(@Nullable String key) {
-        super(key);
-        this.children = new HashMap<>();
+        this(key, new HashMap<>());
+    }
+
+    public NbtCompound put(@NotNull String key, @NotNull NbtTag value) {
+        children.put(key, value);
+        return this;
+    }
+
+    public NbtCompound remove(@NotNull String key) {
+        children.remove(key);
+        return this;
+    }
+
+    public NbtCompound clear() {
+        children.clear();
+        return this;
+    }
+
+    public boolean containsKey(@Nullable String key) {
+        return children.containsKey(key);
     }
 }
