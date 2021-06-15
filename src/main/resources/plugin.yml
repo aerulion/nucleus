@@ -3,6 +3,8 @@ main: net.aerulion.nucleus.Main
 version: ${project.version}+${buildNumber}
 author: aerulion
 api-version: '1.16'
+libraries:
+  - com.zaxxer:HikariCP:4.0.3
 commands:
   nucleus:
     description: Core command.
