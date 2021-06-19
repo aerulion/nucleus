@@ -15,8 +15,8 @@ import java.util.List;
 
 public class MessagingManager extends BukkitRunnable {
 
-    private final List<BossBarMessage> bossBarMessages = new ArrayList<>();
-    private final HashMap<Audience, HashMap<NamespacedKey, KeyedBossBarMessage>> keyedBossBarMessages = new HashMap<>();
+    private final @NotNull List<BossBarMessage> bossBarMessages = new ArrayList<>();
+    private final @NotNull HashMap<Audience, HashMap<NamespacedKey, KeyedBossBarMessage>> keyedBossBarMessages = new HashMap<>();
 
     public MessagingManager() {
         this.runTaskTimer(Main.plugin, 20L, 20L);

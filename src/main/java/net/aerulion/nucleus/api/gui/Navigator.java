@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Navigator {
 
-    private final HashMap<Player, List<GUI>> GUIS = new HashMap<>();
+    private final @NotNull HashMap<Player, List<GUI>> GUIS = new HashMap<>();
 
     /**
      * Resumes the last gui

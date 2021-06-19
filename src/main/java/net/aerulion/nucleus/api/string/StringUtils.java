@@ -14,9 +14,9 @@ import java.util.*;
 @UtilityClass
 public final class StringUtils {
 
-    private final static DecimalFormat decimalFormat = (DecimalFormat) (DecimalFormat.getInstance(Locale.GERMAN));
-    private final static TreeMap<Integer, String> romanNumbers = new TreeMap<>();
-    private final static TreeMap<Integer, String> centerSpaces = new TreeMap<>();
+    private final static @NotNull DecimalFormat decimalFormat = (DecimalFormat) (DecimalFormat.getInstance(Locale.GERMAN));
+    private final static @NotNull TreeMap<Integer, String> romanNumbers = new TreeMap<>();
+    private final static @NotNull TreeMap<Integer, String> centerSpaces = new TreeMap<>();
 
     static {
         romanNumbers.put(1000, "M");
