@@ -48,8 +48,7 @@ public final class ComponentUtils {
         if (component == null) return 0;
         int length = 0;
         boolean bold = false;
-        if (component instanceof TextComponent) {
-            TextComponent textComponent = (TextComponent) component;
+        if (component instanceof TextComponent textComponent) {
             bold = textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.TRUE)
                     || (textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.NOT_SET) && boldBefore);
             for (char c : textComponent.content().toCharArray()) {

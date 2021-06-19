@@ -23,8 +23,7 @@ public class MessagingManager extends BukkitRunnable {
     }
 
     private void bossBarMessage(BossBarMessage bossBarMessage) {
-        if (bossBarMessage instanceof KeyedBossBarMessage) {
-            KeyedBossBarMessage keyedBossBarMessage = (KeyedBossBarMessage) bossBarMessage;
+        if (bossBarMessage instanceof KeyedBossBarMessage keyedBossBarMessage) {
             HashMap<NamespacedKey, KeyedBossBarMessage> audienceMap = keyedBossBarMessages.getOrDefault(keyedBossBarMessage.getRecipient(), new HashMap<>());
             if (audienceMap.containsKey(keyedBossBarMessage.getKey()))
                 audienceMap.get(keyedBossBarMessage.getKey()).reset(keyedBossBarMessage.getMessage());

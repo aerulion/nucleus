@@ -13,9 +13,8 @@ public class GuiHandler implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onGuiClick(@NotNull InventoryClickEvent event) {
         InventoryHolder inventoryHolder = event.getInventory().getHolder();
-        if (inventoryHolder instanceof GUI) {
+        if (inventoryHolder instanceof GUI gui) {
             event.setCancelled(true);
-            GUI gui = (GUI) inventoryHolder;
             gui.handleClick(event);
         }
     }
@@ -23,8 +22,7 @@ public class GuiHandler implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onGuiClose(@NotNull InventoryCloseEvent event) {
         InventoryHolder inventoryHolder = event.getInventory().getHolder();
-        if (inventoryHolder instanceof GUI) {
-            GUI gui = (GUI) inventoryHolder;
+        if (inventoryHolder instanceof GUI gui) {
             gui.handleClose(event);
         }
     }
