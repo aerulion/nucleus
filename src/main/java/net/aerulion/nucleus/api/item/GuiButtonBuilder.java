@@ -76,25 +76,25 @@ public final class GuiButtonBuilder {
     public ItemStack build() {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta != null) {
-            Component displayName = itemStack.getItemMeta().displayName();
+            @Nullable Component displayName = itemStack.getItemMeta().displayName();
             if (displayName == null) return itemStack;
             int pixelLength = ComponentUtils.getPixelLength(displayName);
-            List<Component> lore = itemMeta.lore();
+            @Nullable List<Component> lore = itemMeta.lore();
             if (lore == null) return itemStack;
             for (Component component : lore) {
                 int length = ComponentUtils.getPixelLength(component);
                 if (length > pixelLength)
                     pixelLength = length;
             }
-            Component padding = Component.text(StringUtils.repeat(" ", this.padding))
+            @NotNull Component padding = Component.text(StringUtils.repeat(" ", this.padding))
                     .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE)
                     .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
             itemMeta.displayName(padding.append(
                     ComponentUtils.generateCenteredComponent(
                             Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
                                     .append(displayName), (int) Math.round(pixelLength / 2D)).append(padding)));
-            List<Component> formattedLore = new ArrayList<>();
-            for (Component component : lore) {
+            @NotNull List<Component> formattedLore = new ArrayList<>();
+            for (@NotNull Component component : lore) {
                 if (PlainComponentSerializer.plain().serialize(component).equals("%divider"))
                     formattedLore.add(ComponentUtils.generateLine(pixelLength + this.padding * 8).color(component.color()));
                 else

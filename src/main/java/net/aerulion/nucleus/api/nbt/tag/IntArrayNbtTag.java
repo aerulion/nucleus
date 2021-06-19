@@ -23,7 +23,7 @@ public class IntArrayNbtTag extends NbtTag {
         this(key, UUIDUtils.toIntArray(uuid));
     }
 
-    public UUID asUUID() {
+    public @NotNull UUID asUUID() {
         return UUIDUtils.fromIntArray(value);
     }
 }

@@ -52,7 +52,7 @@ public final class ComponentUtils {
             bold = textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.TRUE)
                     || (textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.NOT_SET) && boldBefore);
             for (char c : textComponent.content().toCharArray()) {
-                FontInfo fontInfo = FontInfo.getFontInfo(c);
+                @NotNull FontInfo fontInfo = FontInfo.getFontInfo(c);
                 length += fontInfo.getLength(bold);
                 length++;
             }
@@ -97,12 +97,12 @@ public final class ComponentUtils {
                 spaces += 4;
             }
         }
-        Component component = Component.empty();
+        @NotNull Component component = Component.empty();
         if (boldSpaces > 0)
             component = Component.text(StringUtils.repeat(" ", boldSpaces))
                     .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE);
         if (spaces > 0) {
-            Component spacesComponent = Component.text(StringUtils.repeat(" ", spaces))
+            @NotNull Component spacesComponent = Component.text(StringUtils.repeat(" ", spaces))
                     .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE);
             if (boldSpaces == 0)
                 component = spacesComponent;

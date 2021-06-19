@@ -24,7 +24,7 @@ public final class ParticleUtils {
     public static @NotNull ArrayList<Location> getCircle(@NotNull Location center, @NotNull double radius, @NotNull int steps) {
         World world = center.getWorld();
         double increment = (2 * Math.PI) / steps;
-        ArrayList<Location> locations = new ArrayList<>();
+        @NotNull ArrayList<Location> locations = new ArrayList<>();
         for (int i = 0; i < steps; i++) {
             double angle = i * increment;
             double x = center.getX() + radius * Math.cos(angle);
@@ -45,7 +45,7 @@ public final class ParticleUtils {
     public static @NotNull ArrayList<Location> getCircleReverse(@NotNull Location center, @NotNull double radius, @NotNull int steps) {
         World world = center.getWorld();
         double increment = (2 * Math.PI) / steps;
-        ArrayList<Location> locations = new ArrayList<>();
+        @NotNull ArrayList<Location> locations = new ArrayList<>();
         for (int i = 0; i < steps; i++) {
             double angle = i * increment;
             double x = center.getX() - radius * Math.cos(angle);

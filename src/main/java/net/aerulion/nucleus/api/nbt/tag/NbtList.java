@@ -23,17 +23,17 @@ public class NbtList extends NbtTag {
         this(key, new ArrayList<>());
     }
 
-    public NbtList add(@NotNull NbtTag value) {
+    public @NotNull NbtList add(@NotNull NbtTag value) {
         content.add(value);
         return this;
     }
 
-    public NbtList remove(@NotNull NbtTag nbtTag) {
+    public @NotNull NbtList remove(@NotNull NbtTag nbtTag) {
         content.remove(nbtTag);
         return this;
     }
 
-    public NbtList clear() {
+    public @NotNull NbtList clear() {
         content.clear();
         return this;
     }

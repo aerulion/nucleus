@@ -20,7 +20,7 @@ public final class JsonUtils {
      */
     public static String convertItemStackToJson(@NotNull ItemStack itemStack) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
-        NBTTagCompound compound = new NBTTagCompound();
+        @NotNull NBTTagCompound compound = new NBTTagCompound();
         nmsItemStack.save(compound);
         return compound.toString();
     }

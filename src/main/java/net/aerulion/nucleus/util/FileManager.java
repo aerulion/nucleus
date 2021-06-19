@@ -2,6 +2,7 @@ package net.aerulion.nucleus.util;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +10,8 @@ import java.io.IOException;
 public class FileManager {
     public static boolean setDefaultMySQLConfig() {
         try {
-            File file = new File("plugins/Nucleus", "mysql_config.yml");
-            FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
+            @NotNull File file = new File("plugins/Nucleus", "mysql_config.yml");
+            @NotNull FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
             fileConfiguration.options().copyDefaults(true);
             fileConfiguration.addDefault("HOST", "localhost");
             fileConfiguration.addDefault("PORT", "3306");
@@ -25,8 +26,8 @@ public class FileManager {
     }
 
     public static void loadMySQLConfig() {
-        File file = new File("plugins/Nucleus", "mysql_config.yml");
-        FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
+        @NotNull File file = new File("plugins/Nucleus", "mysql_config.yml");
+        @NotNull FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
         HikariDataSourceManager.serverName = fileConfiguration.getString("HOST");
         HikariDataSourceManager.port = fileConfiguration.getString("PORT");
         HikariDataSourceManager.databaseName = fileConfiguration.getString("DATABASE");

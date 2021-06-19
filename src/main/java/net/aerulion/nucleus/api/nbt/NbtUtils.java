@@ -41,8 +41,8 @@ public final class NbtUtils {
         return CraftItemStack.asBukkitCopy(nmsItemStack);
     }
 
-    private static NBTTagCompound createNBTTagCompound(HashMap<String, NbtTag> nbtTags) {
-        NBTTagCompound nbtTagCompound = new NBTTagCompound();
+    private static @NotNull NBTTagCompound createNBTTagCompound(@NotNull HashMap<String, NbtTag> nbtTags) {
+        @NotNull NBTTagCompound nbtTagCompound = new NBTTagCompound();
         for (NbtTag nbtTag : nbtTags.values()) {
             if (nbtTag instanceof ByteNbtTag)
                 nbtTagCompound.set(nbtTag.getKey(), NBTTagByte.a(((ByteNbtTag) nbtTag).getValue()));
@@ -72,8 +72,8 @@ public final class NbtUtils {
         return nbtTagCompound;
     }
 
-    private static NBTTagList createNBTTagList(List<NbtTag> nbtTags) {
-        NBTTagList nbtTagList = new NBTTagList();
+    private static @NotNull NBTTagList createNBTTagList(@NotNull List<NbtTag> nbtTags) {
+        @NotNull NBTTagList nbtTagList = new NBTTagList();
         for (NbtTag nbtTag : nbtTags) {
             if (nbtTag instanceof ByteNbtTag)
                 nbtTagList.add(NBTTagByte.a(((ByteNbtTag) nbtTag).getValue()));
@@ -104,10 +104,10 @@ public final class NbtUtils {
     }
 
     private static @NotNull HashMap<String, NbtTag> getTagsFromCompound(@Nullable NBTTagCompound nbtTagCompound) {
-        HashMap<String, NbtTag> nbtTagList = new HashMap<>();
+        @NotNull HashMap<String, NbtTag> nbtTagList = new HashMap<>();
         if (nbtTagCompound == null) return nbtTagList;
         for (String key : nbtTagCompound.getKeys()) {
-            NBTBase nbtBase = nbtTagCompound.get(key);
+            @Nullable NBTBase nbtBase = nbtTagCompound.get(key);
             if (nbtBase == null) continue;
             if (nbtBase.getTypeId() == 1)
                 nbtTagList.put(key, new ByteNbtTag(key, ((NBTNumber) nbtBase).asByte()));
@@ -138,9 +138,9 @@ public final class NbtUtils {
     }
 
     private static @NotNull List<NbtTag> getTagsFromList(@Nullable NBTTagList nbtTagList) {
-        List<NbtTag> nbtTags = new ArrayList<>();
+        @NotNull List<NbtTag> nbtTags = new ArrayList<>();
         if (nbtTagList == null) return nbtTags;
-        for (NBTBase nbtBase : nbtTagList) {
+        for (@Nullable NBTBase nbtBase : nbtTagList) {
             if (nbtBase == null) continue;
             if (nbtBase.getTypeId() == 1)
                 nbtTags.add(new ByteNbtTag(null, ((NBTNumber) nbtBase).asByte()));
@@ -210,7 +210,7 @@ public final class NbtUtils {
      */
     public static String getNBTString(@NotNull ItemStack itemStack, @NotNull String key) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
-        NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
+        @Nullable NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if ((localNBTTagCompound != null) && (localNBTTagCompound.hasKey(key)))
             return localNBTTagCompound.getString(key);
         return "";
@@ -241,7 +241,7 @@ public final class NbtUtils {
      */
     public static int getNBTInt(@NotNull ItemStack itemStack, @NotNull String key) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
-        NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
+        @Nullable NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if ((localNBTTagCompound != null) && (localNBTTagCompound.hasKey(key)))
             return localNBTTagCompound.getInt(key);
         return 0;
@@ -272,7 +272,7 @@ public final class NbtUtils {
      */
     public static boolean getNBTBoolean(@NotNull ItemStack itemStack, @NotNull String key) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
-        NBTTagCompound NBTTagCompound = nmsItemStack.getTag();
+        @Nullable NBTTagCompound NBTTagCompound = nmsItemStack.getTag();
         return ((NBTTagCompound != null) && (NBTTagCompound.hasKey(key))) && NBTTagCompound.getBoolean(key);
     }
 
@@ -287,7 +287,7 @@ public final class NbtUtils {
     public static @NotNull ItemStack setNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key, @NotNull HashMap<String, Integer> values) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound nbtTagCompound = nmsItemStack.getOrCreateTag();
-        NBTTagCompound nbtTagCompound2 = new NBTTagCompound();
+        @NotNull NBTTagCompound nbtTagCompound2 = new NBTTagCompound();
         values.forEach(nbtTagCompound2::setInt);
         nbtTagCompound.set(key, nbtTagCompound2);
         nmsItemStack.setTag(nbtTagCompound);
@@ -303,9 +303,9 @@ public final class NbtUtils {
      */
     public static @Nullable HashMap<String, Integer> getNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
-        NBTTagCompound nbtTagCompound = nmsItemStack.getTag();
+        @Nullable NBTTagCompound nbtTagCompound = nmsItemStack.getTag();
         if (nbtTagCompound != null && nbtTagCompound.hasKey(key)) {
-            HashMap<String, Integer> values = new HashMap<>();
+            @NotNull HashMap<String, Integer> values = new HashMap<>();
             nbtTagCompound.getCompound(key).getKeys().forEach(s -> values.put(s, nbtTagCompound.getCompound(key).getInt(s)));
             return values;
         }
@@ -323,7 +323,7 @@ public final class NbtUtils {
     public static @NotNull ItemStack copyNBTTag(@NotNull ItemStack from, @NotNull ItemStack to, @NotNull String key) {
         net.minecraft.server.v1_16_R3.ItemStack nmsFrom = CraftItemStack.asNMSCopy(from);
         net.minecraft.server.v1_16_R3.ItemStack nmsTo = CraftItemStack.asNMSCopy(to);
-        NBTTagCompound fromTagCompound = nmsFrom.getTag();
+        @Nullable NBTTagCompound fromTagCompound = nmsFrom.getTag();
         NBTTagCompound toTagCompound = nmsTo.getOrCreateTag();
         if (fromTagCompound != null && fromTagCompound.hasKey(key)) {
             toTagCompound.set(key, fromTagCompound.get(key));

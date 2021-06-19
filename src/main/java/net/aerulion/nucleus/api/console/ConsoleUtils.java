@@ -14,7 +14,7 @@ public final class ConsoleUtils {
 
     @Deprecated
     public static void sendColoredConsoleMessage(@NotNull String message) {
-        final ConsoleCommandSender sender = Bukkit.getConsoleSender();
+        final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
         sender.sendMessage(message);
     }
 
@@ -24,7 +24,7 @@ public final class ConsoleUtils {
      * @param message The message to be sent
      */
     public static void sendColoredConsoleMessage(@NotNull Component message) {
-        final ConsoleCommandSender sender = Bukkit.getConsoleSender();
+        final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
         sender.sendMessage(message);
     }
 }

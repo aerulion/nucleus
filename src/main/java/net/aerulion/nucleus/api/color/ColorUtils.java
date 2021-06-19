@@ -3,6 +3,7 @@ package net.aerulion.nucleus.api.color;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ public final class ColorUtils {
      */
     public static boolean isValidColor(@NotNull String color) {
         if (color.length() == 2 && color.startsWith("&") && ChatColor.ALL_CODES.contains(color.substring(1))) {
-            org.bukkit.ChatColor chatColor = org.bukkit.ChatColor.getByChar(color.substring(1));
+            org.bukkit.@Nullable ChatColor chatColor = org.bukkit.ChatColor.getByChar(color.substring(1));
             if (chatColor != null) {
                 return !chatColor.isFormat();
             }

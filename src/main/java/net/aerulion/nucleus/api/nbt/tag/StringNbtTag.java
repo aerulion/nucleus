@@ -22,7 +22,7 @@ public class StringNbtTag extends NbtTag {
         this(key, uuid.toString());
     }
 
-    public UUID asUUID() {
+    public @NotNull UUID asUUID() {
         return UUID.fromString(value);
     }
 }

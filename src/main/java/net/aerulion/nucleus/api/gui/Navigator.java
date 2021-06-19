@@ -69,7 +69,7 @@ public class Navigator {
      * @param gui    the gui to add to the stack
      */
     public void popAllAndPush(@NotNull Player player, @NotNull GUI gui) {
-        List<GUI> guis = new ArrayList<>();
+        @NotNull List<GUI> guis = new ArrayList<>();
         guis.add(gui);
         gui.init();
         gui.open();

@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import net.aerulion.nucleus.util.HikariDataSourceManager;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A utility class for hibernate methods
@@ -17,8 +18,8 @@ public final class HibernateUtil {
      * @param debug boolean whether debug messages are enabled
      * @return the generated configuration
      */
-    public static Configuration getPresetConfiguration(boolean debug) {
-        Configuration configuration = new Configuration();
+    public static @NotNull Configuration getPresetConfiguration(boolean debug) {
+        @NotNull Configuration configuration = new Configuration();
         configuration.setProperty(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
         configuration.setProperty(Environment.URL, "jdbc:mysql://" + HikariDataSourceManager.serverName + ":" +
                 HikariDataSourceManager.port + "/" + HikariDataSourceManager.databaseName + "?useSSL=false");

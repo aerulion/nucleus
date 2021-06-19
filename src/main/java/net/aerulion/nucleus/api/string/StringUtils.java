@@ -52,8 +52,8 @@ public final class StringUtils {
     public static int getPixelLength(@Nullable String string) {
         if (string == null)
             return 0;
-        final String validColorCodes = "0123456789aAbBcCdDeEfFkKlLmMnNoOrRxX";
-        final String formattingCodes = "kKmMnNoO";
+        final @NotNull String validColorCodes = "0123456789aAbBcCdDeEfFkKlLmMnNoOrRxX";
+        final @NotNull String formattingCodes = "kKmMnNoO";
         int stringPixelLength = 0;
         boolean colorCode = false;
         boolean isBold = false;
@@ -69,7 +69,7 @@ public final class StringUtils {
                     isBold = false;
             } else {
                 colorCode = false;
-                FontInfo fontInfo = FontInfo.getFontInfo(c);
+                @NotNull FontInfo fontInfo = FontInfo.getFontInfo(c);
                 stringPixelLength += fontInfo.getLength(isBold);
                 stringPixelLength++;
             }
@@ -109,7 +109,7 @@ public final class StringUtils {
      * @return The wrapped string as an list
      */
     public static @NotNull List<String> wrapString(String input, int width) {
-        List<String> wrappedString = new ArrayList<>();
+        @NotNull List<String> wrappedString = new ArrayList<>();
         String wrapped = WordUtils.wrap(input, width, "\n", true);
         Collections.addAll(wrappedString, wrapped.split("\n"));
         return wrappedString;

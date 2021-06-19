@@ -23,7 +23,7 @@ public class ByteArrayNbtTag extends NbtTag {
         this(key, UUIDUtils.toByteArray(uuid));
     }
 
-    public UUID asUUID() {
+    public @NotNull UUID asUUID() {
         return UUIDUtils.fromByteArray(value);
     }
 }

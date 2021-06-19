@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,14 +28,14 @@ public class SkullUtils {
     }
 
     public static @NotNull ItemStack getSkull(@NotNull String skinURL, UUID uuid, int amount) {
-        ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
+        @NotNull ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
         if (skinURL.isEmpty()) return itemStack;
-        SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+        @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
         if (skullMeta == null) return itemStack;
-        GameProfile profile = new GameProfile(uuid, null);
+        @Nullable GameProfile profile = new GameProfile(uuid, null);
         profile.getProperties().put("textures", new Property("textures", Base64.getEncoder().encodeToString(("{textures:{SKIN:{url:\"" + skinURL + "\"}}}").getBytes())));
         try {
-            Method method = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
+            @NotNull Method method = skullMeta.getClass().getDeclaredMethod("setProfile", GameProfile.class);
             method.setAccessible(true);
             method.invoke(skullMeta, profile);
         } catch (@NotNull IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {

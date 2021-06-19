@@ -25,7 +25,7 @@ public class SoundUtils {
     }
 
     public static void playSoundToAllPlayers(@NotNull SoundType soundType) {
-        for (Player player : Bukkit.getOnlinePlayers())
+        for (@NotNull Player player : Bukkit.getOnlinePlayers())
             playSound(player, soundType);
     }
 

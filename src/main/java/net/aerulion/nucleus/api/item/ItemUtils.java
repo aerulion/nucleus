@@ -45,8 +45,8 @@ public class ItemUtils {
         }
         pixelLength += padding * 10;
         displayName = StringUtils.generateCenteredString(displayName, (int) Math.round(pixelLength / 2D)) + org.apache.commons.lang.StringUtils.repeat("§r ", padding);
-        List<String> formattedLore = new ArrayList<>();
-        for (String string : loreList) {
+        @NotNull List<String> formattedLore = new ArrayList<>();
+        for (@NotNull String string : loreList) {
             if (string.contains("%divider")) {
                 formattedLore.add(string.replace("%divider", StringUtils.generateLine((int) Math.ceil((double) pixelLength / 4D))));
             } else {

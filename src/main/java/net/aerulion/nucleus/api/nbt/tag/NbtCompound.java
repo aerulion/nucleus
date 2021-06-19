@@ -22,17 +22,17 @@ public class NbtCompound extends NbtTag {
         this(key, new HashMap<>());
     }
 
-    public NbtCompound put(@NotNull String key, @NotNull NbtTag value) {
+    public @NotNull NbtCompound put(@NotNull String key, @NotNull NbtTag value) {
         children.put(key, value);
         return this;
     }
 
-    public NbtCompound remove(@NotNull String key) {
+    public @NotNull NbtCompound remove(@NotNull String key) {
         children.remove(key);
         return this;
     }
 
-    public NbtCompound clear() {
+    public @NotNull NbtCompound clear() {
         children.clear();
         return this;
     }

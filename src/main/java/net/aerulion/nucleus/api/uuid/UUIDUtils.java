@@ -17,8 +17,8 @@ public final class UUIDUtils {
      * @param uuid the uuid to convert
      * @return the byte array
      */
-    public static @NotNull byte[] toByteArray(@NotNull UUID uuid) {
-        ByteBuffer byteBuffer = ByteBuffer.wrap(new byte[16]);
+    public static @NotNull byte @NotNull [] toByteArray(@NotNull UUID uuid) {
+        @NotNull ByteBuffer byteBuffer = ByteBuffer.wrap(new byte[16]);
         byteBuffer.putLong(uuid.getMostSignificantBits());
         byteBuffer.putLong(uuid.getLeastSignificantBits());
         return byteBuffer.array();
@@ -30,8 +30,8 @@ public final class UUIDUtils {
      * @param bytes the array to convert
      * @return the uuid
      */
-    public static @NotNull UUID fromByteArray(@NotNull byte[] bytes) {
-        ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+    public static @NotNull UUID fromByteArray(@NotNull byte @NotNull [] bytes) {
+        @NotNull ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
         long high = byteBuffer.getLong();
         long low = byteBuffer.getLong();
         return new UUID(high, low);
@@ -43,7 +43,7 @@ public final class UUIDUtils {
      * @param uuid the uuid to convert
      * @return the int array
      */
-    public static @NotNull int[] toIntArray(@NotNull UUID uuid) {
+    public static @NotNull int @NotNull [] toIntArray(@NotNull UUID uuid) {
         long high = uuid.getMostSignificantBits();
         long low = uuid.getLeastSignificantBits();
         return new int[]{(int) (high >> 32L), (int) high, (int) (low >> 32L), (int) low};

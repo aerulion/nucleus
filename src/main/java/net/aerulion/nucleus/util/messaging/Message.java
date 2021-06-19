@@ -23,9 +23,9 @@ class Message {
     }
 
     private @NotNull Component formatString(String message, Placeholder @NotNull ... placeholders) {
-        for (Placeholder placeholder : placeholders)
+        for (@NotNull Placeholder placeholder : placeholders)
             message = message.replaceAll(placeholder.getPlaceholder(), placeholder.getReplacement());
-        Component component = Component.text("[")
+        @NotNull Component component = Component.text("[")
                 .color(Color.TEXT)
                 .append(Component.text(messageLevel.getPrefix())
                         .color(messageLevel.getPrefixColor())
@@ -34,7 +34,7 @@ class Message {
                         .color(Color.TEXT)
                         .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
         boolean isAccent = message.startsWith("**");
-        for (String s : message.split("\\*\\*")) {
+        for (@NotNull String s : message.split("\\*\\*")) {
             if (s.equals("")) continue;
             component = component.append(
                     Component.text(s)

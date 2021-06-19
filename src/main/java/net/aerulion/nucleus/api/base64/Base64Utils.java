@@ -30,10 +30,10 @@ public final class Base64Utils {
      * @return The encoded string
      */
     public static @Nullable String encodeItemStack(ItemStack itemStack) {
-        String encodedItemStack = null;
+        @Nullable String encodedItemStack = null;
         try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            BukkitObjectOutputStream bukkitObjectOutputStream = new BukkitObjectOutputStream(byteArrayOutputStream);
+            @NotNull ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            @NotNull BukkitObjectOutputStream bukkitObjectOutputStream = new BukkitObjectOutputStream(byteArrayOutputStream);
             bukkitObjectOutputStream.writeObject(itemStack);
             bukkitObjectOutputStream.close();
             encodedItemStack = Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());
@@ -49,10 +49,10 @@ public final class Base64Utils {
      * @return The decoded ItemStack
      */
     public static @Nullable ItemStack decodeItemStack(String encodedString) {
-        ItemStack itemStack = null;
+        @Nullable ItemStack itemStack = null;
         try {
-            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(Base64.getDecoder().decode(encodedString));
-            BukkitObjectInputStream bukkitObjectInputStream = new BukkitObjectInputStream(byteArrayInputStream);
+            @NotNull ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(Base64.getDecoder().decode(encodedString));
+            @NotNull BukkitObjectInputStream bukkitObjectInputStream = new BukkitObjectInputStream(byteArrayInputStream);
             itemStack = (ItemStack) bukkitObjectInputStream.readObject();
             bukkitObjectInputStream.close();
         } catch (Exception ignored) {
@@ -67,7 +67,7 @@ public final class Base64Utils {
      * @return The encoded list
      */
     public static @NotNull List<String> encodeItemStackList(@NotNull List<ItemStack> itemStackList) {
-        List<String> output = new ArrayList<>();
+        @NotNull List<String> output = new ArrayList<>();
         for (ItemStack itemstack : itemStackList)
             output.add(encodeItemStack(itemstack));
         return output;
@@ -80,7 +80,7 @@ public final class Base64Utils {
      * @return The decoded list
      */
     public static @NotNull List<ItemStack> decodeItemStackList(@NotNull List<String> stringList) {
-        List<ItemStack> output = new ArrayList<>();
+        @NotNull List<ItemStack> output = new ArrayList<>();
         for (String string : stringList)
             output.add(decodeItemStack(string));
         return output;
@@ -95,7 +95,7 @@ public final class Base64Utils {
      * @throws IOException if an error occurs during writing or when not able to create required ImageOutputStream
      */
     public static String encodeBufferedImage(@NotNull BufferedImage bufferedImage, final @NotNull String formatName) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        @NotNull ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, formatName, Base64.getEncoder().wrap(byteArrayOutputStream));
         return byteArrayOutputStream.toString(StandardCharsets.ISO_8859_1.name());
     }

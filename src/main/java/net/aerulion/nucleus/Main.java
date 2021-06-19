@@ -13,6 +13,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
     public static Main plugin;
@@ -25,7 +26,7 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
         messagingManager = new MessagingManager();
         guiHandler = new GuiHandler();
         Message.ENABLING_PLUGIN.console();
-        PluginCommand pluginCommand = getCommand("nucleus");
+        @Nullable PluginCommand pluginCommand = getCommand("nucleus");
         if (pluginCommand != null)
             pluginCommand.setExecutor(this);
         if (!FileManager.setDefaultMySQLConfig())
