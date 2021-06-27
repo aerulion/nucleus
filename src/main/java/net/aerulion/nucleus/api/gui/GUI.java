@@ -23,7 +23,11 @@ public abstract class GUI implements InventoryHolder {
 
     protected final Player player;
     protected Inventory inventory;
-    protected final ItemStack spacer = ItemBuilder.of(Material.BLACK_STAINED_GLASS_PANE).withDisplayName(Component.empty()).build();
+    protected final ItemStack spacer = ItemBuilder
+            .of(Material.BLACK_STAINED_GLASS_PANE)
+            .withCustomModelData(1000)
+            .withDisplayName(Component.empty())
+            .build();
 
     /**
      * Creates a new GUI instance and assigns it to the specified player
