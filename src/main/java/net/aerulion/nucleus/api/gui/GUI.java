@@ -1,11 +1,9 @@
 package net.aerulion.nucleus.api.gui;
 
 import net.aerulion.nucleus.api.component.ComponentUtils;
-import net.aerulion.nucleus.api.item.ItemBuilder;
 import net.aerulion.nucleus.api.string.CenterPixel;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -23,11 +21,6 @@ public abstract class GUI implements InventoryHolder {
 
     protected final Player player;
     protected Inventory inventory;
-    protected final ItemStack spacer = ItemBuilder
-            .of(Material.BLACK_STAINED_GLASS_PANE)
-            .withCustomModelData(1000)
-            .withDisplayName(Component.empty())
-            .build();
 
     /**
      * Creates a new GUI instance and assigns it to the specified player
@@ -75,7 +68,10 @@ public abstract class GUI implements InventoryHolder {
      * Initializes this inventory
      */
     public void init() {
-        this.inventory = Bukkit.createInventory(this, getSlots(), ComponentUtils.generateCenteredComponent(getTitle(), CenterPixel.INVENTORY_TITLE));
+        this.inventory = Bukkit.createInventory(
+                this,
+                getSlots(),
+                ComponentUtils.generateCenteredComponent(getTitle(), CenterPixel.INVENTORY_TITLE));
     }
 
     /**
@@ -90,7 +86,16 @@ public abstract class GUI implements InventoryHolder {
      * Fills every unused slot with an black glass pane
      */
     public void fillSpacers() {
-        fillSpacers(spacer);
+        fillSpacers(UI.SPACER);
+    }
+
+    /**
+     * Fills every unused slot with the given UI element
+     *
+     * @param ui the UI element to use
+     */
+    public void fillSpacers(@NotNull UI ui) {
+        fillSpacers(ui.get());
     }
 
     /**
@@ -103,6 +108,26 @@ public abstract class GUI implements InventoryHolder {
             if (inventory.getItem(i) == null)
                 inventory.setItem(i, itemStack);
         }
+    }
+
+    /**
+     * Sets a given UI element at the specified slot number
+     *
+     * @param i  the specified slot
+     * @param ui the UI element to use
+     */
+    public void setItem(int i, @NotNull UI ui) {
+        inventory.setItem(i, ui.get());
+    }
+
+    /**
+     * Sets a given ItemStack at the specified slot number
+     *
+     * @param i         the specified slot
+     * @param itemStack the ItemStack to use
+     */
+    public void setItem(int i, ItemStack itemStack) {
+        inventory.setItem(i, itemStack);
     }
 
     /**
