@@ -131,6 +131,15 @@ public abstract class GUI implements InventoryHolder {
     }
 
     /**
+     * Removes the ItemStack at the specified slot number
+     *
+     * @param i the specified slot
+     */
+    public void removeItem(int i) {
+        inventory.setItem(i, null);
+    }
+
+    /**
      * Override for InventoryHolder
      *
      * @return the gui inventory
