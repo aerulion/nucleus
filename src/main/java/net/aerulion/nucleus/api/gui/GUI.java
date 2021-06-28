@@ -113,30 +113,30 @@ public abstract class GUI implements InventoryHolder {
     /**
      * Sets a given UI element at the specified slot number
      *
-     * @param i  the specified slot
+     * @param slot  the specified slot
      * @param ui the UI element to use
      */
-    public void setItem(int i, @NotNull UI ui) {
-        inventory.setItem(i, ui.get());
+    public void setItem(int slot, @NotNull UI ui) {
+        inventory.setItem(slot, ui.get());
     }
 
     /**
      * Sets a given ItemStack at the specified slot number
      *
-     * @param i         the specified slot
+     * @param slot         the specified slot
      * @param itemStack the ItemStack to use
      */
-    public void setItem(int i, ItemStack itemStack) {
-        inventory.setItem(i, itemStack);
+    public void setItem(int slot, ItemStack itemStack) {
+        inventory.setItem(slot, itemStack);
     }
 
     /**
      * Removes the ItemStack at the specified slot number
      *
-     * @param i the specified slot
+     * @param slot the specified slot
      */
-    public void removeItem(int i) {
-        inventory.setItem(i, null);
+    public void removeItem(int slot) {
+        inventory.setItem(slot, null);
     }
 
     /**
