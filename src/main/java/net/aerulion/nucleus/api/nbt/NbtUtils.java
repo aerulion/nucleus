@@ -29,6 +29,18 @@ public final class NbtUtils {
     }
 
     /**
+     * Gets the nbt tag associated to the given key
+     *
+     * @param itemStack the item
+     * @param key       the specified key
+     * @return the associated NbtTag, or null if it doesn't exist
+     */
+    public static @Nullable NbtTag getTag(@NotNull ItemStack itemStack, String key) {
+        @NotNull HashMap<String, NbtTag> tagHashMap = getTags(itemStack);
+        return tagHashMap.get(key);
+    }
+
+    /**
      * Sets the nbt tags of an ItemStack
      *
      * @param itemStack the item
@@ -38,6 +50,22 @@ public final class NbtUtils {
     public static @NotNull ItemStack setTags(@NotNull ItemStack itemStack, @NotNull HashMap<String, NbtTag> nbtTags) {
         net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack.clone());
         nmsItemStack.setTag(createNBTTagCompound(nbtTags));
+        return CraftItemStack.asBukkitCopy(nmsItemStack);
+    }
+
+    /**
+     * Sets a given NbtTag to the ItemStack
+     *
+     * @param itemStack the target ItemStack
+     * @param nbtTag    the NbtTag to set
+     * @return the modified ItemStack
+     */
+    public static @NotNull ItemStack setTag(@NotNull ItemStack itemStack, @NotNull NbtTag nbtTag) {
+        @NotNull HashMap<String, NbtTag> tagHashMap = new HashMap<>();
+        tagHashMap.put(nbtTag.getKey(), nbtTag);
+        @NotNull NBTTagCompound nbtTagCompound = createNBTTagCompound(tagHashMap);
+        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack.clone());
+        nmsItemStack.getOrCreateTag().set(nbtTag.getKey(), nbtTagCompound.get(nbtTag.getKey()));
         return CraftItemStack.asBukkitCopy(nmsItemStack);
     }
 
