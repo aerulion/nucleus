@@ -2,8 +2,8 @@ package net.aerulion.nucleus.api.nbt;
 
 import lombok.experimental.UtilityClass;
 import net.aerulion.nucleus.api.nbt.tag.*;
-import net.minecraft.server.v1_16_R3.*;
-import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import net.minecraft.nbt.*;
+import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,7 +48,7 @@ public final class NbtUtils {
      * @return the modified item
      */
     public static @NotNull ItemStack setTags(@NotNull ItemStack itemStack, @NotNull HashMap<String, NbtTag> nbtTags) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack.clone());
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack.clone());
         nmsItemStack.setTag(createNBTTagCompound(nbtTags));
         return CraftItemStack.asBukkitCopy(nmsItemStack);
     }
@@ -64,7 +64,7 @@ public final class NbtUtils {
         @NotNull HashMap<String, NbtTag> tagHashMap = new HashMap<>();
         tagHashMap.put(nbtTag.getKey(), nbtTag);
         @NotNull NBTTagCompound nbtTagCompound = createNBTTagCompound(tagHashMap);
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack.clone());
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack.clone());
         nmsItemStack.getOrCreateTag().set(nbtTag.getKey(), nbtTagCompound.get(nbtTag.getKey()));
         return CraftItemStack.asBukkitCopy(nmsItemStack);
     }
@@ -206,7 +206,7 @@ public final class NbtUtils {
      * @return The ItemStack with the NBT tag removed
      */
     public static @NotNull ItemStack removeTag(@NotNull ItemStack itemStack, @NotNull String key) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getOrCreateTag();
         localNBTTagCompound.remove(key);
         nmsItemStack.setTag(localNBTTagCompound);
@@ -222,7 +222,7 @@ public final class NbtUtils {
      * @return The ItemStack with the NBT tag applied
      */
     public static @NotNull ItemStack setNBTString(@NotNull ItemStack itemStack, @NotNull String key, @NotNull String value) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getOrCreateTag();
         localNBTTagCompound.setString(key, value);
         nmsItemStack.setTag(localNBTTagCompound);
@@ -237,7 +237,7 @@ public final class NbtUtils {
      * @return The value associated with the given key or an empty String, if the key doesn't exist
      */
     public static String getNBTString(@NotNull ItemStack itemStack, @NotNull String key) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         @Nullable NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if ((localNBTTagCompound != null) && (localNBTTagCompound.hasKey(key)))
             return localNBTTagCompound.getString(key);
@@ -253,7 +253,7 @@ public final class NbtUtils {
      * @return The ItemStack with the NBT tag applied
      */
     public static @NotNull ItemStack setNBTInt(@NotNull ItemStack itemStack, @NotNull String key, @NotNull int value) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound localNBTTagCompound = nmsItemStack.getOrCreateTag();
         localNBTTagCompound.setInt(key, value);
         nmsItemStack.setTag(localNBTTagCompound);
@@ -268,7 +268,7 @@ public final class NbtUtils {
      * @return The value associated with the given key or 0, if the key doesn't exist
      */
     public static int getNBTInt(@NotNull ItemStack itemStack, @NotNull String key) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         @Nullable NBTTagCompound localNBTTagCompound = nmsItemStack.getTag();
         if ((localNBTTagCompound != null) && (localNBTTagCompound.hasKey(key)))
             return localNBTTagCompound.getInt(key);
@@ -284,7 +284,7 @@ public final class NbtUtils {
      * @return The ItemStack with the NBT tag applied
      */
     public static @NotNull ItemStack setNBTBoolean(@NotNull ItemStack itemStack, @NotNull String key, @NotNull boolean value) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound NBTTagCompound = nmsItemStack.getOrCreateTag();
         NBTTagCompound.setBoolean(key, value);
         nmsItemStack.setTag(NBTTagCompound);
@@ -299,7 +299,7 @@ public final class NbtUtils {
      * @return The value associated with the given key or 'false', if the key doesn't exist
      */
     public static boolean getNBTBoolean(@NotNull ItemStack itemStack, @NotNull String key) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         @Nullable NBTTagCompound NBTTagCompound = nmsItemStack.getTag();
         return ((NBTTagCompound != null) && (NBTTagCompound.hasKey(key))) && NBTTagCompound.getBoolean(key);
     }
@@ -313,7 +313,7 @@ public final class NbtUtils {
      * @return The ItemStack with the NBT compound applied
      */
     public static @NotNull ItemStack setNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key, @NotNull HashMap<String, Integer> values) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         NBTTagCompound nbtTagCompound = nmsItemStack.getOrCreateTag();
         @NotNull NBTTagCompound nbtTagCompound2 = new NBTTagCompound();
         values.forEach(nbtTagCompound2::setInt);
@@ -330,7 +330,7 @@ public final class NbtUtils {
      * @return A Map containing the key value pairs or null, if the compound key doesn't exist
      */
     public static @Nullable HashMap<String, Integer> getNBTIntCompound(@NotNull ItemStack itemStack, @NotNull String key) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
         @Nullable NBTTagCompound nbtTagCompound = nmsItemStack.getTag();
         if (nbtTagCompound != null && nbtTagCompound.hasKey(key)) {
             @NotNull HashMap<String, Integer> values = new HashMap<>();
@@ -349,8 +349,8 @@ public final class NbtUtils {
      * @return the 'to' ItemStack with the new tag applied, if it existed
      */
     public static @NotNull ItemStack copyNBTTag(@NotNull ItemStack from, @NotNull ItemStack to, @NotNull String key) {
-        net.minecraft.server.v1_16_R3.ItemStack nmsFrom = CraftItemStack.asNMSCopy(from);
-        net.minecraft.server.v1_16_R3.ItemStack nmsTo = CraftItemStack.asNMSCopy(to);
+        net.minecraft.world.item.ItemStack nmsFrom = CraftItemStack.asNMSCopy(from);
+        net.minecraft.world.item.ItemStack nmsTo = CraftItemStack.asNMSCopy(to);
         @Nullable NBTTagCompound fromTagCompound = nmsFrom.getTag();
         NBTTagCompound toTagCompound = nmsTo.getOrCreateTag();
         if (fromTagCompound != null && fromTagCompound.hasKey(key)) {

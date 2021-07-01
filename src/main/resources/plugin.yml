@@ -2,7 +2,7 @@ name: Nucleus
 main: net.aerulion.nucleus.Main
 version: ${project.version}+${buildNumber}
 author: aerulion
-api-version: '1.16'
+api-version: '1.17'
 libraries:
   - com.zaxxer:HikariCP:4.0.3
 commands:
