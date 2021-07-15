@@ -97,6 +97,18 @@ public enum UI {
                     .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE))
             .build()),
     /**
+     * A delete button
+     */
+    BUTTON_DELETE(ItemBuilder
+            .of(Material.BARRIER)
+            .withCustomModelData(100)
+            .withDisplayName(Component
+                    .text("Löschen")
+                    .color(NamedTextColor.RED)
+                    .decorate(TextDecoration.BOLD)
+                    .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE))
+            .build()),
+    /**
      * A black decoration element
      */
     DECORATION_BLACK(ItemBuilder
