@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import net.aerulion.nucleus.api.component.ComponentUtils;
 import net.aerulion.nucleus.api.string.CenterPixel;
 import net.aerulion.nucleus.api.string.StringUtils;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.md_5.bungee.api.ChatColor;
@@ -44,42 +45,22 @@ public final class ChatUtils {
     }
 
     /**
-     * Sends a centered chat message to an player
+     * Sends a centered chat message to an audience
      *
-     * @param player  The receiver of the message
-     * @param message The message to be sent
+     * @param audience The receiver of the message
+     * @param message  The message to be sent
      */
-    public static void sendCenteredChatMessage(@NotNull Player player, @NotNull Component message) {
-        player.sendMessage(ComponentUtils.generateCenteredComponent(message, CenterPixel.CHAT));
+    public static void sendCenteredChatMessage(@NotNull Audience audience, @NotNull Component message) {
+        audience.sendMessage(ComponentUtils.generateCenteredComponent(message, CenterPixel.CHAT));
     }
 
     /**
-     * Sends a centered chat message to an CommandSender
+     * Sends an fullwidth line to an audience using the specified color
      *
-     * @param commandSender The receiver of the message
-     * @param message       The message to be sent
-     */
-    public static void sendCenteredChatMessage(@NotNull CommandSender commandSender, @NotNull Component message) {
-        commandSender.sendMessage(ComponentUtils.generateCenteredComponent(message, CenterPixel.CHAT));
-    }
-
-    /**
-     * Sends an fullwidth line to an player using the specified color
-     *
-     * @param player    The receiver of the message
+     * @param audience  The receiver of the message
      * @param textColor The color of the line
      */
-    public static void sendChatDividingLine(@NotNull Player player, @NotNull TextColor textColor) {
-        player.sendMessage(ComponentUtils.generateFullWidthLine(CenterPixel.CHAT).color(textColor));
-    }
-
-    /**
-     * Sends an fullwidth line to an CommandSender using the specified color
-     *
-     * @param commandSender The receiver of the message
-     * @param textColor     The color of the line
-     */
-    public static void sendChatDividingLine(@NotNull CommandSender commandSender, @NotNull TextColor textColor) {
-        commandSender.sendMessage(ComponentUtils.generateFullWidthLine(CenterPixel.CHAT).color(textColor));
+    public static void sendChatDividingLine(@NotNull Audience audience, @NotNull TextColor textColor) {
+        audience.sendMessage(ComponentUtils.generateFullWidthLine(CenterPixel.CHAT).color(textColor));
     }
 }
