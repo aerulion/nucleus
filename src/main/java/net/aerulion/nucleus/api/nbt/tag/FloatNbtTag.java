@@ -7,12 +7,12 @@ import org.jetbrains.annotations.Nullable;
 
 @Getter
 @ToString(callSuper = true)
-public class FloatNbtTag extends NbtTag{
+public class FloatNbtTag extends NbtTag {
 
-    protected final @NotNull float value;
+  protected final @NotNull float value;
 
-    public FloatNbtTag(@Nullable String key, @NotNull float value) {
-        super(key);
-        this.value = value;
-    }
+  public FloatNbtTag(@Nullable String key, @NotNull float value) {
+    super(key);
+    this.value = value;
+  }
 }

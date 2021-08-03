@@ -8,9 +8,9 @@ import org.jetbrains.annotations.Nullable;
 @ToString
 public abstract class NbtTag {
 
-    protected final @Nullable String key;
+  protected final @Nullable String key;
 
-    protected NbtTag(@Nullable String key) {
-        this.key = key;
-    }
+  protected NbtTag(@Nullable String key) {
+    this.key = key;
+  }
 }

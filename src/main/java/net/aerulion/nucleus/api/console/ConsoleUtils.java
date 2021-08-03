@@ -12,19 +12,19 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public final class ConsoleUtils {
 
-    @Deprecated
-    public static void sendColoredConsoleMessage(@NotNull String message) {
-        final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
-        sender.sendMessage(message);
-    }
+  @Deprecated
+  public static void sendColoredConsoleMessage(@NotNull String message) {
+    final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
+    sender.sendMessage(message);
+  }
 
-    /**
-     * Sends a colored message to the console
-     *
-     * @param message The message to be sent
-     */
-    public static void sendColoredConsoleMessage(@NotNull Component message) {
-        final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
-        sender.sendMessage(message);
-    }
+  /**
+   * Sends a colored message to the console
+   *
+   * @param message The message to be sent
+   */
+  public static void sendColoredConsoleMessage(@NotNull Component message) {
+    final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
+    sender.sendMessage(message);
+  }
 }

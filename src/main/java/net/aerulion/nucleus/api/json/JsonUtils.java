@@ -12,16 +12,16 @@ import org.jetbrains.annotations.NotNull;
 @UtilityClass
 public final class JsonUtils {
 
-    /**
-     * Converts an given ItemStack to an raw json code
-     *
-     * @param itemStack The ItemStack to be converted
-     * @return The raw json string
-     */
-    public static String convertItemStackToJson(@NotNull ItemStack itemStack) {
-        net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
-        @NotNull NBTTagCompound compound = new NBTTagCompound();
-        nmsItemStack.save(compound);
-        return compound.toString();
-    }
+  /**
+   * Converts a given ItemStack to raw json code
+   *
+   * @param itemStack The ItemStack to be converted
+   * @return The raw json string
+   */
+  public static String convertItemStackToJson(@NotNull ItemStack itemStack) {
+    net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+    @NotNull NBTTagCompound compound = new NBTTagCompound();
+    nmsItemStack.save(compound);
+    return compound.toString();
+  }
 }

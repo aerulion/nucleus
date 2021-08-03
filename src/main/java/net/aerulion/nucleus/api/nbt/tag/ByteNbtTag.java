@@ -9,10 +9,10 @@ import org.jetbrains.annotations.Nullable;
 @ToString(callSuper = true)
 public class ByteNbtTag extends NbtTag {
 
-    protected final @NotNull byte value;
+  protected final @NotNull byte value;
 
-    public ByteNbtTag(@Nullable String key, @NotNull byte value) {
-        super(key);
-        this.value = value;
-    }
+  public ByteNbtTag(@Nullable String key, @NotNull byte value) {
+    super(key);
+    this.value = value;
+  }
 }

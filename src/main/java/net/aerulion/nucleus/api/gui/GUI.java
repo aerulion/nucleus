@@ -19,154 +19,156 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class GUI implements InventoryHolder {
 
-    protected final Player player;
-    protected Inventory inventory;
+  protected final Player player;
+  protected Inventory inventory;
 
-    /**
-     * Creates a new GUI instance and assigns it to the specified player
-     *
-     * @param player the specified player
-     */
-    public GUI(Player player) {
-        this.player = player;
+  /**
+   * Creates a new GUI instance and assigns it to the specified player
+   *
+   * @param player the specified player
+   */
+  protected GUI(Player player) {
+    this.player = player;
+  }
+
+  /**
+   * The title of the gui
+   *
+   * @return the title component
+   */
+  public abstract @NotNull Component getTitle();
+
+  /**
+   * The number of available slots
+   *
+   * @return the number of slots
+   */
+  public abstract int getSlots();
+
+  /**
+   * Sets the content of the gui
+   */
+  public abstract void setContent();
+
+  /**
+   * Handles the clicking
+   *
+   * @param event the redirected InventoryClickEvent
+   */
+  public abstract void handleClick(InventoryClickEvent event);
+
+  /**
+   * Handles the closing
+   *
+   * @param event the redirected InventoryCloseEvent
+   */
+  public abstract void handleClose(InventoryCloseEvent event);
+
+  /**
+   * Initializes this inventory
+   */
+  public void init() {
+    this.inventory = Bukkit.createInventory(
+        this,
+        getSlots(),
+        ComponentUtils.generateCenteredComponent(getTitle(), CenterPixel.INVENTORY_TITLE));
+  }
+
+  /**
+   * Updates the contents and opens the gui to the player
+   */
+  public void open() {
+    setContent();
+    player.openInventory(inventory);
+  }
+
+  /**
+   * Fills every unused slot with a black glass pane
+   */
+  public void fillSpacers() {
+    fillSpacers(UI.SPACER);
+  }
+
+  /**
+   * Fills every unused slot with the given UI element
+   *
+   * @param ui the UI element to use
+   */
+  public void fillSpacers(@NotNull UI ui) {
+    fillSpacers(ui.get());
+  }
+
+  /**
+   * Fills every unused slot with the given itemStack
+   *
+   * @param itemStack the itemStack to use
+   */
+  public void fillSpacers(ItemStack itemStack) {
+    for (int i = 0; i < getSlots(); i++) {
+      if (inventory.getItem(i) == null) {
+        inventory.setItem(i, itemStack);
+      }
     }
+  }
 
-    /**
-     * The title of the gui
-     *
-     * @return the title component
-     */
-    public abstract @NotNull Component getTitle();
+  /**
+   * Sets a given UI element at the specified slot number
+   *
+   * @param slot the specified slot
+   * @param ui   the UI element to use
+   */
+  public void setItem(int slot, @NotNull UI ui) {
+    inventory.setItem(slot, ui.get());
+  }
 
-    /**
-     * The number of available slots
-     *
-     * @return the number of slots
-     */
-    public abstract int getSlots();
+  /**
+   * Sets a given ItemStack at the specified slot number
+   *
+   * @param slot      the specified slot
+   * @param itemStack the ItemStack to use
+   */
+  public void setItem(int slot, ItemStack itemStack) {
+    inventory.setItem(slot, itemStack);
+  }
 
-    /**
-     * Sets the content of the gui
-     */
-    public abstract void setContent();
+  /**
+   * Sets a given UI element at the specified slot numbers
+   *
+   * @param slots the specified slots
+   * @param ui    the UI element to use
+   */
+  public void setItem(int @NotNull [] slots, @NotNull UI ui) {
+    setItem(slots, ui.get());
+  }
 
-    /**
-     * Handles the clicking
-     *
-     * @param event the redirected InventoryClickEvent
-     */
-    public abstract void handleClick(InventoryClickEvent event);
-
-    /**
-     * Handles the closing
-     *
-     * @param event the redirected InventoryCloseEvent
-     */
-    public abstract void handleClose(InventoryCloseEvent event);
-
-    /**
-     * Initializes this inventory
-     */
-    public void init() {
-        this.inventory = Bukkit.createInventory(
-                this,
-                getSlots(),
-                ComponentUtils.generateCenteredComponent(getTitle(), CenterPixel.INVENTORY_TITLE));
+  /**
+   * Sets a given ItemStack at the specified slot numbers
+   *
+   * @param slots     the specified slots
+   * @param itemStack the ItemStack to use
+   */
+  public void setItem(int @NotNull [] slots, ItemStack itemStack) {
+    for (int slot : slots) {
+      setItem(slot, itemStack);
     }
+  }
 
-    /**
-     * Updates the contents and opens the gui to the player
-     */
-    public void open() {
-        setContent();
-        player.openInventory(inventory);
-    }
+  /**
+   * Removes the ItemStack at the specified slot number
+   *
+   * @param slot the specified slot
+   */
+  public void removeItem(int slot) {
+    inventory.setItem(slot, null);
+  }
 
-    /**
-     * Fills every unused slot with an black glass pane
-     */
-    public void fillSpacers() {
-        fillSpacers(UI.SPACER);
-    }
-
-    /**
-     * Fills every unused slot with the given UI element
-     *
-     * @param ui the UI element to use
-     */
-    public void fillSpacers(@NotNull UI ui) {
-        fillSpacers(ui.get());
-    }
-
-    /**
-     * Fills every unused slot with the given itemStack
-     *
-     * @param itemStack the itemStack to use
-     */
-    public void fillSpacers(ItemStack itemStack) {
-        for (int i = 0; i < getSlots(); i++) {
-            if (inventory.getItem(i) == null)
-                inventory.setItem(i, itemStack);
-        }
-    }
-
-    /**
-     * Sets a given UI element at the specified slot number
-     *
-     * @param slot the specified slot
-     * @param ui   the UI element to use
-     */
-    public void setItem(int slot, @NotNull UI ui) {
-        inventory.setItem(slot, ui.get());
-    }
-
-    /**
-     * Sets a given ItemStack at the specified slot number
-     *
-     * @param slot      the specified slot
-     * @param itemStack the ItemStack to use
-     */
-    public void setItem(int slot, ItemStack itemStack) {
-        inventory.setItem(slot, itemStack);
-    }
-
-    /**
-     * Sets a given UI element at the specified slot numbers
-     *
-     * @param slots the specified slots
-     * @param ui    the UI element to use
-     */
-    public void setItem(int @NotNull [] slots, @NotNull UI ui) {
-        setItem(slots, ui.get());
-    }
-
-    /**
-     * Sets a given ItemStack at the specified slot numbers
-     *
-     * @param slots     the specified slots
-     * @param itemStack the ItemStack to use
-     */
-    public void setItem(int @NotNull [] slots, ItemStack itemStack) {
-        for (int slot : slots)
-            setItem(slot, itemStack);
-    }
-
-    /**
-     * Removes the ItemStack at the specified slot number
-     *
-     * @param slot the specified slot
-     */
-    public void removeItem(int slot) {
-        inventory.setItem(slot, null);
-    }
-
-    /**
-     * Override for InventoryHolder
-     *
-     * @return the gui inventory
-     */
-    @Override
-    public @NotNull Inventory getInventory() {
-        return inventory;
-    }
+  /**
+   * Override for InventoryHolder
+   *
+   * @return the gui inventory
+   */
+  @Override
+  public @NotNull Inventory getInventory() {
+    return inventory;
+  }
 }

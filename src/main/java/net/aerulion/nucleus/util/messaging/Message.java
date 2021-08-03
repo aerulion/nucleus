@@ -12,45 +12,50 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 class Message {
-    private final @NotNull Component message;
-    private final MessageLevel messageLevel;
-    private final Audience recipient;
 
-    public Message(String message, MessageLevel messageLevel, Audience recipient, Placeholder... placeholders) {
-        this.messageLevel = messageLevel;
-        this.message = formatString(message, placeholders);
-        this.recipient = recipient;
-    }
+  private final @NotNull Component message;
+  private final MessageLevel messageLevel;
+  private final Audience recipient;
 
-    private @NotNull Component formatString(String message, Placeholder @NotNull ... placeholders) {
-        for (@NotNull Placeholder placeholder : placeholders)
-            message = message.replaceAll(placeholder.getPlaceholder(), placeholder.getReplacement());
-        @NotNull Component component = Component.text("[")
-                .color(Color.TEXT)
-                .append(Component.text(messageLevel.getPrefix())
-                        .color(messageLevel.getPrefixColor())
-                        .decorate(TextDecoration.BOLD))
-                .append(Component.text("] ")
-                        .color(Color.TEXT)
-                        .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
-        boolean isAccent = message.startsWith("**");
-        for (@NotNull String s : message.split("\\*\\*")) {
-            if (s.equals("")) continue;
-            component = component.append(
-                    Component.text(s)
-                            .color(isAccent ? messageLevel.getAccentColor() : messageLevel.getTextColor())
-                            .decoration(TextDecoration.BOLD, isAccent ?
-                                    TextDecoration.State.TRUE : TextDecoration.State.FALSE));
-            isAccent = !isAccent;
-        }
-        return component;
-    }
+  public Message(String message, MessageLevel messageLevel, Audience recipient,
+      Placeholder... placeholders) {
+    this.messageLevel = messageLevel;
+    this.message = formatString(message, placeholders);
+    this.recipient = recipient;
+  }
 
-    protected void playSound() {
-        recipient.playSound(Sound.sound(
-                messageLevel.getSoundType().getSound().key(),
-                Sound.Source.MASTER,
-                messageLevel.getSoundType().getVolume(),
-                messageLevel.getSoundType().getPitch()));
+  private @NotNull Component formatString(String message, Placeholder @NotNull ... placeholders) {
+    for (@NotNull Placeholder placeholder : placeholders) {
+      message = message.replaceAll(placeholder.getPlaceholder(), placeholder.getReplacement());
     }
+    @NotNull Component component = Component.text("[")
+        .color(Color.TEXT)
+        .append(Component.text(messageLevel.getPrefix())
+            .color(messageLevel.getPrefixColor())
+            .decorate(TextDecoration.BOLD))
+        .append(Component.text("] ")
+            .color(Color.TEXT)
+            .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
+    boolean isAccent = message.startsWith("**");
+    for (@NotNull String s : message.split("\\*\\*")) {
+      if (s.equals("")) {
+        continue;
+      }
+      component = component.append(
+          Component.text(s)
+              .color(isAccent ? messageLevel.getAccentColor() : messageLevel.getTextColor())
+              .decoration(TextDecoration.BOLD, isAccent ?
+                  TextDecoration.State.TRUE : TextDecoration.State.FALSE));
+      isAccent = !isAccent;
+    }
+    return component;
+  }
+
+  protected void playSound() {
+    recipient.playSound(Sound.sound(
+        messageLevel.getSoundType().getSound().key(),
+        Sound.Source.MASTER,
+        messageLevel.getSoundType().getVolume(),
+        messageLevel.getSoundType().getPitch()));
+  }
 }

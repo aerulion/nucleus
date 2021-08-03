@@ -6,12 +6,13 @@ import net.kyori.adventure.audience.Audience;
 
 public class ChatMessage extends Message {
 
-    public ChatMessage(String message, MessageLevel messageLevel, Audience recipient, Placeholder... placeholders) {
-        super(message, messageLevel, recipient, placeholders);
-    }
+  public ChatMessage(String message, MessageLevel messageLevel, Audience recipient,
+      Placeholder... placeholders) {
+    super(message, messageLevel, recipient, placeholders);
+  }
 
-    public void send() {
-        getRecipient().sendMessage(getMessage());
-        playSound();
-    }
+  public void send() {
+    getRecipient().sendMessage(getMessage());
+    playSound();
+  }
 }
