@@ -60,12 +60,13 @@ public class SkullUtils {
         .orElse(null);
     if (profileProperty != null) {
       String decodedString = new String(Base64.getDecoder().decode(profileProperty.getValue()));
-      decodedString.replace("http:", "https:");
-      String urlString = decodedString.substring(22, decodedString.length() - 4);
+      String[] split = decodedString.split("/");
+      String urlPart = split[split.length - 1];
+      String urlString = urlPart.substring(0, urlPart.indexOf('"'));
       if (trimmed) {
-        return urlString.substring(39);
-      } else {
         return urlString;
+      } else {
+        return "https://textures.minecraft.net/texture/" + urlString;
       }
     }
     return null;
