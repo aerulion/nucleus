@@ -60,6 +60,7 @@ public class SkullUtils {
         .orElse(null);
     if (profileProperty != null) {
       String decodedString = new String(Base64.getDecoder().decode(profileProperty.getValue()));
+      decodedString.replace("http:", "https:");
       String urlString = decodedString.substring(22, decodedString.length() - 4);
       if (trimmed) {
         return urlString.substring(39);
