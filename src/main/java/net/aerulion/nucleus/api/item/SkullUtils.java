@@ -45,7 +45,7 @@ public class SkullUtils {
 
   public static @Nullable String getSkullURL(@NotNull ItemStack itemStack, boolean trimmed) {
     if (!itemStack.getType().equals(Material.PLAYER_HEAD)) {
-      throw new IllegalArgumentException("Provided ItemStack must be of type PLAYER_HEAD");
+      return null;
     }
     @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
     if (skullMeta == null) {
@@ -68,5 +68,20 @@ public class SkullUtils {
       }
     }
     return null;
+  }
+
+  public static @Nullable UUID getSkullUUID(@NotNull ItemStack itemStack) {
+    if (!itemStack.getType().equals(Material.PLAYER_HEAD)) {
+      return null;
+    }
+    @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+    if (skullMeta == null) {
+      return null;
+    }
+    PlayerProfile playerProfile = skullMeta.getPlayerProfile();
+    if (playerProfile == null) {
+      return null;
+    }
+    return playerProfile.getId();
   }
 }
