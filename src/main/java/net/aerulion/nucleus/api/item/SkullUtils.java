@@ -1,11 +1,10 @@
 package net.aerulion.nucleus.api.item;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import java.util.Base64;
 import java.util.UUID;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -35,19 +34,39 @@ public class SkullUtils {
     if (skullMeta == null) {
       return itemStack;
     }
-    @Nullable GameProfile profile = new GameProfile(uuid, null);
-    profile.getProperties().put("textures", new Property("textures", Base64.getEncoder()
+    PlayerProfile playerProfile = Bukkit.createProfile(uuid, null);
+    playerProfile.setProperty(new ProfileProperty("textures", Base64.getEncoder()
         .encodeToString(("{textures:{SKIN:{url:\"" + skinURL + "\"}}}").getBytes())));
-    try {
-      @NotNull Method method = skullMeta.getClass()
-          .getDeclaredMethod("setProfile", GameProfile.class);
-      method.setAccessible(true);
-      method.invoke(skullMeta, profile);
-    } catch (@NotNull IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
-      ex.printStackTrace();
-    }
+    skullMeta.setPlayerProfile(playerProfile);
     itemStack.setItemMeta(skullMeta);
     itemStack.setAmount(amount);
     return itemStack;
+  }
+
+  public static @Nullable String getSkullURL(@NotNull ItemStack itemStack, boolean trimmed) {
+    if (!itemStack.getType().equals(Material.PLAYER_HEAD)) {
+      throw new IllegalArgumentException("Provided ItemStack must be of type PLAYER_HEAD");
+    }
+    @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+    if (skullMeta == null) {
+      return null;
+    }
+    PlayerProfile playerProfile = skullMeta.getPlayerProfile();
+    if (playerProfile == null) {
+      return null;
+    }
+    ProfileProperty profileProperty = playerProfile.getProperties().stream()
+        .filter(profileProperty1 -> profileProperty1.getName().equals("textures")).findFirst()
+        .orElse(null);
+    if (profileProperty != null) {
+      String decodedString = new String(Base64.getDecoder().decode(profileProperty.getValue()));
+      String urlString = decodedString.substring(22, decodedString.length() - 4);
+      if (trimmed) {
+        return urlString.substring(39);
+      } else {
+        return urlString;
+      }
+    }
+    return null;
   }
 }
