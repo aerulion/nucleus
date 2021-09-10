@@ -18,6 +18,7 @@ import net.aerulion.nucleus.api.nbt.tag.NbtList;
 import net.aerulion.nucleus.api.nbt.tag.NbtTag;
 import net.aerulion.nucleus.api.nbt.tag.ShortNbtTag;
 import net.aerulion.nucleus.api.nbt.tag.StringNbtTag;
+import net.minecraft.core.BlockPosition;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTNumber;
 import net.minecraft.nbt.NBTTagByte;
@@ -32,6 +33,10 @@ import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.nbt.NBTTagLongArray;
 import net.minecraft.nbt.NBTTagShort;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.world.level.World;
+import net.minecraft.world.level.block.entity.TileEntity;
+import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +47,23 @@ import org.jetbrains.annotations.Nullable;
  */
 @UtilityClass
 public final class NbtUtils {
+
+  /**
+   * Gets the current nbt tags of a block / tile entity
+   *
+   * @param block the block
+   * @return Map of NbtTags
+   */
+  public static @NotNull Map<String, NbtTag> getTags(@NotNull Block block) {
+    World world = ((CraftWorld) block.getWorld()).getHandle();
+    NBTTagCompound nbtTagCompound = new NBTTagCompound();
+    TileEntity tileEntity = world.getTileEntity(
+        new BlockPosition(block.getX(), block.getY(), block.getZ()));
+    if (tileEntity != null) {
+      tileEntity.save(nbtTagCompound);
+    }
+    return getTagsFromCompound(nbtTagCompound);
+  }
 
   /**
    * Gets the current nbt tags of an ItemStack
@@ -190,8 +212,7 @@ public final class NbtUtils {
       } else if (nbtBase.getTypeId() == 9) {
         nbtTagList.put(key, new NbtList(key, getTagsFromList((NBTTagList) nbtBase)));
       } else if (nbtBase.getTypeId() == 10) {
-        nbtTagList.put(key,
-            new NbtCompound(key, getTagsFromCompound((NBTTagCompound) nbtBase)));
+        nbtTagList.put(key, new NbtCompound(key, getTagsFromCompound((NBTTagCompound) nbtBase)));
       } else if (nbtBase.getTypeId() == 11) {
         nbtTagList.put(key, new IntArrayNbtTag(key, ((NBTTagIntArray) nbtBase).getInts()));
       } else if (nbtBase.getTypeId() == 12) {

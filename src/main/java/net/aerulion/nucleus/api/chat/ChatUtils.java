@@ -30,6 +30,17 @@ public final class ChatUtils {
     commandSender.sendMessage(StringUtils.generateCenteredString(message, CenterPixel.CHAT));
   }
 
+  /**
+   * Sends a centered chat message to an audience
+   *
+   * @param audience The receiver of the message
+   * @param message  The message to be sent
+   */
+  public static void sendCenteredChatMessage(@NotNull Audience audience,
+      @NotNull Component message) {
+    audience.sendMessage(ComponentUtils.generateCenteredComponent(message, CenterPixel.CHAT));
+  }
+
   @Deprecated
   public static void sendChatDividingLine(@NotNull Player player, String chatColor) {
     player.sendMessage(chatColor + StringUtils.generateFullWidthLine(CenterPixel.CHAT));
@@ -43,17 +54,6 @@ public final class ChatUtils {
   @Deprecated
   public static void sendChatDividingLine(@NotNull Player player, @Nullable ChatColor chatColor) {
     player.sendMessage(chatColor + StringUtils.generateFullWidthLine(CenterPixel.CHAT));
-  }
-
-  /**
-   * Sends a centered chat message to an audience
-   *
-   * @param audience The receiver of the message
-   * @param message  The message to be sent
-   */
-  public static void sendCenteredChatMessage(@NotNull Audience audience,
-      @NotNull Component message) {
-    audience.sendMessage(ComponentUtils.generateCenteredComponent(message, CenterPixel.CHAT));
   }
 
   /**

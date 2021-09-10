@@ -26,6 +26,30 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
   public static GuiHandler guiHandler;
 
   @Override
+  public boolean onCommand(@NotNull CommandSender commandSender, Command command, String label,
+      String[] args) {
+    ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
+    commandSender.sendMessage("");
+    ChatUtils.sendCenteredChatMessage(commandSender,
+        Component.text("🔥 ").color(Color.NUCLEUS_PRIMARY)
+            .append(Component.text("Nucleus").decorate(TextDecoration.BOLD)).append(
+                Component.text(" v" + getDescription().getVersion()).color(Color.TEXT)
+                    .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE)));
+    ChatUtils.sendCenteredChatMessage(commandSender,
+        Component.text("by aerulion").color(Color.TEXT));
+    commandSender.sendMessage("");
+    ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
+    return true;
+  }
+
+  @Override
+  public void onDisable() {
+    Message.DISABLING_PLUGIN.console();
+    HikariDataSourceManager.hikariDataSource.close();
+    Message.PLUGIN_DISABLED.console();
+  }
+
+  @Override
   public void onEnable() {
     plugin = this;
     messagingManager = new MessagingManager();
@@ -42,32 +66,5 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
     HikariDataSourceManager.connectToDatabase();
     getServer().getPluginManager().registerEvents(guiHandler, this);
     Message.PLUGIN_ENABLED.console();
-  }
-
-  @Override
-  public void onDisable() {
-    Message.DISABLING_PLUGIN.console();
-    HikariDataSourceManager.hikariDataSource.close();
-    Message.PLUGIN_DISABLED.console();
-  }
-
-  @Override
-  public boolean onCommand(@NotNull CommandSender commandSender, Command command, String label,
-      String[] args) {
-    ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
-    commandSender.sendMessage("");
-    ChatUtils.sendCenteredChatMessage(commandSender,
-        Component.text("\uD83D\uDD25 ")
-            .color(Color.NUCLEUS_PRIMARY)
-            .append(Component.text("Nucleus").decorate(TextDecoration.BOLD))
-            .append(Component.text(" v" + getDescription().getVersion())
-                .color(Color.TEXT)
-                .decoration(TextDecoration.BOLD,
-                    TextDecoration.State.FALSE)));
-    ChatUtils.sendCenteredChatMessage(commandSender,
-        Component.text("by aerulion").color(Color.TEXT));
-    commandSender.sendMessage("");
-    ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
-    return true;
   }
 }

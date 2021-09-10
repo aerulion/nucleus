@@ -29,7 +29,7 @@ public enum UI {
             .of(Material.LIME_STAINED_GLASS_PANE)
             .withCustomModelData(1004)
             .withDisplayName(Component
-                    .text("\u2191")
+                    .text("↑")
                     .color(NamedTextColor.GREEN)
                     .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE))
             .build()),
@@ -40,7 +40,7 @@ public enum UI {
             .of(Material.LIME_STAINED_GLASS_PANE)
             .withCustomModelData(1001)
             .withDisplayName(Component
-                    .text("\u2193")
+                    .text("↓")
                     .color(NamedTextColor.GREEN)
                     .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE))
             .build()),
@@ -51,7 +51,7 @@ public enum UI {
             .of(Material.LIME_STAINED_GLASS_PANE)
             .withCustomModelData(1002)
             .withDisplayName(Component
-                    .text("\u2190")
+                    .text("←")
                     .color(NamedTextColor.GREEN)
                     .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE))
             .build()),
@@ -62,7 +62,7 @@ public enum UI {
             .of(Material.LIME_STAINED_GLASS_PANE)
             .withCustomModelData(1003)
             .withDisplayName(Component
-                    .text("\u2192")
+                    .text("→")
                     .color(NamedTextColor.GREEN)
                     .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE))
             .build()),
@@ -73,7 +73,7 @@ public enum UI {
             .of(Material.BLUE_STAINED_GLASS_PANE)
             .withCustomModelData(1005)
             .withDisplayName(Component
-                    .text("\u25B6 Suchen...")
+                    .text("▶ Suchen...")
                     .color(NamedTextColor.BLUE)
                     .decorate(TextDecoration.BOLD))
             .withLore(

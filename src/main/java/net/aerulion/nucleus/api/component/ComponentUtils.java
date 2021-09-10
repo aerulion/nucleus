@@ -38,6 +38,18 @@ public final class ComponentUtils {
   }
 
   /**
+   * Generates a centered component given a certain center pixel
+   *
+   * @param component   The component to be centered
+   * @param centerPixel The center pixel
+   * @return The centered string
+   */
+  public static @NotNull Component generateCenteredComponent(@NotNull Component component,
+      @NotNull CenterPixel centerPixel) {
+    return generateCenteredComponent(component, centerPixel.getCenterPx());
+  }
+
+  /**
    * Gets the pixel length of a given component
    *
    * @param component Component to check
@@ -54,9 +66,9 @@ public final class ComponentUtils {
     int length = 0;
     boolean bold = false;
     if (component instanceof TextComponent textComponent) {
-      bold = textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.TRUE)
-          || (textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.NOT_SET)
-          && boldBefore);
+      bold = textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.TRUE) || (
+          textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.NOT_SET)
+              && boldBefore);
       for (char c : textComponent.content().toCharArray()) {
         @NotNull FontInfo fontInfo = FontInfo.getFontInfo(c);
         length += fontInfo.getLength(bold);
@@ -124,18 +136,6 @@ public final class ComponentUtils {
   }
 
   /**
-   * Generates a centered component given a certain center pixel
-   *
-   * @param component   The component to be centered
-   * @param centerPixel The center pixel
-   * @return The centered string
-   */
-  public static @NotNull Component generateCenteredComponent(@NotNull Component component,
-      @NotNull CenterPixel centerPixel) {
-    return generateCenteredComponent(component, centerPixel.getCenterPx());
-  }
-
-  /**
    * Generate a progress bar component using a given char
    *
    * @param pixelWidth      the desired pixel width of the generated progress bar
@@ -150,8 +150,7 @@ public final class ComponentUtils {
     int width = pixelWidth / FontInfo.getFontInfo(character).getLength(false);
     int filledAmount = Math.round(width * progress);
     return Component.text(StringUtils.repeat(Character.toString(character), filledAmount))
-        .color(fillColor)
-        .append(
+        .color(fillColor).append(
             Component.text(StringUtils.repeat(Character.toString(character), width - filledAmount))
                 .color(backgroundColor));
   }
