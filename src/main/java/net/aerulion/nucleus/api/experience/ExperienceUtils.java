@@ -28,6 +28,17 @@ public final class ExperienceUtils {
     return xp;
   }
 
+  /**
+   * Gets the total experience of a player
+   *
+   * @param player The player to check
+   * @return The total amount of experience points of the given player
+   */
+  public static int getTotalExperience(@NotNull Player player) {
+    return (int) (Math.floor(player.getExp() * player.getExpToLevel()) + getTotalExperienceFloored(
+        player.getLevel()));
+  }
+
   private static int getTotalExperienceFloored(int level) {
     int xp = 0;
     if (level >= 0 && level <= 15) {
@@ -38,17 +49,6 @@ public final class ExperienceUtils {
       xp = (int) Math.floor((4.5 * Math.pow(level, 2D) - 162.5 * level + 2220));
     }
     return xp;
-  }
-
-  /**
-   * Gets the total experience of a player
-   *
-   * @param player The player to check
-   * @return The total amount of experience points of the given player
-   */
-  public static int getTotalExperience(@NotNull Player player) {
-    return (int) (Math.floor(player.getExp() * player.getExpToLevel()) + getTotalExperienceFloored(
-        player.getLevel()));
   }
 
   /**
