@@ -193,30 +193,24 @@ public final class NbtUtils {
       if (nbtBase == null) {
         continue;
       }
-      if (nbtBase.getTypeId() == 1) {
-        nbtTagList.put(key, new ByteNbtTag(key, ((NBTNumber) nbtBase).asByte()));
-      } else if (nbtBase.getTypeId() == 2) {
-        nbtTagList.put(key, new ShortNbtTag(key, ((NBTNumber) nbtBase).asShort()));
-      } else if (nbtBase.getTypeId() == 3) {
-        nbtTagList.put(key, new IntNbtTag(key, ((NBTNumber) nbtBase).asInt()));
-      } else if (nbtBase.getTypeId() == 4) {
-        nbtTagList.put(key, new LongNbtTag(key, ((NBTNumber) nbtBase).asLong()));
-      } else if (nbtBase.getTypeId() == 5) {
-        nbtTagList.put(key, new FloatNbtTag(key, ((NBTNumber) nbtBase).asFloat()));
-      } else if (nbtBase.getTypeId() == 6) {
-        nbtTagList.put(key, new DoubleNbtTag(key, ((NBTNumber) nbtBase).asDouble()));
-      } else if (nbtBase.getTypeId() == 7) {
-        nbtTagList.put(key, new ByteArrayNbtTag(key, ((NBTTagByteArray) nbtBase).getBytes()));
-      } else if (nbtBase.getTypeId() == 8) {
-        nbtTagList.put(key, new StringNbtTag(key, nbtBase.asString()));
-      } else if (nbtBase.getTypeId() == 9) {
-        nbtTagList.put(key, new NbtList(key, getTagsFromList((NBTTagList) nbtBase)));
-      } else if (nbtBase.getTypeId() == 10) {
-        nbtTagList.put(key, new NbtCompound(key, getTagsFromCompound((NBTTagCompound) nbtBase)));
-      } else if (nbtBase.getTypeId() == 11) {
-        nbtTagList.put(key, new IntArrayNbtTag(key, ((NBTTagIntArray) nbtBase).getInts()));
-      } else if (nbtBase.getTypeId() == 12) {
-        nbtTagList.put(key, new LongArrayNbtTag(key, ((NBTTagLongArray) nbtBase).getLongs()));
+      switch (nbtBase.getTypeId()) {
+        case 1 -> nbtTagList.put(key, new ByteNbtTag(key, ((NBTNumber) nbtBase).asByte()));
+        case 2 -> nbtTagList.put(key, new ShortNbtTag(key, ((NBTNumber) nbtBase).asShort()));
+        case 3 -> nbtTagList.put(key, new IntNbtTag(key, ((NBTNumber) nbtBase).asInt()));
+        case 4 -> nbtTagList.put(key, new LongNbtTag(key, ((NBTNumber) nbtBase).asLong()));
+        case 5 -> nbtTagList.put(key, new FloatNbtTag(key, ((NBTNumber) nbtBase).asFloat()));
+        case 6 -> nbtTagList.put(key, new DoubleNbtTag(key, ((NBTNumber) nbtBase).asDouble()));
+        case 7 -> nbtTagList.put(key,
+            new ByteArrayNbtTag(key, ((NBTTagByteArray) nbtBase).getBytes()));
+        case 8 -> nbtTagList.put(key, new StringNbtTag(key, nbtBase.asString()));
+        case 9 -> nbtTagList.put(key, new NbtList(key, getTagsFromList((NBTTagList) nbtBase)));
+        case 10 -> nbtTagList.put(key,
+            new NbtCompound(key, getTagsFromCompound((NBTTagCompound) nbtBase)));
+        case 11 -> nbtTagList.put(key,
+            new IntArrayNbtTag(key, ((NBTTagIntArray) nbtBase).getInts()));
+        case 12 -> nbtTagList.put(key,
+            new LongArrayNbtTag(key, ((NBTTagLongArray) nbtBase).getLongs()));
+        default -> throw new IllegalStateException("Unexpected value: " + nbtBase.getTypeId());
       }
     }
     return nbtTagList;
@@ -231,30 +225,21 @@ public final class NbtUtils {
       if (nbtBase == null) {
         continue;
       }
-      if (nbtBase.getTypeId() == 1) {
-        nbtTags.add(new ByteNbtTag(null, ((NBTNumber) nbtBase).asByte()));
-      } else if (nbtBase.getTypeId() == 2) {
-        nbtTags.add(new ShortNbtTag(null, ((NBTNumber) nbtBase).asShort()));
-      } else if (nbtBase.getTypeId() == 3) {
-        nbtTags.add(new IntNbtTag(null, ((NBTNumber) nbtBase).asInt()));
-      } else if (nbtBase.getTypeId() == 4) {
-        nbtTags.add(new LongNbtTag(null, ((NBTNumber) nbtBase).asLong()));
-      } else if (nbtBase.getTypeId() == 5) {
-        nbtTags.add(new FloatNbtTag(null, ((NBTNumber) nbtBase).asFloat()));
-      } else if (nbtBase.getTypeId() == 6) {
-        nbtTags.add(new DoubleNbtTag(null, ((NBTNumber) nbtBase).asDouble()));
-      } else if (nbtBase.getTypeId() == 7) {
-        nbtTags.add(new ByteArrayNbtTag(null, ((NBTTagByteArray) nbtBase).getBytes()));
-      } else if (nbtBase.getTypeId() == 8) {
-        nbtTags.add(new StringNbtTag(null, nbtBase.asString()));
-      } else if (nbtBase.getTypeId() == 9) {
-        nbtTags.add(new NbtList(null, getTagsFromList((NBTTagList) nbtBase)));
-      } else if (nbtBase.getTypeId() == 10) {
-        nbtTags.add(new NbtCompound(null, getTagsFromCompound((NBTTagCompound) nbtBase)));
-      } else if (nbtBase.getTypeId() == 11) {
-        nbtTags.add(new IntArrayNbtTag(null, ((NBTTagIntArray) nbtBase).getInts()));
-      } else if (nbtBase.getTypeId() == 12) {
-        nbtTags.add(new LongArrayNbtTag(null, ((NBTTagLongArray) nbtBase).getLongs()));
+      switch (nbtBase.getTypeId()) {
+        case 1 -> nbtTags.add(new ByteNbtTag(null, ((NBTNumber) nbtBase).asByte()));
+        case 2 -> nbtTags.add(new ShortNbtTag(null, ((NBTNumber) nbtBase).asShort()));
+        case 3 -> nbtTags.add(new IntNbtTag(null, ((NBTNumber) nbtBase).asInt()));
+        case 4 -> nbtTags.add(new LongNbtTag(null, ((NBTNumber) nbtBase).asLong()));
+        case 5 -> nbtTags.add(new FloatNbtTag(null, ((NBTNumber) nbtBase).asFloat()));
+        case 6 -> nbtTags.add(new DoubleNbtTag(null, ((NBTNumber) nbtBase).asDouble()));
+        case 7 -> nbtTags.add(new ByteArrayNbtTag(null, ((NBTTagByteArray) nbtBase).getBytes()));
+        case 8 -> nbtTags.add(new StringNbtTag(null, nbtBase.asString()));
+        case 9 -> nbtTags.add(new NbtList(null, getTagsFromList((NBTTagList) nbtBase)));
+        case 10 -> nbtTags.add(
+            new NbtCompound(null, getTagsFromCompound((NBTTagCompound) nbtBase)));
+        case 11 -> nbtTags.add(new IntArrayNbtTag(null, ((NBTTagIntArray) nbtBase).getInts()));
+        case 12 -> nbtTags.add(new LongArrayNbtTag(null, ((NBTTagLongArray) nbtBase).getLongs()));
+        default -> throw new IllegalStateException("Unexpected value: " + nbtBase.getTypeId());
       }
     }
     return nbtTags;
