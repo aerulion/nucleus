@@ -1,58 +1,49 @@
 package net.aerulion.nucleus.api.messaging;
 
-import lombok.experimental.UtilityClass;
 import net.aerulion.nucleus.Main;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.jetbrains.annotations.NotNull;
 
-@UtilityClass
-public final class Messenger {
+public interface Messenger {
 
-  public static void bossBar(Audience recipient, String message, MessageLevel messageLevel,
-      int seconds, Placeholder... placeholders) {
-    Main.messagingManager.bossBarMessage(message, messageLevel, recipient, seconds, placeholders);
-  }
+  String getRawMessage();
 
-  public static void bossBar(Audience recipient, String message, MessageLevel messageLevel,
-      Placeholder... placeholders) {
-    Main.messagingManager.bossBarMessage(message, messageLevel, recipient, 5, placeholders);
-  }
+  MessageLevel getMessageLevel();
 
-  public static void bossBar(Audience recipient, String message, Placeholder... placeholders) {
-    Main.messagingManager.bossBarMessage(message, MessageLevel.INFO, recipient, 5, placeholders);
-  }
-
-  public static void bossBar(Audience recipient, String message, NamespacedKey key,
-      MessageLevel messageLevel, int seconds, Placeholder... placeholders) {
-    Main.messagingManager.keyedBossBarMessage(message, messageLevel, recipient, seconds, key,
+  default void bossBar(Audience recipient, int seconds, Placeholder... placeholders) {
+    Main.messagingManager.bossBarMessage(getRawMessage(), getMessageLevel(), recipient, seconds,
         placeholders);
   }
 
-  public static void bossBar(Audience recipient, String message, NamespacedKey key,
-      MessageLevel messageLevel, Placeholder... placeholders) {
-    Main.messagingManager.keyedBossBarMessage(message, messageLevel, recipient, 5, key,
+  default void bossBar(Audience recipient, Placeholder... placeholders) {
+    Main.messagingManager.bossBarMessage(getRawMessage(), getMessageLevel(), recipient, 5,
         placeholders);
   }
 
-  public static void bossBar(Audience recipient, String message, NamespacedKey key,
+  default void bossBar(Audience recipient, NamespacedKey key, int seconds,
       Placeholder... placeholders) {
-    Main.messagingManager.keyedBossBarMessage(message, MessageLevel.INFO, recipient, 5, key,
+    Main.messagingManager.keyedBossBarMessage(getRawMessage(), getMessageLevel(), recipient,
+        seconds, key, placeholders);
+  }
+
+  default void bossBar(Audience recipient, NamespacedKey key, Placeholder... placeholders) {
+    Main.messagingManager.keyedBossBarMessage(getRawMessage(), getMessageLevel(), recipient, 5, key,
         placeholders);
   }
 
-  public static void chat(Audience recipient, String message, MessageLevel messageLevel,
-      Placeholder... placeholders) {
-    Main.messagingManager.chat(recipient, message, messageLevel, placeholders);
+  default void chat(Audience recipient, Placeholder... placeholders) {
+    Main.messagingManager.chat(recipient, getRawMessage(), getMessageLevel(), placeholders);
   }
 
-  public static void chat(Audience recipient, String message, Placeholder... placeholders) {
-    Main.messagingManager.chat(recipient, message, MessageLevel.INFO, placeholders);
+  default void console(Placeholder... placeholders) {
+    Main.messagingManager.chat(Bukkit.getConsoleSender(), getRawMessage(), getMessageLevel(),
+        placeholders);
   }
 
-  public static @NotNull Component format(String message, MessageLevel messageLevel,
-      Placeholder... placeholders) {
-    return Main.messagingManager.format(message, messageLevel, placeholders);
+  default @NotNull Component format(Placeholder... placeholders) {
+    return Main.messagingManager.format(getRawMessage(), getMessageLevel(), placeholders);
   }
 }
