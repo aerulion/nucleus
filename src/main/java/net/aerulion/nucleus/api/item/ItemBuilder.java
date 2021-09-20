@@ -1,11 +1,11 @@
 package net.aerulion.nucleus.api.item;
 
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -131,8 +131,7 @@ public final class ItemBuilder {
   public @NotNull ItemBuilder withDyeColor(@NotNull Color color) {
     return withMetaValue(itemMeta -> {
       if (itemMeta instanceof LeatherArmorMeta leatherArmorMeta) {
-        leatherArmorMeta.setColor(
-            org.bukkit.Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()));
+        leatherArmorMeta.setColor(color);
       }
     });
   }
