@@ -3,6 +3,7 @@ package net.aerulion.nucleus.api.color;
 import java.util.Objects;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Color;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -56,5 +57,20 @@ public final class ColorUtils {
    */
   public static boolean isValidHEXColor(@NotNull String color) {
     return color.length() == 7 && color.matches("^#([A-Fa-f0-9]{6})$");
+  }
+
+  /**
+   * Parses a given HEX String to a bukkit color
+   *
+   * @param hex the string to parse
+   * @return the bukkit color, or null if invalid
+   */
+  public static @Nullable Color colorFromHex(@NotNull String hex) {
+    if (!isValidHEXColor(hex)) {
+      return null;
+    } else {
+      int hexInt = Integer.decode("0x" + hex.substring(1));
+      return Color.fromRGB(((hexInt & 0xFF0000) >> 16), ((hexInt & 0xFF00) >> 8), (hexInt & 0xFF));
+    }
   }
 }
