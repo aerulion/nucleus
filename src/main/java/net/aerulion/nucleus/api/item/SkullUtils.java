@@ -6,6 +6,7 @@ import java.util.Base64;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Skull;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
@@ -81,6 +82,14 @@ public class SkullUtils {
       return null;
     }
     PlayerProfile playerProfile = skullMeta.getPlayerProfile();
+    if (playerProfile == null) {
+      return null;
+    }
+    return playerProfile.getId();
+  }
+
+  public static @Nullable UUID getSkullUUID(@NotNull Skull skull) {
+    PlayerProfile playerProfile = skull.getPlayerProfile();
     if (playerProfile == null) {
       return null;
     }
