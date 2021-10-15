@@ -37,7 +37,9 @@ import net.minecraft.world.level.World;
 import net.minecraft.world.level.block.entity.TileEntity;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -62,6 +64,19 @@ public final class NbtUtils {
     if (tileEntity != null) {
       tileEntity.save(nbtTagCompound);
     }
+    return getTagsFromCompound(nbtTagCompound);
+  }
+
+  /**
+   * Gets the current nbt tags of an entity
+   *
+   * @param entity the entity
+   * @return Map of NbtTags
+   */
+  public static @NotNull Map<String, NbtTag> getTags(@NotNull Entity entity) {
+    net.minecraft.world.entity.Entity nmsEntity = ((CraftEntity) entity).getHandle();
+    NBTTagCompound nbtTagCompound = new NBTTagCompound();
+    nmsEntity.save(nbtTagCompound);
     return getTagsFromCompound(nbtTagCompound);
   }
 
