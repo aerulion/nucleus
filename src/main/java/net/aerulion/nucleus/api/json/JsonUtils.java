@@ -1,8 +1,8 @@
 package net.aerulion.nucleus.api.json;
 
 import lombok.experimental.UtilityClass;
-import net.minecraft.nbt.NBTTagCompound;
-import org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack;
+import net.minecraft.nbt.CompoundTag;
+import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,10 +18,11 @@ public final class JsonUtils {
    * @param itemStack The ItemStack to be converted
    * @return The raw json string
    */
-  public static String convertItemStackToJson(@NotNull ItemStack itemStack) {
-    net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
-    @NotNull NBTTagCompound compound = new NBTTagCompound();
-    nmsItemStack.save(compound);
-    return compound.toString();
+  public static @NotNull String convertItemStackToJson(final @NotNull ItemStack itemStack) {
+    final @NotNull net.minecraft.world.item.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(
+        itemStack);
+    final @NotNull CompoundTag compoundTag = new CompoundTag();
+    nmsItemStack.save(compoundTag);
+    return compoundTag.toString();
   }
 }

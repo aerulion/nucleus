@@ -10,7 +10,7 @@ public abstract class NbtTag {
 
   protected final @Nullable String key;
 
-  protected NbtTag(@Nullable String key) {
+  protected NbtTag(final @Nullable String key) {
     this.key = key;
   }
 }

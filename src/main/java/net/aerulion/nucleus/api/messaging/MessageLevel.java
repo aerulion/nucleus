@@ -20,8 +20,8 @@ public enum MessageLevel {
   private final SoundType soundType;
   private final String prefix;
 
-  MessageLevel(TextColor textColor, TextColor accentColor, TextColor prefixColor,
-      BossBar.Color bossBarColor, SoundType soundType, String prefix) {
+  MessageLevel(final TextColor textColor, final TextColor accentColor, final TextColor prefixColor,
+      final BossBar.Color bossBarColor, final SoundType soundType, final String prefix) {
     this.textColor = textColor;
     this.accentColor = accentColor;
     this.prefixColor = prefixColor;

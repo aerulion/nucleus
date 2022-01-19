@@ -120,22 +120,21 @@ public enum FontInfo {
   private final char character;
   private final int length;
 
-  FontInfo(char character, int length) {
+  FontInfo(final char character, final int length) {
     this.character = character;
     this.length = length;
   }
 
-  public static @NotNull FontInfo getFontInfo(char c) {
-    return Arrays.stream(values())
-        .filter(fontInfo -> fontInfo.getCharacter() == c).findFirst()
-        .orElse(FontInfo.DEFAULT);
+  public static @NotNull FontInfo getFontInfo(final char c) {
+    return Arrays.stream(values()).filter(fontInfo -> fontInfo.getCharacter() == c).findFirst()
+        .orElse(DEFAULT);
   }
 
   public char getCharacter() {
     return this.character;
   }
 
-  public int getLength(boolean bold) {
+  public int getLength(final boolean bold) {
     return bold ? this.length + 1 : this.length;
   }
 }

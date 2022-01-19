@@ -8,7 +8,7 @@ public enum CenterPixel {
   private final int centerPixel;
   private final int spaceWidth;
 
-  CenterPixel(int centerPixel, int spaceWidth) {
+  CenterPixel(final int centerPixel, final int spaceWidth) {
     this.centerPixel = centerPixel;
     this.spaceWidth = spaceWidth;
   }

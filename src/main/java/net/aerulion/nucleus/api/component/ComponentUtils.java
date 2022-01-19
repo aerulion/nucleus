@@ -25,13 +25,13 @@ public final class ComponentUtils {
    * @return The centered string
    */
   public static @NotNull Component generateCenteredComponent(@NotNull Component component,
-      int centerPixel) {
-    int halvedMessageSize = (int) Math.round(getPixelLength(component) / 2D);
-    int toCompensate = centerPixel - halvedMessageSize;
+      final int centerPixel) {
+    final int halvedMessageSize = (int) Math.round(getPixelLength(component) / 2D);
+    final int toCompensate = centerPixel - halvedMessageSize;
     if (toCompensate < 4) {
       return component;
     }
-    if (component.decoration(TextDecoration.BOLD).equals(TextDecoration.State.NOT_SET)) {
+    if (component.decoration(TextDecoration.BOLD) == TextDecoration.State.NOT_SET) {
       component = component.decoration(TextDecoration.BOLD, TextDecoration.State.FALSE);
     }
     return generateSpace(toCompensate).append(component);
@@ -44,8 +44,8 @@ public final class ComponentUtils {
    * @param centerPixel The center pixel
    * @return The centered string
    */
-  public static @NotNull Component generateCenteredComponent(@NotNull Component component,
-      @NotNull CenterPixel centerPixel) {
+  public static @NotNull Component generateCenteredComponent(final @NotNull Component component,
+      final @NotNull CenterPixel centerPixel) {
     return generateCenteredComponent(component, centerPixel.getCenterPx());
   }
 
@@ -55,27 +55,27 @@ public final class ComponentUtils {
    * @param component Component to check
    * @return The pixel length of the String
    */
-  public static int getPixelLength(@Nullable Component component) {
+  public static int getPixelLength(final @Nullable Component component) {
     return getPixelLength(component, false);
   }
 
-  private static int getPixelLength(@Nullable Component component, boolean boldBefore) {
+  private static int getPixelLength(final @Nullable Component component, final boolean boldBefore) {
     if (component == null) {
       return 0;
     }
     int length = 0;
     boolean bold = false;
     if (component instanceof TextComponent textComponent) {
-      bold = textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.TRUE) || (
-          textComponent.decoration(TextDecoration.BOLD).equals(TextDecoration.State.NOT_SET)
+      bold = textComponent.decoration(TextDecoration.BOLD) == TextDecoration.State.TRUE || (
+          textComponent.decoration(TextDecoration.BOLD) == TextDecoration.State.NOT_SET
               && boldBefore);
-      for (char c : textComponent.content().toCharArray()) {
-        @NotNull FontInfo fontInfo = FontInfo.getFontInfo(c);
+      for (final char c : textComponent.content().toCharArray()) {
+        final @NotNull FontInfo fontInfo = FontInfo.getFontInfo(c);
         length += fontInfo.getLength(bold);
         length++;
       }
     }
-    for (Component child : component.children()) {
+    for (final Component child : component.children()) {
       length += getPixelLength(child, bold);
     }
     return length;
@@ -124,7 +124,7 @@ public final class ComponentUtils {
           .decoration(TextDecoration.BOLD, TextDecoration.State.TRUE);
     }
     if (spaces > 0) {
-      @NotNull Component spacesComponent = Component.text(StringUtils.repeat(" ", spaces))
+      final @NotNull Component spacesComponent = Component.text(StringUtils.repeat(" ", spaces))
           .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE);
       if (boldSpaces == 0) {
         component = spacesComponent;
@@ -145,10 +145,10 @@ public final class ComponentUtils {
    * @param backgroundColor the color for the non-filled part of the progress bar
    * @return the generated progress bar component
    */
-  public static @NotNull Component generateProgressBar(int pixelWidth, char character,
-      float progress, TextColor fillColor, TextColor backgroundColor) {
-    int width = pixelWidth / FontInfo.getFontInfo(character).getLength(false);
-    int filledAmount = Math.round(width * progress);
+  public static @NotNull Component generateProgressBar(final int pixelWidth, final char character,
+      final float progress, final TextColor fillColor, final TextColor backgroundColor) {
+    final int width = pixelWidth / FontInfo.getFontInfo(character).getLength(false);
+    final int filledAmount = Math.round(width * progress);
     return Component.text(StringUtils.repeat(Character.toString(character), filledAmount))
         .color(fillColor).append(
             Component.text(StringUtils.repeat(Character.toString(character), width - filledAmount))
@@ -161,7 +161,7 @@ public final class ComponentUtils {
    * @param pixelWidth the desired pixel width
    * @return the generated line
    */
-  public static @NotNull Component generateLine(int pixelWidth) {
+  public static @NotNull Component generateLine(final int pixelWidth) {
     return generateSpace(pixelWidth).decorate(TextDecoration.STRIKETHROUGH);
   }
 
@@ -171,7 +171,7 @@ public final class ComponentUtils {
    * @param centerPixel The center pixel
    * @return The fullwidth line
    */
-  public static @NotNull Component generateFullWidthLine(@NotNull CenterPixel centerPixel) {
+  public static @NotNull Component generateFullWidthLine(final @NotNull CenterPixel centerPixel) {
     return generateLine(centerPixel.getCenterPx() * 2);
   }
 }

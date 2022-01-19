@@ -13,37 +13,39 @@ public interface Messenger {
 
   MessageLevel getMessageLevel();
 
-  default void bossBar(Audience recipient, int seconds, Placeholder... placeholders) {
+  default void bossBar(final Audience recipient, final int seconds,
+      final Placeholder... placeholders) {
     Main.messagingManager.bossBarMessage(getRawMessage(), getMessageLevel(), recipient, seconds,
         placeholders);
   }
 
-  default void bossBar(Audience recipient, Placeholder... placeholders) {
+  default void bossBar(final Audience recipient, final Placeholder... placeholders) {
     Main.messagingManager.bossBarMessage(getRawMessage(), getMessageLevel(), recipient, 5,
         placeholders);
   }
 
-  default void bossBar(Audience recipient, NamespacedKey key, int seconds,
-      Placeholder... placeholders) {
+  default void bossBar(final Audience recipient, final NamespacedKey key, final int seconds,
+      final Placeholder... placeholders) {
     Main.messagingManager.keyedBossBarMessage(getRawMessage(), getMessageLevel(), recipient,
         seconds, key, placeholders);
   }
 
-  default void bossBar(Audience recipient, NamespacedKey key, Placeholder... placeholders) {
+  default void bossBar(final Audience recipient, final NamespacedKey key,
+      final Placeholder... placeholders) {
     Main.messagingManager.keyedBossBarMessage(getRawMessage(), getMessageLevel(), recipient, 5, key,
         placeholders);
   }
 
-  default void chat(Audience recipient, Placeholder... placeholders) {
+  default void chat(final Audience recipient, final Placeholder... placeholders) {
     Main.messagingManager.chat(recipient, getRawMessage(), getMessageLevel(), placeholders);
   }
 
-  default void console(Placeholder... placeholders) {
+  default void console(final Placeholder... placeholders) {
     Main.messagingManager.chat(Bukkit.getConsoleSender(), getRawMessage(), getMessageLevel(),
         placeholders);
   }
 
-  default @NotNull Component format(Placeholder... placeholders) {
+  default @NotNull Component format(final Placeholder... placeholders) {
     return Main.messagingManager.format(getRawMessage(), getMessageLevel(), placeholders);
   }
 }

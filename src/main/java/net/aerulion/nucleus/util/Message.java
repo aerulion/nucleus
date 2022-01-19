@@ -19,7 +19,7 @@ public enum Message implements Messenger {
   private final String rawMessage;
   private final MessageLevel messageLevel;
 
-  Message(String rawMessage, MessageLevel messageLevel) {
+  Message(final String rawMessage, final MessageLevel messageLevel) {
     this.rawMessage = rawMessage;
     this.messageLevel = messageLevel;
   }

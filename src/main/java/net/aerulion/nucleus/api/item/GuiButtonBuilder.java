@@ -27,7 +27,7 @@ public final class GuiButtonBuilder {
   private final ItemStack itemStack;
   private int padding;
 
-  private GuiButtonBuilder(ItemStack itemStack) {
+  private GuiButtonBuilder(final ItemStack itemStack) {
     this.itemStack = itemStack;
     this.padding = 2;
   }
@@ -38,7 +38,7 @@ public final class GuiButtonBuilder {
    * @param itemStack The ItemStack used as a base
    * @return The GuiButtonBuilder instance
    */
-  public static @NotNull GuiButtonBuilder of(ItemStack itemStack) {
+  public static @NotNull GuiButtonBuilder of(final ItemStack itemStack) {
     return new GuiButtonBuilder(itemStack);
   }
 
@@ -48,7 +48,7 @@ public final class GuiButtonBuilder {
    * @param material The Material used as a base
    * @return The GuiButtonBuilder instance
    */
-  public static @NotNull GuiButtonBuilder of(@NotNull Material material) {
+  public static @NotNull GuiButtonBuilder of(final @NotNull Material material) {
     return new GuiButtonBuilder(new ItemStack(material));
   }
 
@@ -59,8 +59,8 @@ public final class GuiButtonBuilder {
    * @return The GuiButtonBuilder instance
    */
   public @NotNull GuiButtonBuilder withMetaValue(
-      @NotNull Consumer<@NotNull ItemMeta> itemMetaConsumer) {
-    ItemMeta itemMeta = itemStack.getItemMeta();
+      final @NotNull Consumer<@NotNull ItemMeta> itemMetaConsumer) {
+    final ItemMeta itemMeta = itemStack.getItemMeta();
     if (itemMeta != null) {
       itemMetaConsumer.accept(itemMeta);
     }
@@ -74,37 +74,34 @@ public final class GuiButtonBuilder {
    * @return ItemStack
    */
   public ItemStack build() {
-    ItemMeta itemMeta = itemStack.getItemMeta();
+    final ItemMeta itemMeta = itemStack.getItemMeta();
     if (itemMeta != null) {
-      @Nullable Component displayName = itemStack.getItemMeta().displayName();
+      final @Nullable Component displayName = itemStack.getItemMeta().displayName();
       if (displayName == null) {
         return itemStack;
       }
       int pixelLength = ComponentUtils.getPixelLength(displayName);
-      @Nullable List<Component> lore = itemMeta.lore();
+      final @Nullable List<Component> lore = itemMeta.lore();
       if (lore == null) {
         return itemStack;
       }
-      for (Component component : lore) {
-        int length = ComponentUtils.getPixelLength(component);
+      for (final Component component : lore) {
+        final int length = ComponentUtils.getPixelLength(component);
         if (length > pixelLength) {
           pixelLength = length;
         }
       }
-      @NotNull Component paddingComponent = Component.text(StringUtils.repeat(" ", padding))
+      final @NotNull Component paddingComponent = Component.text(StringUtils.repeat(" ", padding))
           .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE)
           .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
-      itemMeta.displayName(paddingComponent.append(
-          ComponentUtils.generateCenteredComponent(
-                  Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
-                      .append(displayName), (int) Math.round(pixelLength / 2D))
-              .append(paddingComponent)));
-      @NotNull List<Component> formattedLore = new ArrayList<>();
-      for (@NotNull Component component : lore) {
+      itemMeta.displayName(paddingComponent.append(ComponentUtils.generateCenteredComponent(
+          Component.empty().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
+              .append(displayName), (int) Math.round(pixelLength / 2D)).append(paddingComponent)));
+      final @NotNull List<Component> formattedLore = new ArrayList<>();
+      for (final @NotNull Component component : lore) {
         if (PlainTextComponentSerializer.plainText().serialize(component).equals("%divider")) {
           formattedLore.add(
-              ComponentUtils.generateLine(pixelLength + padding * 8)
-                  .color(component.color()));
+              ComponentUtils.generateLine(pixelLength + padding * 8).color(component.color()));
         } else {
           formattedLore.add(paddingComponent.append(
               ComponentUtils.generateCenteredComponent(component,
@@ -124,7 +121,7 @@ public final class GuiButtonBuilder {
    * @param amount The new amount
    * @return The GuiButtonBuilder instance
    */
-  public @NotNull GuiButtonBuilder ofAmount(int amount) {
+  public @NotNull GuiButtonBuilder ofAmount(final int amount) {
     itemStack.setAmount(amount);
     return this;
   }
@@ -135,7 +132,7 @@ public final class GuiButtonBuilder {
    * @param name The new name
    * @return The GuiButtonBuilder instance
    */
-  public @NotNull GuiButtonBuilder withDisplayName(@Nullable Component name) {
+  public @NotNull GuiButtonBuilder withDisplayName(final @Nullable Component name) {
     return withMetaValue(itemMeta -> itemMeta.displayName(name));
   }
 
@@ -145,7 +142,7 @@ public final class GuiButtonBuilder {
    * @param lore The new lore
    * @return The GuiButtonBuilder instance
    */
-  public @NotNull GuiButtonBuilder withLore(@Nullable List<Component> lore) {
+  public @NotNull GuiButtonBuilder withLore(final @Nullable List<Component> lore) {
     return withMetaValue(itemMeta -> itemMeta.lore(lore));
   }
 
@@ -155,7 +152,7 @@ public final class GuiButtonBuilder {
    * @param lore The new lore
    * @return The GuiButtonBuilder instance
    */
-  public @NotNull GuiButtonBuilder withLore(Component... lore) {
+  public @NotNull GuiButtonBuilder withLore(final Component... lore) {
     return withLore(Arrays.asList(lore));
   }
 
@@ -165,7 +162,7 @@ public final class GuiButtonBuilder {
    * @param data The new CustomModelData
    * @return The GuiButtonBuilder instance
    */
-  public @NotNull GuiButtonBuilder withCustomModelData(@Nullable Integer data) {
+  public @NotNull GuiButtonBuilder withCustomModelData(final @Nullable Integer data) {
     return withMetaValue(itemMeta -> itemMeta.setCustomModelData(data));
   }
 
@@ -176,7 +173,7 @@ public final class GuiButtonBuilder {
    * @param padding The new padding value
    * @return The GuiButtonBuilder instance
    */
-  public @NotNull GuiButtonBuilder withPadding(int padding) {
+  public @NotNull GuiButtonBuilder withPadding(final int padding) {
     this.padding = padding;
     return this;
   }

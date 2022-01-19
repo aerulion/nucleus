@@ -26,8 +26,8 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
   public static GuiHandler guiHandler;
 
   @Override
-  public boolean onCommand(@NotNull CommandSender commandSender, Command command, String label,
-      String[] args) {
+  public boolean onCommand(final @NotNull CommandSender commandSender, final @NotNull Command command,
+      final @NotNull String label, final String[] args) {
     ChatUtils.sendChatDividingLine(commandSender, NamedTextColor.GRAY);
     commandSender.sendMessage("");
     ChatUtils.sendCenteredChatMessage(commandSender,
@@ -55,7 +55,7 @@ public class Main extends JavaPlugin implements CommandExecutor, TabCompleter {
     messagingManager = new MessagingManager();
     guiHandler = new GuiHandler();
     Message.ENABLING_PLUGIN.console();
-    @Nullable PluginCommand pluginCommand = getCommand("nucleus");
+    final @Nullable PluginCommand pluginCommand = getCommand("nucleus");
     if (pluginCommand != null) {
       pluginCommand.setExecutor(this);
     }

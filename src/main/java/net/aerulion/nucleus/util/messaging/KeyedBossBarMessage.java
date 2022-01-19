@@ -11,8 +11,9 @@ class KeyedBossBarMessage extends BossBarMessage {
 
   private final NamespacedKey key;
 
-  public KeyedBossBarMessage(String message, MessageLevel messageLevel, Audience recipient,
-      int seconds, NamespacedKey key, Placeholder... placeholders) {
+  public KeyedBossBarMessage(final String message, final MessageLevel messageLevel,
+      final Audience recipient, final int seconds, final NamespacedKey key,
+      final Placeholder... placeholders) {
     super(message, messageLevel, recipient, seconds, placeholders);
     this.key = key;
   }

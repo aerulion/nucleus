@@ -15,8 +15,8 @@ public class SoundTask extends BukkitRunnable {
   private final List<Float> pitches;
   private int timesExecuted;
 
-  public SoundTask(Audience audience, long delay, long period, Key soundKey, float volume,
-      List<Float> pitches) {
+  public SoundTask(final Audience audience, final long delay, final long period, final Key soundKey,
+      final float volume, final List<Float> pitches) {
     this.timesExecuted = 0;
     this.audience = audience;
     this.soundKey = soundKey;

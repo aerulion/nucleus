@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Nullable;
 @ToString(callSuper = true)
 public class FloatNbtTag extends NbtTag {
 
-  protected final @NotNull float value;
+  protected final float value;
 
-  public FloatNbtTag(@Nullable String key, @NotNull float value) {
+  public FloatNbtTag(final @Nullable String key, final float value) {
     super(key);
     this.value = value;
   }

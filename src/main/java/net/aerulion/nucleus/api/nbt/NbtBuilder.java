@@ -14,7 +14,7 @@ public class NbtBuilder {
 
   private ItemStack itemStack;
 
-  private NbtBuilder(@NotNull ItemStack itemStack) {
+  private NbtBuilder(final @NotNull ItemStack itemStack) {
     this.itemStack = itemStack;
   }
 
@@ -24,7 +24,7 @@ public class NbtBuilder {
    * @param itemStack The ItemStack used in the builder
    * @return The NbtBuilderInstance
    */
-  public static @NotNull NbtBuilder of(@NotNull ItemStack itemStack) {
+  public static @NotNull NbtBuilder of(final @NotNull ItemStack itemStack) {
     return new NbtBuilder(itemStack);
   }
 
@@ -34,7 +34,7 @@ public class NbtBuilder {
    * @param material The material used in the builder
    * @return The NbtBuilderInstance
    */
-  public static @NotNull NbtBuilder of(@NotNull Material material) {
+  public static @NotNull NbtBuilder of(final @NotNull Material material) {
     return of(new ItemStack(material));
   }
 
@@ -45,7 +45,8 @@ public class NbtBuilder {
    * @param amount   The amount of the newly created ItemStack
    * @return The NbtBuilderInstance
    */
-  public static @NotNull NbtBuilder of(@NotNull Material material, @NotNull int amount) {
+  public static @NotNull NbtBuilder of(final @NotNull Material material,
+      final int amount) {
     return new NbtBuilder(new ItemStack(material, amount));
   }
 
@@ -65,7 +66,7 @@ public class NbtBuilder {
    * @param value The value of the NBT tag
    * @return The NbtBuilder instance
    */
-  public @NotNull NbtBuilder withNBTString(@NotNull String key, @NotNull String value) {
+  public @NotNull NbtBuilder withNBTString(final @NotNull String key, final @NotNull String value) {
     itemStack = NbtUtils.setNBTString(itemStack, key, value);
     return this;
   }
@@ -77,7 +78,7 @@ public class NbtBuilder {
    * @param value The value of the NBT tag
    * @return The NbtBuilder instance
    */
-  public @NotNull NbtBuilder withNBTInt(@NotNull String key, @NotNull int value) {
+  public @NotNull NbtBuilder withNBTInt(final @NotNull String key, final int value) {
     itemStack = NbtUtils.setNBTInt(itemStack, key, value);
     return this;
   }
@@ -89,7 +90,8 @@ public class NbtBuilder {
    * @param value The value of the NBT tag
    * @return The NbtBuilder instance
    */
-  public @NotNull NbtBuilder withNBTBoolean(@NotNull String key, @NotNull boolean value) {
+  public @NotNull NbtBuilder withNBTBoolean(final @NotNull String key,
+      final boolean value) {
     itemStack = NbtUtils.setNBTBoolean(itemStack, key, value);
     return this;
   }
@@ -101,8 +103,8 @@ public class NbtBuilder {
    * @param values The values of the NBT tag compound
    * @return The NbtBuilder instance
    */
-  public @NotNull NbtBuilder withNBTIntCompound(@NotNull String key,
-      @NotNull Map<String, Integer> values) {
+  public @NotNull NbtBuilder withNBTIntCompound(final @NotNull String key,
+      final @NotNull Map<String, Integer> values) {
     itemStack = NbtUtils.setNBTIntCompound(itemStack, key, values);
     return this;
   }

@@ -13,21 +13,21 @@ public class NbtList extends NbtTag {
 
   protected final @NotNull List<NbtTag> content;
 
-  public NbtList(@Nullable String key, @NotNull List<NbtTag> content) {
+  public NbtList(final @Nullable String key, final @NotNull List<NbtTag> content) {
     super(key);
     this.content = content;
   }
 
-  public NbtList(@Nullable String key) {
+  public NbtList(final @Nullable String key) {
     this(key, new ArrayList<>());
   }
 
-  public @NotNull NbtList add(@NotNull NbtTag value) {
+  public @NotNull NbtList add(final @NotNull NbtTag value) {
     content.add(value);
     return this;
   }
 
-  public @NotNull NbtList remove(@NotNull NbtTag nbtTag) {
+  public @NotNull NbtList remove(final @NotNull NbtTag nbtTag) {
     content.remove(nbtTag);
     return this;
   }
@@ -37,7 +37,7 @@ public class NbtList extends NbtTag {
     return this;
   }
 
-  public boolean contains(@Nullable NbtTag value) {
+  public boolean contains(final @Nullable NbtTag value) {
     return content.contains(value);
   }
 }

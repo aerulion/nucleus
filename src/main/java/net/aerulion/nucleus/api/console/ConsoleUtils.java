@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public final class ConsoleUtils {
 
   @Deprecated
-  public static void sendColoredConsoleMessage(@NotNull String message) {
+  public static void sendColoredConsoleMessage(final @NotNull String message) {
     final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
     sender.sendMessage(message);
   }
@@ -23,7 +23,7 @@ public final class ConsoleUtils {
    *
    * @param message The message to be sent
    */
-  public static void sendColoredConsoleMessage(@NotNull Component message) {
+  public static void sendColoredConsoleMessage(final @NotNull Component message) {
     final @NotNull ConsoleCommandSender sender = Bukkit.getConsoleSender();
     sender.sendMessage(message);
   }

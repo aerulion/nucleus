@@ -21,9 +21,9 @@ public class MessagingManager extends BukkitRunnable {
     this.runTaskTimer(Main.plugin, 20L, 20L);
   }
 
-  private void bossBarMessage(BossBarMessage bossBarMessage) {
+  private void bossBarMessage(final BossBarMessage bossBarMessage) {
     if (bossBarMessage instanceof KeyedBossBarMessage keyedBossBarMessage) {
-      HashMap<NamespacedKey, KeyedBossBarMessage> audienceMap = keyedBossBarMessages.getOrDefault(
+      final HashMap<NamespacedKey, KeyedBossBarMessage> audienceMap = keyedBossBarMessages.getOrDefault(
           keyedBossBarMessage.getRecipient(), new HashMap<>());
       if (audienceMap.containsKey(keyedBossBarMessage.getKey())) {
         audienceMap.get(keyedBossBarMessage.getKey()).reset(keyedBossBarMessage.getMessage());
@@ -38,24 +38,25 @@ public class MessagingManager extends BukkitRunnable {
     }
   }
 
-  public void bossBarMessage(String message, MessageLevel messageLevel, Audience recipient,
-      int seconds, Placeholder... placeholders) {
+  public void bossBarMessage(final String message, final MessageLevel messageLevel,
+      final Audience recipient, final int seconds, final Placeholder... placeholders) {
     bossBarMessage(new BossBarMessage(message, messageLevel, recipient, seconds, placeholders));
   }
 
-  public void keyedBossBarMessage(String message, MessageLevel messageLevel, Audience recipient,
-      int seconds, NamespacedKey key, Placeholder... placeholders) {
+  public void keyedBossBarMessage(final String message, final MessageLevel messageLevel,
+      final Audience recipient, final int seconds, final NamespacedKey key,
+      final Placeholder... placeholders) {
     bossBarMessage(
         new KeyedBossBarMessage(message, messageLevel, recipient, seconds, key, placeholders));
   }
 
-  public void chat(Audience recipient, String message, MessageLevel messageLevel,
-      Placeholder... placeholders) {
+  public void chat(final Audience recipient, final String message, final MessageLevel messageLevel,
+      final Placeholder... placeholders) {
     new ChatMessage(message, messageLevel, recipient, placeholders).send();
   }
 
-  public @NotNull Component format(String message, MessageLevel messageLevel,
-      Placeholder... placeholders) {
+  public @NotNull Component format(final String message, final MessageLevel messageLevel,
+      final Placeholder... placeholders) {
     return new Message(message, messageLevel, null, placeholders).getMessage();
   }
 

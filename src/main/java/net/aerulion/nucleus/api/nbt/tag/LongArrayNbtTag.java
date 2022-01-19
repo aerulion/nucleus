@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Nullable;
 @ToString(callSuper = true)
 public class LongArrayNbtTag extends NbtTag {
 
-  protected final @NotNull long[] value;
+  protected final long[] value;
 
-  public LongArrayNbtTag(@Nullable String key, @NotNull long[] value) {
+  public LongArrayNbtTag(final @Nullable String key, final long[] value) {
     super(key);
     this.value = value;
   }

@@ -13,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 public class GuiHandler implements Listener {
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onGuiClick(@NotNull InventoryClickEvent event) {
-    @Nullable InventoryHolder inventoryHolder = event.getInventory().getHolder();
+  public void onGuiClick(final @NotNull InventoryClickEvent event) {
+    final @Nullable InventoryHolder inventoryHolder = event.getInventory().getHolder();
     if (inventoryHolder instanceof GUI gui) {
       event.setCancelled(true);
       gui.handleClick(event);
@@ -22,8 +22,8 @@ public class GuiHandler implements Listener {
   }
 
   @EventHandler(priority = EventPriority.LOWEST)
-  public void onGuiClose(@NotNull InventoryCloseEvent event) {
-    @Nullable InventoryHolder inventoryHolder = event.getInventory().getHolder();
+  public void onGuiClose(final @NotNull InventoryCloseEvent event) {
+    final @Nullable InventoryHolder inventoryHolder = event.getInventory().getHolder();
     if (inventoryHolder instanceof GUI gui) {
       gui.handleClose(event);
     }

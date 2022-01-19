@@ -14,28 +14,29 @@ import org.jetbrains.annotations.Nullable;
 
 public class SkullUtils {
 
-  public static @NotNull ItemStack getSkull(@NotNull String skinURL) {
+  public static @NotNull ItemStack getSkull(final @NotNull String skinURL) {
     return getSkull(skinURL, UUID.randomUUID(), 1);
   }
 
-  public static @NotNull ItemStack getSkull(@NotNull String skinURL, int amount) {
+  public static @NotNull ItemStack getSkull(final @NotNull String skinURL, final int amount) {
     return getSkull(skinURL, UUID.randomUUID(), amount);
   }
 
-  public static @NotNull ItemStack getSkull(@NotNull String skinURL, UUID uuid) {
+  public static @NotNull ItemStack getSkull(final @NotNull String skinURL, final UUID uuid) {
     return getSkull(skinURL, uuid, 1);
   }
 
-  public static @NotNull ItemStack getSkull(@NotNull String skinURL, UUID uuid, int amount) {
-    @NotNull ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
+  public static @NotNull ItemStack getSkull(final @NotNull String skinURL, final UUID uuid,
+      final int amount) {
+    final @NotNull ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
     if (skinURL.isEmpty()) {
       return itemStack;
     }
-    @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+    final @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
     if (skullMeta == null) {
       return itemStack;
     }
-    PlayerProfile playerProfile = Bukkit.createProfile(uuid, null);
+    final @NotNull PlayerProfile playerProfile = Bukkit.createProfile(uuid, null);
     playerProfile.setProperty(new ProfileProperty("textures", Base64.getEncoder()
         .encodeToString(("{textures:{SKIN:{url:\"" + skinURL + "\"}}}").getBytes())));
     skullMeta.setPlayerProfile(playerProfile);
@@ -44,26 +45,28 @@ public class SkullUtils {
     return itemStack;
   }
 
-  public static @Nullable String getSkullURL(@NotNull ItemStack itemStack, boolean trimmed) {
-    if (!itemStack.getType().equals(Material.PLAYER_HEAD)) {
+  public static @Nullable String getSkullURL(final @NotNull ItemStack itemStack,
+      final boolean trimmed) {
+    if (itemStack.getType() != Material.PLAYER_HEAD) {
       return null;
     }
-    @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+    final @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
     if (skullMeta == null) {
       return null;
     }
-    PlayerProfile playerProfile = skullMeta.getPlayerProfile();
+    final @Nullable PlayerProfile playerProfile = skullMeta.getPlayerProfile();
     if (playerProfile == null) {
       return null;
     }
-    ProfileProperty profileProperty = playerProfile.getProperties().stream()
+    final ProfileProperty profileProperty = playerProfile.getProperties().stream()
         .filter(profileProperty1 -> profileProperty1.getName().equals("textures")).findFirst()
         .orElse(null);
     if (profileProperty != null) {
-      String decodedString = new String(Base64.getDecoder().decode(profileProperty.getValue()));
-      String[] split = decodedString.split("/");
-      String urlPart = split[split.length - 1];
-      String urlString = urlPart.substring(0, urlPart.indexOf('"'));
+      final @NotNull String decodedString = new String(
+          Base64.getDecoder().decode(profileProperty.getValue()));
+      final String @NotNull [] split = decodedString.split("/");
+      final String urlPart = split[split.length - 1];
+      final @NotNull String urlString = urlPart.substring(0, urlPart.indexOf('"'));
       if (trimmed) {
         return urlString;
       } else {
@@ -73,23 +76,23 @@ public class SkullUtils {
     return null;
   }
 
-  public static @Nullable UUID getSkullUUID(@NotNull ItemStack itemStack) {
-    if (!itemStack.getType().equals(Material.PLAYER_HEAD)) {
+  public static @Nullable UUID getSkullUUID(final @NotNull ItemStack itemStack) {
+    if (itemStack.getType() != Material.PLAYER_HEAD) {
       return null;
     }
-    @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
+    final @NotNull SkullMeta skullMeta = (SkullMeta) itemStack.getItemMeta();
     if (skullMeta == null) {
       return null;
     }
-    PlayerProfile playerProfile = skullMeta.getPlayerProfile();
+    final @Nullable PlayerProfile playerProfile = skullMeta.getPlayerProfile();
     if (playerProfile == null) {
       return null;
     }
     return playerProfile.getId();
   }
 
-  public static @Nullable UUID getSkullUUID(@NotNull Skull skull) {
-    PlayerProfile playerProfile = skull.getPlayerProfile();
+  public static @Nullable UUID getSkullUUID(final @NotNull Skull skull) {
+    final @Nullable PlayerProfile playerProfile = skull.getPlayerProfile();
     if (playerProfile == null) {
       return null;
     }

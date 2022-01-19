@@ -22,7 +22,7 @@ public class Navigator {
    * @param player the specified player
    * @return true if successful
    */
-  public boolean resume(@NotNull Player player) {
+  public boolean resume(final @NotNull Player player) {
     if (guis.containsKey(player) && !guis.get(player).isEmpty()) {
       guis.get(player).get(guis.get(player).size() - 1).open();
       return true;
@@ -35,11 +35,11 @@ public class Navigator {
    *
    * @param player the specified player
    */
-  public void pop(@NotNull Player player) {
+  public void pop(final @NotNull Player player) {
     if (!guis.containsKey(player)) {
       return;
     }
-    List<GUI> playerGuis = guis.get(player);
+    final List<GUI> playerGuis = guis.get(player);
     if (playerGuis.isEmpty()) {
       guis.remove(player);
       return;
@@ -58,7 +58,7 @@ public class Navigator {
    *
    * @param player the specified player
    */
-  public void popAll(@NotNull Player player) {
+  public void popAll(final @NotNull Player player) {
     if (!guis.containsKey(player)) {
       return;
     }
@@ -72,8 +72,8 @@ public class Navigator {
    * @param player the specified player
    * @param gui    the gui to add to the stack
    */
-  public void popAllAndPush(@NotNull Player player, @NotNull GUI gui) {
-    @NotNull List<GUI> playerGuis = new ArrayList<>();
+  public void popAllAndPush(final @NotNull Player player, final @NotNull GUI gui) {
+    final @NotNull List<GUI> playerGuis = new ArrayList<>();
     playerGuis.add(gui);
     gui.init();
     gui.open();
@@ -86,8 +86,8 @@ public class Navigator {
    * @param player the specified player
    * @param gui    the gui to add to the stack
    */
-  public void push(@NotNull Player player, @NotNull GUI gui) {
-    List<GUI> playerGuis = guis.getOrDefault(player, new ArrayList<>());
+  public void push(final @NotNull Player player, final @NotNull GUI gui) {
+    final List<GUI> playerGuis = guis.getOrDefault(player, new ArrayList<>());
     playerGuis.add(gui);
     gui.init();
     gui.open();
@@ -100,8 +100,8 @@ public class Navigator {
    * @param player the specified player
    * @param gui    the gui to add to the stack
    */
-  public void popAndPush(@NotNull Player player, @NotNull GUI gui) {
-    List<GUI> playerGuis = guis.getOrDefault(player, new ArrayList<>());
+  public void popAndPush(final @NotNull Player player, final @NotNull GUI gui) {
+    final List<GUI> playerGuis = guis.getOrDefault(player, new ArrayList<>());
     if (!playerGuis.isEmpty()) {
       playerGuis.remove(playerGuis.size() - 1);
     }

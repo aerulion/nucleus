@@ -15,9 +15,9 @@ public final class FontUtils {
    * @param s the string to convert
    * @return the converted string
    */
-  public static @NotNull String convertToCompactFont(@NotNull String s) {
-    @NotNull StringBuilder stringBuilder = new StringBuilder();
-    for (char c : s.toCharArray()) {
+  public static @NotNull String convertToCompactFont(final @NotNull String s) {
+    final @NotNull StringBuilder stringBuilder = new StringBuilder();
+    for (final char c : s.toCharArray()) {
       stringBuilder.append(convertToCompactFont(c));
     }
     return stringBuilder.toString();
@@ -29,7 +29,7 @@ public final class FontUtils {
    * @param c the char to convert
    * @return the compact equivalent char
    */
-  public static char convertToCompactFont(char c) {
+  public static char convertToCompactFont(final char c) {
     return switch (c) {
       case 'a', 'A' -> 'ᴀ';
       case 'b', 'B' -> 'ʙ';

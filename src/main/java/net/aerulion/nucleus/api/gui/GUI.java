@@ -27,7 +27,7 @@ public abstract class GUI implements InventoryHolder {
    *
    * @param player the specified player
    */
-  protected GUI(Player player) {
+  protected GUI(final Player player) {
     this.player = player;
   }
 
@@ -68,9 +68,7 @@ public abstract class GUI implements InventoryHolder {
    * Initializes this inventory
    */
   public void init() {
-    this.inventory = Bukkit.createInventory(
-        this,
-        getSlots(),
+    this.inventory = Bukkit.createInventory(this, getSlots(),
         ComponentUtils.generateCenteredComponent(getTitle(), CenterPixel.INVENTORY_TITLE));
   }
 
@@ -94,7 +92,7 @@ public abstract class GUI implements InventoryHolder {
    *
    * @param ui the UI element to use
    */
-  public void fillSpacers(@NotNull UI ui) {
+  public void fillSpacers(final @NotNull UI ui) {
     fillSpacers(ui.get());
   }
 
@@ -103,7 +101,7 @@ public abstract class GUI implements InventoryHolder {
    *
    * @param itemStack the itemStack to use
    */
-  public void fillSpacers(ItemStack itemStack) {
+  public void fillSpacers(final ItemStack itemStack) {
     for (int i = 0; i < getSlots(); i++) {
       if (inventory.getItem(i) == null) {
         inventory.setItem(i, itemStack);
@@ -117,7 +115,7 @@ public abstract class GUI implements InventoryHolder {
    * @param slot the specified slot
    * @param ui   the UI element to use
    */
-  public void setItem(int slot, @NotNull UI ui) {
+  public void setItem(final int slot, final @NotNull UI ui) {
     inventory.setItem(slot, ui.get());
   }
 
@@ -127,7 +125,7 @@ public abstract class GUI implements InventoryHolder {
    * @param slot      the specified slot
    * @param itemStack the ItemStack to use
    */
-  public void setItem(int slot, ItemStack itemStack) {
+  public void setItem(final int slot, final ItemStack itemStack) {
     inventory.setItem(slot, itemStack);
   }
 
@@ -137,7 +135,7 @@ public abstract class GUI implements InventoryHolder {
    * @param slots the specified slots
    * @param ui    the UI element to use
    */
-  public void setItem(int @NotNull [] slots, @NotNull UI ui) {
+  public void setItem(final int @NotNull [] slots, final @NotNull UI ui) {
     setItem(slots, ui.get());
   }
 
@@ -147,8 +145,8 @@ public abstract class GUI implements InventoryHolder {
    * @param slots     the specified slots
    * @param itemStack the ItemStack to use
    */
-  public void setItem(int @NotNull [] slots, ItemStack itemStack) {
-    for (int slot : slots) {
+  public void setItem(final int @NotNull [] slots, final ItemStack itemStack) {
+    for (final int slot : slots) {
       setItem(slot, itemStack);
     }
   }
@@ -158,7 +156,7 @@ public abstract class GUI implements InventoryHolder {
    *
    * @param slot the specified slot
    */
-  public void removeItem(int slot) {
+  public void removeItem(final int slot) {
     inventory.setItem(slot, null);
   }
 

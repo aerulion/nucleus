@@ -12,12 +12,12 @@ public class StringNbtTag extends NbtTag {
 
   protected final @NotNull String value;
 
-  public StringNbtTag(@Nullable String key, @NotNull String value) {
+  public StringNbtTag(final @Nullable String key, final @NotNull String value) {
     super(key);
     this.value = value;
   }
 
-  public StringNbtTag(@Nullable String key, @NotNull UUID uuid) {
+  public StringNbtTag(final @Nullable String key, final @NotNull UUID uuid) {
     this(key, uuid.toString());
   }
 

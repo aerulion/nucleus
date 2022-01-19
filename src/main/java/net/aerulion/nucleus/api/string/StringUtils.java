@@ -46,8 +46,8 @@ public final class StringUtils {
   }
 
   @Deprecated
-  public static String getSpaces(int width) {
-    int l = centerSpaces.floorKey(width);
+  public static String getSpaces(final int width) {
+    final int l = centerSpaces.floorKey(width);
     if (width == l) {
       return centerSpaces.get(width);
     }
@@ -66,7 +66,7 @@ public final class StringUtils {
     boolean isBold = false;
     string = string.replaceAll(
         "§[xX]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]§[A-Fa-f0-9]", "§x");
-    for (char c : string.toCharArray()) {
+    for (final char c : string.toCharArray()) {
       if (c == '§') {
         colorCode = true;
       } else if (colorCode && (validColorCodes.indexOf(c) != -1)) {
@@ -78,7 +78,7 @@ public final class StringUtils {
         }
       } else {
         colorCode = false;
-        @NotNull FontInfo fontInfo = FontInfo.getFontInfo(c);
+        final @NotNull FontInfo fontInfo = FontInfo.getFontInfo(c);
         stringPixelLength += fontInfo.getLength(isBold);
         stringPixelLength++;
       }
@@ -87,9 +87,9 @@ public final class StringUtils {
   }
 
   @Deprecated
-  public static String generateCenteredString(String string, int centerPixel) {
-    int halvedMessageSize = (int) Math.round(getPixelLength(string) / 2D);
-    int toCompensate = centerPixel - halvedMessageSize;
+  public static String generateCenteredString(final String string, final int centerPixel) {
+    final int halvedMessageSize = (int) Math.round(getPixelLength(string) / 2D);
+    final int toCompensate = centerPixel - halvedMessageSize;
     if (toCompensate < 5) {
       return string;
     }
@@ -97,17 +97,18 @@ public final class StringUtils {
   }
 
   @Deprecated
-  public static String generateCenteredString(String string, @NotNull CenterPixel centerPixel) {
+  public static String generateCenteredString(final String string,
+      final @NotNull CenterPixel centerPixel) {
     return generateCenteredString(string, centerPixel.getCenterPx());
   }
 
   @Deprecated
-  public static @NotNull String generateFullWidthLine(@NotNull CenterPixel centerPixel) {
+  public static @NotNull String generateFullWidthLine(final @NotNull CenterPixel centerPixel) {
     return generateLine(centerPixel.getSpaceWidth());
   }
 
   @Deprecated
-  public static @NotNull String generateLine(int length) {
+  public static @NotNull String generateLine(final int length) {
     return "§m" + org.apache.commons.lang.StringUtils.repeat(" ", length);
   }
 
@@ -118,9 +119,9 @@ public final class StringUtils {
    * @param width The maximum width
    * @return The wrapped string as a list
    */
-  public static @NotNull List<String> wrapString(String input, int width) {
-    @NotNull List<String> wrappedString = new ArrayList<>();
-    String wrapped = WordUtils.wrap(input, width, "\n", true);
+  public static @NotNull List<String> wrapString(final String input, final int width) {
+    final @NotNull List<String> wrappedString = new ArrayList<>();
+    final String wrapped = WordUtils.wrap(input, width, "\n", true);
     Collections.addAll(wrappedString, wrapped.split("\n"));
     return wrappedString;
   }
@@ -131,8 +132,8 @@ public final class StringUtils {
    * @param number The integer to be converted
    * @return The roman number string
    */
-  public static String getRomanNumber(int number) {
-    int l = romanNumbers.floorKey(number);
+  public static String getRomanNumber(final int number) {
+    final int l = romanNumbers.floorKey(number);
     if (number == l) {
       return romanNumbers.get(number);
     }
@@ -145,7 +146,7 @@ public final class StringUtils {
    * @param number The number to be formatted
    * @return The formatted string
    */
-  public static @NotNull String formatNumber(int number) {
+  public static @NotNull String formatNumber(final int number) {
     return decimalFormat.format(number);
   }
 
@@ -155,7 +156,7 @@ public final class StringUtils {
    * @param number The number to be formatted
    * @return The formatted string
    */
-  public static @NotNull String formatNumber(long number) {
+  public static @NotNull String formatNumber(final long number) {
     return decimalFormat.format(number);
   }
 
@@ -165,7 +166,7 @@ public final class StringUtils {
    * @param number The number to be formatted
    * @return The formatted string
    */
-  public static String formatNumber(float number) {
+  public static String formatNumber(final float number) {
     return decimalFormat.format(number);
   }
 
@@ -175,7 +176,7 @@ public final class StringUtils {
    * @param number The number to be formatted
    * @return The formatted string
    */
-  public static String formatNumber(double number) {
+  public static String formatNumber(final double number) {
     return decimalFormat.format(number);
   }
 }

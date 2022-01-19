@@ -6,8 +6,8 @@ import net.kyori.adventure.audience.Audience;
 
 public class ChatMessage extends Message {
 
-  public ChatMessage(String message, MessageLevel messageLevel, Audience recipient,
-      Placeholder... placeholders) {
+  public ChatMessage(final String message, final MessageLevel messageLevel,
+      final Audience recipient, final Placeholder... placeholders) {
     super(message, messageLevel, recipient, placeholders);
   }
 

@@ -3,8 +3,7 @@ package net.aerulion.nucleus.api.sound;
 import org.bukkit.Sound;
 
 public enum SoundType {
-  @Deprecated
-  ALERT(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8F, 1.5F),
+  @Deprecated ALERT(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8F, 1.5F),
   ERROR(Sound.ENTITY_ZOMBIE_BREAK_WOODEN_DOOR, 0.8F, 1.5F),
   INFO(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8F, 1.5F),
   ITEM_PICKUP(Sound.ENTITY_ITEM_PICKUP, 1.0F, 1.0F),
@@ -18,7 +17,7 @@ public enum SoundType {
   private final float volume;
   private final float pitch;
 
-  SoundType(Sound sound, float volume, float pitch) {
+  SoundType(final Sound sound, final float volume, final float pitch) {
     this.sound = sound;
     this.volume = volume;
     this.pitch = pitch;

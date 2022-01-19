@@ -16,9 +16,9 @@ import org.jetbrains.annotations.NotNull;
 public class ItemUtils {
 
   @Deprecated
-  public static @NotNull ItemStack buildItemStack(@NotNull ItemStack itemStack, String displayName,
-      List<String> loreList, boolean enchanted) {
-    ItemMeta itemMeta = itemStack.getItemMeta();
+  public static @NotNull ItemStack buildItemStack(final @NotNull ItemStack itemStack,
+      final String displayName, final List<String> loreList, final boolean enchanted) {
+    final ItemMeta itemMeta = itemStack.getItemMeta();
     if (itemMeta != null) {
       itemMeta.setDisplayName(displayName);
       itemMeta.setLore(loreList);
@@ -32,17 +32,18 @@ public class ItemUtils {
   }
 
   @Deprecated
-  public static @NotNull ItemStack buildItemStack(@NotNull Material material, String displayName,
-      List<String> loreList, boolean enchanted) {
+  public static @NotNull ItemStack buildItemStack(final @NotNull Material material,
+      final String displayName, final List<String> loreList, final boolean enchanted) {
     return buildItemStack(new ItemStack(material), displayName, loreList, enchanted);
   }
 
   @Deprecated
-  public static @NotNull ItemStack buildGuiButton(@NotNull ItemStack itemStack, String displayName,
-      @NotNull List<String> loreList, boolean enchanted, int padding) {
+  public static @NotNull ItemStack buildGuiButton(final @NotNull ItemStack itemStack,
+      String displayName, final @NotNull List<String> loreList, final boolean enchanted,
+      final int padding) {
     int pixelLength = StringUtils.getPixelLength(displayName);
-    for (String string : loreList) {
-      int length = StringUtils.getPixelLength(string);
+    for (final String string : loreList) {
+      final int length = StringUtils.getPixelLength(string);
       if (length > pixelLength) {
         pixelLength = length;
       }
@@ -51,8 +52,8 @@ public class ItemUtils {
     displayName =
         StringUtils.generateCenteredString(displayName, (int) Math.round(pixelLength / 2D))
             + org.apache.commons.lang.StringUtils.repeat("§r ", padding);
-    @NotNull List<String> formattedLore = new ArrayList<>();
-    for (@NotNull String string : loreList) {
+    final @NotNull List<String> formattedLore = new ArrayList<>();
+    for (final @NotNull String string : loreList) {
       if (string.contains("%divider")) {
         formattedLore.add(string.replace("%divider",
             StringUtils.generateLine((int) Math.ceil(pixelLength / 4D))));
@@ -66,8 +67,9 @@ public class ItemUtils {
   }
 
   @Deprecated
-  public static @NotNull ItemStack buildGuiButton(@NotNull Material material, String displayName,
-      @NotNull List<String> loreList, boolean enchanted, int padding) {
+  public static @NotNull ItemStack buildGuiButton(final @NotNull Material material,
+      final String displayName, final @NotNull List<String> loreList, final boolean enchanted,
+      final int padding) {
     return buildGuiButton(new ItemStack(material), displayName, loreList, enchanted, padding);
   }
 }

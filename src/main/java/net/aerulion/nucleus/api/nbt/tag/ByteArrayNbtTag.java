@@ -11,14 +11,14 @@ import org.jetbrains.annotations.Nullable;
 @ToString(callSuper = true)
 public class ByteArrayNbtTag extends NbtTag {
 
-  protected final @NotNull byte[] value;
+  protected final byte[] value;
 
-  public ByteArrayNbtTag(@Nullable String key, @NotNull byte[] value) {
+  public ByteArrayNbtTag(final @Nullable String key, final byte[] value) {
     super(key);
     this.value = value;
   }
 
-  public ByteArrayNbtTag(@Nullable String key, @NotNull UUID uuid) {
+  public ByteArrayNbtTag(final @Nullable String key, final @NotNull UUID uuid) {
     this(key, UUIDUtils.toByteArray(uuid));
   }
 

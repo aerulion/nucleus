@@ -5,15 +5,15 @@ public class NotEnoughItemsException extends Exception {
   public NotEnoughItemsException() {
   }
 
-  public NotEnoughItemsException(String message) {
+  public NotEnoughItemsException(final String message) {
     super(message);
   }
 
-  public NotEnoughItemsException(String message, Throwable cause) {
+  public NotEnoughItemsException(final String message, final Throwable cause) {
     super(message, cause);
   }
 
-  public NotEnoughItemsException(Throwable cause) {
+  public NotEnoughItemsException(final Throwable cause) {
     super(cause);
   }
 }

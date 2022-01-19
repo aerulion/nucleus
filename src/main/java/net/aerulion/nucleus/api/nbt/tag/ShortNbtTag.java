@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Nullable;
 @ToString(callSuper = true)
 public class ShortNbtTag extends NbtTag {
 
-  protected final @NotNull short value;
+  protected final short value;
 
-  public ShortNbtTag(@Nullable String key, @NotNull short value) {
+  public ShortNbtTag(final @Nullable String key, final short value) {
     super(key);
     this.value = value;
   }

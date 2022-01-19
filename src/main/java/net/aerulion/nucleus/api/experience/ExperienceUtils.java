@@ -16,7 +16,7 @@ public final class ExperienceUtils {
    * @param level The level to reach
    * @return The amount of experience points needed to reach the specified level
    */
-  public static int getTotalExperience(int level) {
+  public static int getTotalExperience(final int level) {
     int xp = 0;
     if (level >= 0 && level <= 15) {
       xp = (int) Math.ceil(Math.pow(level, 2D) + 6 * level);
@@ -34,12 +34,12 @@ public final class ExperienceUtils {
    * @param player The player to check
    * @return The total amount of experience points of the given player
    */
-  public static int getTotalExperience(@NotNull Player player) {
+  public static int getTotalExperience(final @NotNull Player player) {
     return (int) (Math.floor(player.getExp() * player.getExpToLevel()) + getTotalExperienceFloored(
         player.getLevel()));
   }
 
-  private static int getTotalExperienceFloored(int level) {
+  private static int getTotalExperienceFloored(final int level) {
     int xp = 0;
     if (level >= 0 && level <= 15) {
       xp = (int) Math.floor(Math.pow(level, 2D) + 6 * level);
@@ -57,7 +57,7 @@ public final class ExperienceUtils {
    * @param amount The amount of experience points
    * @return The reachable level with the given amount of experience points
    */
-  public static int getLevelEquivalent(int amount) {
+  public static int getLevelEquivalent(final int amount) {
     float a = 0;
     float b = 0;
     float c = -amount;
@@ -82,9 +82,9 @@ public final class ExperienceUtils {
    * @param player The specified player
    * @param amount The amount of experience points
    */
-  public static void setTotalExperience(@NotNull Player player, int amount) {
-    int level = getLevelEquivalent(amount);
-    int xp = amount - getTotalExperience(level);
+  public static void setTotalExperience(final @NotNull Player player, final int amount) {
+    final int level = getLevelEquivalent(amount);
+    final int xp = amount - getTotalExperience(level);
     player.setLevel(level);
     player.setExp(0);
     player.giveExp(xp);

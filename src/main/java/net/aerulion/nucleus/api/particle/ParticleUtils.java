@@ -21,15 +21,15 @@ public final class ParticleUtils {
    * @param steps  The amount of locations
    * @return an ArrayList of Locations
    */
-  public static @NotNull List<Location> getCircle(@NotNull Location center,
-      @NotNull double radius, @NotNull int steps) {
-    World world = center.getWorld();
-    double increment = (2 * Math.PI) / steps;
-    @NotNull ArrayList<Location> locations = new ArrayList<>();
+  public static @NotNull List<Location> getCircle(final @NotNull Location center,
+      final double radius, final int steps) {
+    final World world = center.getWorld();
+    final double increment = (2 * Math.PI) / steps;
+    final @NotNull ArrayList<Location> locations = new ArrayList<>();
     for (int i = 0; i < steps; i++) {
-      double angle = i * increment;
-      double x = center.getX() + radius * Math.cos(angle);
-      double z = center.getZ() + radius * Math.sin(angle);
+      final double angle = i * increment;
+      final double x = center.getX() + radius * Math.cos(angle);
+      final double z = center.getZ() + radius * Math.sin(angle);
       locations.add(new Location(world, x, center.getY(), z));
     }
     return locations;
@@ -43,15 +43,15 @@ public final class ParticleUtils {
    * @param steps  The amount of locations
    * @return an ArrayList of Locations
    */
-  public static @NotNull List<Location> getCircleReverse(@NotNull Location center,
-      @NotNull double radius, @NotNull int steps) {
-    World world = center.getWorld();
-    double increment = (2 * Math.PI) / steps;
-    @NotNull ArrayList<Location> locations = new ArrayList<>();
+  public static @NotNull List<Location> getCircleReverse(final @NotNull Location center,
+      final double radius, final int steps) {
+    final World world = center.getWorld();
+    final double increment = (2 * Math.PI) / steps;
+    final @NotNull ArrayList<Location> locations = new ArrayList<>();
     for (int i = 0; i < steps; i++) {
-      double angle = i * increment;
-      double x = center.getX() - radius * Math.cos(angle);
-      double z = center.getZ() - radius * Math.sin(angle);
+      final double angle = i * increment;
+      final double x = center.getX() - radius * Math.cos(angle);
+      final double z = center.getZ() - radius * Math.sin(angle);
       locations.add(new Location(world, x, center.getY(), z));
     }
     return locations;

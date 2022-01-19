@@ -12,8 +12,9 @@ public final class FileManager {
 
   public static boolean setDefaultMySQLConfig() {
     try {
-      @NotNull File file = new File("plugins/Nucleus", "mysql_config.yml");
-      @NotNull FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
+      final @NotNull File file = new File("plugins/Nucleus", "mysql_config.yml");
+      final @NotNull FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(
+          file);
       fileConfiguration.options().copyDefaults(true);
       fileConfiguration.addDefault("HOST", "localhost");
       fileConfiguration.addDefault("PORT", "3306");
@@ -22,14 +23,14 @@ public final class FileManager {
       fileConfiguration.addDefault("PASSWORD", "pwd");
       fileConfiguration.save(file);
       return true;
-    } catch (IOException exception) {
+    } catch (final IOException exception) {
       return false;
     }
   }
 
   public static void loadMySQLConfig() {
-    @NotNull File file = new File("plugins/Nucleus", "mysql_config.yml");
-    @NotNull FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
+    final @NotNull File file = new File("plugins/Nucleus", "mysql_config.yml");
+    final @NotNull FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(file);
     HikariDataSourceManager.serverName = fileConfiguration.getString("HOST");
     HikariDataSourceManager.port = fileConfiguration.getString("PORT");
     HikariDataSourceManager.databaseName = fileConfiguration.getString("DATABASE");

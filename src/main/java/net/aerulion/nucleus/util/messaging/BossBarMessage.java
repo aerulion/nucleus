@@ -15,15 +15,12 @@ class BossBarMessage extends Message {
   private final int seconds;
   private int remainingSeconds;
 
-  public BossBarMessage(String message, MessageLevel messageLevel, Audience recipient, int seconds,
-      Placeholder... placeholders) {
+  public BossBarMessage(final String message, final MessageLevel messageLevel,
+      final Audience recipient, final int seconds, final Placeholder... placeholders) {
     super(message, messageLevel, recipient, placeholders);
     this.seconds = seconds;
     this.remainingSeconds = seconds;
-    this.bossBar = BossBar.bossBar(
-        getMessage(),
-        1F,
-        getMessageLevel().getBossBarColor(),
+    this.bossBar = BossBar.bossBar(getMessage(), 1F, getMessageLevel().getBossBarColor(),
         BossBar.Overlay.PROGRESS);
   }
 
@@ -45,7 +42,7 @@ class BossBarMessage extends Message {
     return remainingSeconds <= 0;
   }
 
-  public void reset(@NotNull Component component) {
+  public void reset(final @NotNull Component component) {
     reset();
     getBossBar().name(component);
   }

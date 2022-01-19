@@ -19,7 +19,7 @@ public final class ColorUtils {
    * @param color The string to parse
    * @return The parsed ChatColor or ChatColor RESET if invalid
    */
-  public static ChatColor parseColor(@NotNull String color) {
+  public static ChatColor parseColor(final @NotNull String color) {
     if (isValidColor(color)) {
       if (color.length() == 2) {
         return Objects.requireNonNull(org.bukkit.ChatColor.getByChar(color.substring(1)))
@@ -38,10 +38,11 @@ public final class ColorUtils {
    * @param color The string to be checked
    * @return true if valid, false if invalid
    */
-  public static boolean isValidColor(@NotNull String color) {
+  public static boolean isValidColor(final @NotNull String color) {
     if (color.length() == 2 && color.startsWith("&") && ChatColor.ALL_CODES.contains(
         color.substring(1))) {
-      org.bukkit.@Nullable ChatColor chatColor = org.bukkit.ChatColor.getByChar(color.substring(1));
+      final org.bukkit.@Nullable ChatColor chatColor = org.bukkit.ChatColor.getByChar(
+          color.substring(1));
       if (chatColor != null) {
         return !chatColor.isFormat();
       }
@@ -55,7 +56,7 @@ public final class ColorUtils {
    * @param color The string to be checked
    * @return true if valid, false if invalid
    */
-  public static boolean isValidHEXColor(@NotNull String color) {
+  public static boolean isValidHEXColor(final @NotNull String color) {
     return color.length() == 7 && color.matches("^#([A-Fa-f0-9]{6})$");
   }
 
@@ -65,11 +66,11 @@ public final class ColorUtils {
    * @param hex the string to parse
    * @return the bukkit color, or null if invalid
    */
-  public static @Nullable Color colorFromHex(@NotNull String hex) {
+  public static @Nullable Color colorFromHex(final @NotNull String hex) {
     if (!isValidHEXColor(hex)) {
       return null;
     } else {
-      int hexInt = Integer.decode("0x" + hex.substring(1));
+      final int hexInt = Integer.decode("0x" + hex.substring(1));
       return Color.fromRGB(((hexInt & 0xFF0000) >> 16), ((hexInt & 0xFF00) >> 8), (hexInt & 0xFF));
     }
   }

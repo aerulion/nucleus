@@ -22,17 +22,11 @@ public final class SoundUtils {
    * @param location  the emitting location
    * @param soundType the SoundType to play
    */
-  public static void playSound(@NotNull Audience audience, @NotNull Location location,
-      @NotNull SoundType soundType) {
+  public static void playSound(final @NotNull Audience audience, final @NotNull Location location,
+      final @NotNull SoundType soundType) {
     audience.playSound(
-        Sound.sound(
-            soundType.getSound().key(),
-            Sound.Source.MASTER,
-            soundType.getPitch(),
-            soundType.getVolume()),
-        location.getX(),
-        location.getY(),
-        location.getZ());
+        Sound.sound(soundType.getSound().key(), Sound.Source.MASTER, soundType.getPitch(),
+            soundType.getVolume()), location.getX(), location.getY(), location.getZ());
   }
 
   /**
@@ -41,12 +35,11 @@ public final class SoundUtils {
    * @param audience  the target audience
    * @param soundType the SoundType to play
    */
-  public static void playSound(@NotNull Audience audience, @NotNull SoundType soundType) {
-    audience.playSound(Sound.sound(
-        soundType.getSound().key(),
-        Sound.Source.MASTER,
-        soundType.getPitch(),
-        soundType.getVolume()));
+  public static void playSound(final @NotNull Audience audience,
+      final @NotNull SoundType soundType) {
+    audience.playSound(
+        Sound.sound(soundType.getSound().key(), Sound.Source.MASTER, soundType.getPitch(),
+            soundType.getVolume()));
   }
 
   /**
@@ -54,8 +47,8 @@ public final class SoundUtils {
    *
    * @param soundType the SoundType to play
    */
-  public static void playSoundToAllPlayers(@NotNull SoundType soundType) {
-    for (@NotNull Player player : Bukkit.getOnlinePlayers()) {
+  public static void playSoundToAllPlayers(final @NotNull SoundType soundType) {
+    for (final @NotNull Player player : Bukkit.getOnlinePlayers()) {
       playSound(player, soundType);
     }
   }
@@ -70,8 +63,8 @@ public final class SoundUtils {
    * @param volume   the volume of the chime
    * @param pitches  the pitch values of the chime
    */
-  public static void playMultipleNotes(Audience audience, long delay, long period,
-      org.bukkit.Sound sound, float volume, List<Float> pitches) {
+  public static void playMultipleNotes(final Audience audience, final long delay, final long period,
+      final org.bukkit.@NotNull Sound sound, final float volume, final List<Float> pitches) {
     new SoundTask(audience, delay, period, sound.key(), volume, pitches);
   }
 
@@ -84,9 +77,9 @@ public final class SoundUtils {
    * @param volume  the volume of the chime
    * @param pitches the pitch values of the chime
    */
-  public static void playMultipleNotesToAllPlayers(long delay, long period, org.bukkit.Sound sound,
-      float volume, List<Float> pitches) {
-    for (Player player : Bukkit.getOnlinePlayers()) {
+  public static void playMultipleNotesToAllPlayers(final long delay, final long period,
+      final org.bukkit.@NotNull Sound sound, final float volume, final List<Float> pitches) {
+    for (final Player player : Bukkit.getOnlinePlayers()) {
       playMultipleNotes(player, delay, period, sound, volume, pitches);
     }
   }

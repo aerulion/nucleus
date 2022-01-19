@@ -23,10 +23,12 @@ public final class PlayerUtils {
    * @param itemStack The ItemStack to be given
    * @return true if items has been dropped
    */
-  public static boolean giveItemOrDrop(@NotNull Player player, @NotNull ItemStack itemStack) {
-    @NotNull HashMap<Integer, ItemStack> remainingItems = player.getInventory().addItem(itemStack);
+  public static boolean giveItemOrDrop(final @NotNull Player player,
+      final @NotNull ItemStack itemStack) {
+    final @NotNull HashMap<Integer, ItemStack> remainingItems = player.getInventory()
+        .addItem(itemStack);
     if (!remainingItems.isEmpty()) {
-      for (@NotNull ItemStack drop : remainingItems.values()) {
+      for (final @NotNull ItemStack drop : remainingItems.values()) {
         player.getWorld().dropItemNaturally(player.getLocation(), drop);
       }
       return true;
@@ -42,11 +44,11 @@ public final class PlayerUtils {
    * @param amount    The amount to be withdrawn
    * @throws NotEnoughItemsException if the player doesn't have enough item in his inventory
    */
-  public static void takeItems(@NotNull Player player, @NotNull ItemStack itemStack, int amount)
-      throws NotEnoughItemsException {
-    @NotNull List<ItemStack> items = new ArrayList<>();
+  public static void takeItems(final @NotNull Player player, final @NotNull ItemStack itemStack,
+      final int amount) throws NotEnoughItemsException {
+    final @NotNull List<ItemStack> items = new ArrayList<>();
     int itemAmount = 0;
-    for (@Nullable ItemStack stack : player.getInventory()) {
+    for (final @Nullable ItemStack stack : player.getInventory()) {
       if (stack != null && itemStack.isSimilar(stack)) {
         items.add(stack);
         itemAmount += stack.getAmount();
@@ -57,11 +59,10 @@ public final class PlayerUtils {
     }
     if (itemAmount >= amount) {
       itemAmount = 0;
-      for (@NotNull ItemStack stack : items) {
+      for (final @NotNull ItemStack stack : items) {
         if (itemAmount < amount) {
-          int amount2 =
-              itemAmount + stack.getAmount() <= amount ? stack.getAmount()
-                  : (amount - itemAmount);
+          final int amount2 =
+              itemAmount + stack.getAmount() <= amount ? stack.getAmount() : (amount - itemAmount);
           stack.setAmount(stack.getAmount() - amount2);
           itemAmount += amount2;
         }

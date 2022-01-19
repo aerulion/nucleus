@@ -17,45 +17,39 @@ class Message {
   private final MessageLevel messageLevel;
   private final Audience recipient;
 
-  public Message(String message, MessageLevel messageLevel, Audience recipient,
-      Placeholder... placeholders) {
+  public Message(final String message, final MessageLevel messageLevel, final Audience recipient,
+      final Placeholder... placeholders) {
     this.messageLevel = messageLevel;
     this.message = formatString(message, placeholders);
     this.recipient = recipient;
   }
 
-  private @NotNull Component formatString(String message, Placeholder @NotNull ... placeholders) {
-    for (@NotNull Placeholder placeholder : placeholders) {
+  private @NotNull Component formatString(String message,
+      final Placeholder @NotNull ... placeholders) {
+    for (final @NotNull Placeholder placeholder : placeholders) {
       message = message.replaceAll(placeholder.getPlaceholder(), placeholder.getReplacement());
     }
-    @NotNull Component component = Component.text("[")
-        .color(Color.TEXT)
-        .append(Component.text(messageLevel.getPrefix())
-            .color(messageLevel.getPrefixColor())
-            .decorate(TextDecoration.BOLD))
-        .append(Component.text("] ")
-            .color(Color.TEXT)
-            .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
+    @NotNull Component component = Component.text("[").color(Color.TEXT).append(
+        Component.text(messageLevel.getPrefix()).color(messageLevel.getPrefixColor())
+            .decorate(TextDecoration.BOLD)).append(Component.text("] ").color(Color.TEXT)
+        .decoration(TextDecoration.BOLD, TextDecoration.State.FALSE));
     boolean isAccent = message.startsWith("**");
-    for (@NotNull String s : message.split("\\*\\*")) {
-      if (s.equals("")) {
+    for (final @NotNull String s : message.split("\\*\\*")) {
+      if (s.isEmpty()) {
         continue;
       }
-      component = component.append(
-          Component.text(s)
-              .color(isAccent ? messageLevel.getAccentColor() : messageLevel.getTextColor())
-              .decoration(TextDecoration.BOLD, isAccent ?
-                  TextDecoration.State.TRUE : TextDecoration.State.FALSE));
+      component = component.append(Component.text(s)
+          .color(isAccent ? messageLevel.getAccentColor() : messageLevel.getTextColor())
+          .decoration(TextDecoration.BOLD,
+              isAccent ? TextDecoration.State.TRUE : TextDecoration.State.FALSE));
       isAccent = !isAccent;
     }
     return component;
   }
 
   protected void playSound() {
-    recipient.playSound(Sound.sound(
-        messageLevel.getSoundType().getSound().key(),
-        Sound.Source.MASTER,
-        messageLevel.getSoundType().getVolume(),
-        messageLevel.getSoundType().getPitch()));
+    recipient.playSound(
+        Sound.sound(messageLevel.getSoundType().getSound().key(), Sound.Source.MASTER,
+            messageLevel.getSoundType().getVolume(), messageLevel.getSoundType().getPitch()));
   }
 }
