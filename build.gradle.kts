@@ -68,12 +68,12 @@ publishing {
 tasks.named<org.shipkit.changelog.GenerateChangelogTask>("generateChangelog") {
     previousRevision = project.ext.get("shipkit-auto-version.previous-tag") as String?
     githubToken = System.getenv("GITHUB_TOKEN")
-    repository = "aerulion/erenos"
+    repository = "aerulion/nucleus"
 }
 
 tasks.named<org.shipkit.github.release.GithubReleaseTask>("githubRelease") {
     dependsOn(tasks.named("generateChangelog"))
-    repository = "aerulion/erenos"
+    repository = "aerulion/nucleus"
     changelog = tasks.named<org.shipkit.changelog.GenerateChangelogTask>("generateChangelog")
         .get().outputFile
     githubToken = System.getenv("GITHUB_TOKEN")
