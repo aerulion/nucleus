@@ -2,7 +2,7 @@ package net.aerulion.nucleus.api.json;
 
 import lombok.experimental.UtilityClass;
 import net.minecraft.nbt.CompoundTag;
-import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
